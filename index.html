@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我幫你打造能賺錢的網站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(17, 24, 39, 0.85);
+            z-index: -1;
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+        }
+        
+        .glow-effect-orange {
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .8;
+            }
+        }
+        
+        .profile-image-container {
+            position: relative;
+            display: inline-block;
+            margin: 0 auto 2rem;
+        }
+        
+        .profile-image-border {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #f97316, #22c55e);
+            padding: 4px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            animation: rotate 3s linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    
+    <!-- 英雄區 -->
+    <section class="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+        <!-- 背景裝飾 -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-green-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                2026 年，你還在用
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600">
+                    跑不動的舊網站
+                </span>
+                嗎？
+            </h1>
+            
+            <!-- 圓形人像照片區塊 -->
+            <!-- ============================================ -->
+            <!-- 請將你的照片檔案命名為 'profile.jpg' 並放在與 index.html 同一個資料夾 -->
+            <!-- 或者修改下方 'profile.jpg' 為你的照片檔名 -->
+            <!-- 例如：'my-photo.jpg' 或 'images/photo.png' -->
+            <!-- ============================================ -->
+            <div class="profile-image-container">
+                <div class="profile-image-border"></div>
+                <img 
+                    src="profile.jpg" 
+                    alt="天母第一專情" 
+                    class="profile-image"
+                    onerror="this.src='https://via.placeholder.com/200x200/22c55e/ffffff?text=你的照片'"
+                >
+            </div>
+            
+            <p class="text-xl md:text-3xl text-gray-300 mb-12 leading-relaxed max-w-4xl mx-auto">
+                <span class="text-orange-400 font-bold">天母第一專情</span> 用 <span class="text-green-400 font-bold">AI 速度</span> 為你的生意打造專屬數位門面，<span class="text-orange-400 font-bold">3 天內上線</span>。
+            </p>
+            
+            <!-- 限時優惠倒數計時 -->
+            <div class="bg-gradient-to-r from-red-900/50 to-orange-900/50 border-2 border-red-500/50 rounded-2xl p-6 mb-12 max-w-2xl mx-auto">
+                <p class="text-2xl font-bold text-red-400 mb-4">⚡ 限時優惠倒數中 ⚡</p>
+                <div id="countdown" class="flex justify-center gap-4 text-4xl font-black">
+                    <div class="bg-black/50 rounded-lg px-4 py-2 border border-red-500/50">
+                        <span id="days">02</span>
+                        <div class="text-sm text-gray-400 font-normal">天</div>
+                    </div>
+                    <div class="text-red-400">:</div>
+                    <div class="bg-black/50 rounded-lg px-4 py-2 border border-red-500/50">
+                        <span id="hours">14</span>
+                        <div class="text-sm text-gray-400 font-normal">時</div>
+                    </div>
+                    <div class="text-red-400">:</div>
+                    <div class="bg-black/50 rounded-lg px-4 py-2 border border-red-500/50">
+                        <span id="minutes">32</span>
+                        <div class="text-sm text-gray-400 font-normal">分</div>
+                    </div>
+                    <div class="text-red-400">:</div>
+                    <div class="bg-black/50 rounded-lg px-4 py-2 border border-red-500/50">
+                        <span id="seconds">18</span>
+                        <div class="text-sm text-gray-400 font-normal">秒</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA 按鈕 -->
+            <a href="#contact" class="inline-block bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-white font-bold text-2xl px-12 py-6 rounded-xl glow-effect transform transition-all duration-300 hover:scale-105 pulse-animation">
+                免費諮詢我的網站需求
+            </a>
+        </div>
+    </section>
+    
+    <!-- 痛點區 -->
+    <section class="py-20 px-4 bg-gray-800/60 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-16">
+                你的網站還在拖累你嗎？
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 痛點 1 -->
+                <div class="bg-gray-900/80 rounded-2xl p-8 border-2 border-red-500/30 text-center hover:border-red-500/60 transition-all duration-300">
+                    <div class="text-6xl mb-6">🐌</div>
+                    <h3 class="text-2xl font-bold text-red-400 mb-4">載入太慢</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        訪客等不到 3 秒就離開，<br>
+                        你流失了多少潛在客戶？
+                    </p>
+                </div>
+                
+                <!-- 痛點 2 -->
+                <div class="bg-gray-900/80 rounded-2xl p-8 border-2 border-red-500/30 text-center hover:border-red-500/60 transition-all duration-300">
+                    <div class="text-6xl mb-6">📱</div>
+                    <h3 class="text-2xl font-bold text-red-400 mb-4">手機排版混亂</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        超過 70% 的人用手機瀏覽，<br>
+                        你的網站卻只能在電腦看？
+                    </p>
+                </div>
+                
+                <!-- 痛點 3 -->
+                <div class="bg-gray-900/80 rounded-2xl p-8 border-2 border-red-500/30 text-center hover:border-red-500/60 transition-all duration-300">
+                    <div class="text-6xl mb-6">😵</div>
+                    <h3 class="text-2xl font-bold text-red-400 mb-4">長得太醜沒人想買</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        設計過時、排版雜亂，<br>
+                        顧客對你的品牌毫無信任感
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 解決方案區 -->
+    <section class="py-20 px-4 bg-gray-900/40 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-6">
+                天母第一專情為你打造的解決方案
+            </h2>
+            <p class="text-center text-xl text-gray-400 mb-16">
+                用最新技術，讓你的網站成為最強的業務員
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 解決方案 1 -->
+                <div class="bg-gradient-to-br from-green-900/40 to-green-800/20 rounded-2xl p-8 border-2 border-green-500/50 text-center hover:border-green-400 transition-all duration-300 hover:scale-105">
+                    <div class="text-6xl mb-6">⚡</div>
+                    <h3 class="text-2xl font-bold text-green-400 mb-4">極致速度</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        頁面載入速度 <span class="text-green-400 font-bold">快 10 倍</span>，<br>
+                        讓訪客秒開秒看，提升轉換率
+                    </p>
+                </div>
+                
+                <!-- 解決方案 2 -->
+                <div class="bg-gradient-to-br from-green-900/40 to-green-800/20 rounded-2xl p-8 border-2 border-green-500/50 text-center hover:border-green-400 transition-all duration-300 hover:scale-105">
+                    <div class="text-6xl mb-6">🎯</div>
+                    <h3 class="text-2xl font-bold text-green-400 mb-4">SEO 優化</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        搜尋引擎優化，<br>
+                        讓客戶 <span class="text-green-400 font-bold">主動找到你</span>
+                    </p>
+                </div>
+                
+                <!-- 解決方案 3 -->
+                <div class="bg-gradient-to-br from-green-900/40 to-green-800/20 rounded-2xl p-8 border-2 border-green-500/50 text-center hover:border-green-400 transition-all duration-300 hover:scale-105">
+                    <div class="text-6xl mb-6">📱</div>
+                    <h3 class="text-2xl font-bold text-green-400 mb-4">手機完美顯示</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        響應式設計，<br>
+                        任何裝置都 <span class="text-green-400 font-bold">完美呈現</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 最終 CTA 區 -->
+    <section id="contact" class="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-black mb-6">
+                準備好讓網站開始<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-orange-400">賺錢</span>了嗎？
+            </h2>
+            <p class="text-xl text-gray-400 mb-12">
+                免費諮詢，3 天內上線，讓 AI 為你的生意加速
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="https://line.me/ti/p/AxSH0sjns3" target="_blank" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-white font-bold text-xl px-10 py-5 rounded-xl glow-effect transform transition-all duration-300 hover:scale-105 w-full sm:w-auto">
+                    📱 加 LINE 諮詢
+                </a>
+                <a href="mailto:your-email@example.com?subject=網站建置諮詢" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-bold text-xl px-10 py-5 rounded-xl glow-effect-orange transform transition-all duration-300 hover:scale-105 w-full sm:w-auto">
+                    ✉️ Email 聯繫
+                </a>
+            </div>
+            
+            <p class="mt-8 text-gray-500 text-sm">
+                ⚡ 限時優惠：前 10 名諮詢者享有特別優惠價 ⚡
+            </p>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-black py-8 text-center text-gray-500 text-sm">
+        <p>© 2026 天母第一專情 | 專業網站建置服務 | 用 AI 速度打造賺錢網站</p>
+    </footer>
+    
+    <!-- 倒數計時器 JavaScript -->
+    <script>
+        // 設定目標時間（2天後）
+        const targetDate = new Date().getTime() + (2 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (32 * 60 * 1000) + (18 * 1000);
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            if (distance < 0) {
+                // 時間到了，重新設定
+                const newTargetDate = new Date().getTime() + (2 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (32 * 60 * 1000) + (18 * 1000);
+                const newDistance = newTargetDate - now;
+                updateDisplay(newDistance);
+            } else {
+                updateDisplay(distance);
+            }
+        }
+        
+        function updateDisplay(distance) {
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // 每秒更新一次
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
