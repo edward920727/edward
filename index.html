@@ -264,7 +264,8 @@
     
     <script>
         // 1. 倒數計時
-        const targetDate = new Date().getTime() + (2 * 86400000);
+       // 請把日期改成你想要的截止日，格式：年/月/日 時:分:秒
+const targetDate = new Date("2026/01/8 23:59:59").getTime();
         function updateCountdown() {
             const now = new Date().getTime();
             const dist = targetDate - now;
