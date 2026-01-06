@@ -5,21 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>極簡美學室內設計工作室 - Edward 打造</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
         
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-image: url('background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: scroll;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             position: relative;
-        }
-        
-        @media (min-width: 768px) {
-            body { background-attachment: fixed; }
+            min-height: 100vh;
         }
         
         body::before {
@@ -29,57 +23,173 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(17, 24, 39, 0.85);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, rgba(59, 130, 246, 0.03) 100%);
             z-index: -1;
+            pointer-events: none;
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+        
+        .line-button-pulse {
+            animation: linePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes linePulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(79, 70, 229, 0.5), 0 0 40px rgba(79, 70, 229, 0.2);
+            }
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="text-slate-800">
     
+    <!-- 導覽列 - 毛玻璃效果 -->
+    <nav class="glass-effect border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-slate-800 font-bold text-lg">← 返回首頁</a>
+            <span class="text-slate-600 text-sm">Edward | 專業網站建置</span>
+        </div>
+    </nav>
+
     <!-- 頂部標題 -->
-    <section class="py-8 md:py-12 px-4 bg-gradient-to-r from-purple-900/60 to-pink-900/60 border-b-4 border-purple-500">
+    <section class="py-8 md:py-12 px-4">
         <div class="max-w-6xl mx-auto text-center">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
-                <span class="text-purple-400">極簡美學室內設計</span> 工作室 - <span class="text-green-400">Edward 打造</span>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mb-2">
+                <span class="text-purple-600">極簡美學室內設計</span> 工作室 - <span class="text-indigo-600">Edward 打造</span>
             </h1>
-            <p class="text-gray-300 text-sm md:text-base">打造夢想空間，創造美好生活</p>
+            <p class="text-slate-600 text-sm md:text-base">打造夢想空間，創造美好生活</p>
         </div>
     </section>
 
-    <!-- 主圖 - 現代辦公空間 -->
+    <!-- 主圖 -->
     <section class="py-8 md:py-12 px-4">
         <div class="max-w-6xl mx-auto">
-            <div class="bg-gray-800/80 rounded-3xl overflow-hidden border-2 border-purple-500/50 shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" 
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 card-shadow">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800" 
                      alt="現代辦公空間" 
-                     class="w-full object-cover rounded-lg shadow-md">
+                     class="w-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- 面臨挑戰 -->
+    <section class="py-12 md:py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">面臨挑戰</h2>
+            <div class="bg-white rounded-2xl p-8 border border-red-100 card-shadow">
+                <ul class="space-y-4 text-slate-600">
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-500 text-xl">✗</span>
+                        <span>缺乏專業作品集網站，無法展示設計實力</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-500 text-xl">✗</span>
+                        <span>潛在客戶難以找到工作室資訊</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-500 text-xl">✗</span>
+                        <span>Google 地圖標記不完整，錯失在地客戶</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 我的解決方案 -->
+    <section class="py-12 md:py-16 px-4 bg-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">我的解決方案</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 border border-indigo-100 card-shadow">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-lg font-bold text-indigo-600 mb-3">作品集展示</h3>
+                    <p class="text-slate-600 text-sm">打造精美作品集網站，展現設計實力</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 border border-indigo-100 card-shadow">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h3 class="text-lg font-bold text-indigo-600 mb-3">響應式設計</h3>
+                    <p class="text-slate-600 text-sm">完美適配各種裝置，隨時隨地瀏覽</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 border border-indigo-100 card-shadow">
+                    <div class="text-4xl mb-4">🗺️</div>
+                    <h3 class="text-lg font-bold text-indigo-600 mb-3">地圖整合</h3>
+                    <p class="text-slate-600 text-sm">完善 Google 地圖標記，提升可發現性</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 最終成果 -->
+    <section class="py-12 md:py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">最終成果</h2>
+            <div class="bg-white rounded-2xl p-8 border border-green-100 card-shadow">
+                <div class="text-center mb-6">
+                    <div class="text-5xl font-black text-[#b45309] mb-2">80%</div>
+                    <p class="text-xl font-bold text-slate-800">接案量提升</p>
+                </div>
+                <ul class="space-y-4 text-slate-600">
+                    <li class="flex items-start gap-3">
+                        <span class="text-green-600 text-xl">✓</span>
+                        <span>專業作品集網站建立，設計實力完整展現</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-green-600 text-xl">✓</span>
+                        <span>線上曝光度增加，潛在客戶主動聯繫</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-green-600 text-xl">✓</span>
+                        <span>Google 地圖優化，在地客戶發現度提升</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
 
     <!-- 設計理念 -->
-    <section class="py-12 md:py-16 px-4">
+    <section class="py-12 md:py-16 px-4 bg-slate-50">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-purple-400">設計理念</h2>
-            <div class="bg-gray-800/80 rounded-3xl p-8 md:p-12 border-2 border-purple-500/50">
-                <p class="text-lg md:text-xl text-gray-300 leading-relaxed text-center mb-6">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">設計理念</h2>
+            <div class="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 card-shadow">
+                <p class="text-lg md:text-xl text-slate-600 leading-relaxed text-center mb-6">
                     我們相信，每個空間都應該反映居住者的個性與生活方式。透過精心的設計規劃，我們將功能與美感完美結合，創造出既實用又充滿藝術感的居住環境。
                 </p>
                 <div class="grid md:grid-cols-3 gap-6 mt-8">
                     <div class="text-center">
                         <div class="text-4xl mb-3">🎨</div>
-                        <h3 class="text-xl font-bold text-purple-400 mb-2">美學設計</h3>
-                        <p class="text-gray-400 text-sm">追求視覺美感與空間和諧</p>
+                        <h3 class="text-xl font-bold text-purple-600 mb-2">美學設計</h3>
+                        <p class="text-slate-600 text-sm">追求視覺美感與空間和諧</p>
                     </div>
                     <div class="text-center">
                         <div class="text-4xl mb-3">⚡</div>
-                        <h3 class="text-xl font-bold text-purple-400 mb-2">功能優先</h3>
-                        <p class="text-gray-400 text-sm">以實用性為核心考量</p>
+                        <h3 class="text-xl font-bold text-purple-600 mb-2">功能優先</h3>
+                        <p class="text-slate-600 text-sm">以實用性為核心考量</p>
                     </div>
                     <div class="text-center">
                         <div class="text-4xl mb-3">💎</div>
-                        <h3 class="text-xl font-bold text-purple-400 mb-2">品質保證</h3>
-                        <p class="text-gray-400 text-sm">嚴選材料，精工細作</p>
+                        <h3 class="text-xl font-bold text-purple-600 mb-2">品質保證</h3>
+                        <p class="text-slate-600 text-sm">嚴選材料，精工細作</p>
                     </div>
                 </div>
             </div>
@@ -87,62 +197,62 @@
     </section>
 
     <!-- 作品集圖庫 -->
-    <section class="py-12 md:py-16 px-4 bg-gray-800/40">
+    <section class="py-12 md:py-16 px-4">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-pink-400">作品集</h2>
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">作品集</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-gray-900/80 rounded-2xl overflow-hidden border-2 border-purple-500/30 hover:border-purple-500/60 transition-all hover:scale-105">
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-purple-200 transition-all hover:scale-105 card-shadow">
                     <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" 
                          alt="現代簡約風客廳" 
-                         class="w-full object-cover rounded-lg shadow-md h-64">
+                         class="w-full object-cover h-64">
                     <div class="p-4">
-                        <h3 class="text-lg font-bold text-white mb-2">現代簡約風客廳</h3>
-                        <p class="text-gray-400 text-sm">30 坪 / 新成屋</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">現代簡約風客廳</h3>
+                        <p class="text-slate-600 text-sm">30 坪 / 新成屋</p>
                     </div>
                 </div>
-                <div class="bg-gray-900/80 rounded-2xl overflow-hidden border-2 border-purple-500/30 hover:border-purple-500/60 transition-all hover:scale-105">
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-purple-200 transition-all hover:scale-105 card-shadow">
                     <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" 
                          alt="北歐風臥室設計" 
-                         class="w-full object-cover rounded-lg shadow-md h-64">
+                         class="w-full object-cover h-64">
                     <div class="p-4">
-                        <h3 class="text-lg font-bold text-white mb-2">北歐風臥室設計</h3>
-                        <p class="text-gray-400 text-sm">25 坪 / 老屋翻新</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">北歐風臥室設計</h3>
+                        <p class="text-slate-600 text-sm">25 坪 / 老屋翻新</p>
                     </div>
                 </div>
-                <div class="bg-gray-900/80 rounded-2xl overflow-hidden border-2 border-purple-500/30 hover:border-purple-500/60 transition-all hover:scale-105">
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-purple-200 transition-all hover:scale-105 card-shadow">
                     <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" 
                          alt="工業風辦公室" 
-                         class="w-full object-cover rounded-lg shadow-md h-64">
+                         class="w-full object-cover h-64">
                     <div class="p-4">
-                        <h3 class="text-lg font-bold text-white mb-2">工業風辦公室</h3>
-                        <p class="text-gray-400 text-sm">50 坪 / 商業空間</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">工業風辦公室</h3>
+                        <p class="text-slate-600 text-sm">50 坪 / 商業空間</p>
                     </div>
                 </div>
-                <div class="bg-gray-900/80 rounded-2xl overflow-hidden border-2 border-purple-500/30 hover:border-purple-500/60 transition-all hover:scale-105">
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-purple-200 transition-all hover:scale-105 card-shadow">
                     <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" 
                          alt="日式禪風餐廳" 
-                         class="w-full object-cover rounded-lg shadow-md h-64">
+                         class="w-full object-cover h-64">
                     <div class="p-4">
-                        <h3 class="text-lg font-bold text-white mb-2">日式禪風餐廳</h3>
-                        <p class="text-gray-400 text-sm">40 坪 / 商業空間</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">日式禪風餐廳</h3>
+                        <p class="text-slate-600 text-sm">40 坪 / 商業空間</p>
                     </div>
                 </div>
-                <div class="bg-gray-900/80 rounded-2xl overflow-hidden border-2 border-purple-500/30 hover:border-purple-500/60 transition-all hover:scale-105">
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-purple-200 transition-all hover:scale-105 card-shadow">
                     <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" 
                          alt="輕奢風主臥室" 
-                         class="w-full object-cover rounded-lg shadow-md h-64">
+                         class="w-full object-cover h-64">
                     <div class="p-4">
-                        <h3 class="text-lg font-bold text-white mb-2">輕奢風主臥室</h3>
-                        <p class="text-gray-400 text-sm">20 坪 / 新成屋</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">輕奢風主臥室</h3>
+                        <p class="text-slate-600 text-sm">20 坪 / 新成屋</p>
                     </div>
                 </div>
-                <div class="bg-gray-900/80 rounded-2xl overflow-hidden border-2 border-purple-500/30 hover:border-purple-500/60 transition-all hover:scale-105">
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-purple-200 transition-all hover:scale-105 card-shadow">
                     <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" 
                          alt="現代風開放式廚房" 
-                         class="w-full object-cover rounded-lg shadow-md h-64">
+                         class="w-full object-cover h-64">
                     <div class="p-4">
-                        <h3 class="text-lg font-bold text-white mb-2">現代風開放式廚房</h3>
-                        <p class="text-gray-400 text-sm">15 坪 / 老屋翻新</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">現代風開放式廚房</h3>
+                        <p class="text-slate-600 text-sm">15 坪 / 老屋翻新</p>
                     </div>
                 </div>
             </div>
@@ -150,50 +260,50 @@
     </section>
 
     <!-- 聯絡資訊 -->
-    <section class="py-12 md:py-16 px-4">
+    <section class="py-12 md:py-16 px-4 bg-slate-50">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-green-400">聯絡我們</h2>
-            <div class="bg-gray-800/80 rounded-3xl p-8 md:p-12 border-2 border-green-500/50">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">聯絡我們</h2>
+            <div class="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 card-shadow">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="text-2xl font-bold text-white mb-6">聯絡方式</h3>
-                        <div class="space-y-4 text-gray-300">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-6">聯絡方式</h3>
+                        <div class="space-y-4 text-slate-600">
                             <div class="flex items-start gap-3">
                                 <span class="text-2xl">📞</span>
                                 <div>
-                                    <p class="font-bold text-white">電話</p>
+                                    <p class="font-bold text-slate-800">電話</p>
                                     <p>02-1234-5678</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3">
                                 <span class="text-2xl">✉️</span>
                                 <div>
-                                    <p class="font-bold text-white">Email</p>
+                                    <p class="font-bold text-slate-800">Email</p>
                                     <p>contact@designstudio.com</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3">
                                 <span class="text-2xl">📍</span>
                                 <div>
-                                    <p class="font-bold text-white">地址</p>
+                                    <p class="font-bold text-slate-800">地址</p>
                                     <p>台北市信義區設計街 123 號</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3">
                                 <span class="text-2xl">🕐</span>
                                 <div>
-                                    <p class="font-bold text-white">營業時間</p>
+                                    <p class="font-bold text-slate-800">營業時間</p>
                                     <p>週一至週五 10:00 - 18:00</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold text-white mb-6">立即諮詢</h3>
-                        <p class="text-gray-300 mb-6">填寫表單，我們將盡快與您聯繫</p>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-6">立即諮詢</h3>
+                        <p class="text-slate-600 mb-6">填寫表單，我們將盡快與您聯繫</p>
                         <a href="https://line.me/ti/p/AxSH0sjns3" 
                            target="_blank" 
-                           class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold text-lg px-8 py-4 rounded-2xl shadow-[0_0_30px_rgba(168,85,247,0.5)] transform transition-all duration-300 hover:scale-105 w-full text-center">
+                           class="inline-block btn-primary hover:bg-indigo-600 text-white font-semibold text-lg px-8 py-4 rounded-2xl border-2 border-indigo-300 transform transition-all duration-300 hover:scale-105 w-full text-center line-button-pulse">
                             📱 LINE 諮詢
                         </a>
                     </div>
@@ -202,16 +312,20 @@
         </div>
     </section>
 
-    <!-- 返回首頁 -->
-    <section class="py-8 px-4 bg-black/80">
+    <!-- 行動呼籲 -->
+    <section class="py-12 md:py-16 px-4">
         <div class="max-w-6xl mx-auto text-center">
-            <a href="index.html" class="text-gray-400 hover:text-white transition-colors underline">
-                ← 返回首頁
+            <h2 class="text-3xl md:text-4xl font-black mb-6 text-slate-800">我也想要這樣的改造效果</h2>
+            <p class="text-slate-600 mb-8 text-lg">讓 Edward 為您的工作室打造專業官網，提升業績</p>
+            <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E7%9C%8B%E4%BA%86%E9%A4%90%E5%BB%B3%E6%94%B9%E9%80%A0%E6%A1%88%E4%BE%8B%EF%BC%8C%E4%B9%9F%E6%83%B3%E7%82%BA%E6%88%91%E7%9A%84%E5%BA%97%E8%A6%8F%E5%8A%83%E7%B6%B2%E7%AB%99%E3%80%82" 
+               target="_blank" 
+               class="inline-block btn-primary hover:bg-indigo-600 text-white font-semibold text-xl md:text-2xl px-12 py-6 rounded-2xl border-2 border-indigo-300 transform transition-all duration-300 hover:scale-105 line-button-pulse">
+                聯繫 Edward - 立即諮詢
             </a>
         </div>
     </section>
 
-    <footer class="bg-black py-8 text-center text-gray-500 text-sm">© 2026 Edward | 專業網站建置服務</footer>
+    <footer class="bg-white border-t border-slate-200 py-8 text-center text-slate-500 text-sm">© 2026 Edward | 專業網站建置服務</footer>
 
 </body>
 </html>
