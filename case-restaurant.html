@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>馥郁法式餐酒館官網 - Edward 打造</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            body { background-attachment: fixed; }
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(17, 24, 39, 0.85);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    
+    <!-- 頂部標題 -->
+    <section class="py-8 md:py-12 px-4 bg-gradient-to-r from-orange-900/60 to-red-900/60 border-b-4 border-orange-500">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
+                <span class="text-orange-400">馥郁法式餐酒館</span> 餐廳官網 - <span class="text-green-400">Edward 打造</span>
+            </h1>
+            <p class="text-gray-300 text-sm md:text-base">3 天改造，訂位成長 50%</p>
+        </div>
+    </section>
+
+    <!-- 首圖 - 店面招牌 -->
+    <section class="py-8 md:py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-gray-800/80 rounded-3xl overflow-hidden border-2 border-orange-500/50 shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=80" 
+                     alt="餐廳店面招牌" 
+                     class="w-full object-cover rounded-lg shadow-md">
+            </div>
+        </div>
+    </section>
+
+    <!-- 菜單區 -->
+    <section class="py-12 md:py-16 px-4 bg-gray-800/40">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-orange-400">精選菜單</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-900/80 rounded-2xl p-6 border-2 border-orange-500/30 hover:border-orange-500/60 transition-all hover:scale-105">
+                    <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=800" 
+                         alt="招牌牛肉麵" 
+                         class="w-full h-48 object-cover rounded-lg shadow-md mb-4">
+                    <h3 class="text-xl font-bold text-white mb-2">招牌牛肉麵</h3>
+                    <p class="text-gray-400 text-sm mb-4">選用頂級牛腱肉，慢火熬煮 8 小時</p>
+                    <div class="text-2xl font-black text-orange-400">NT$ 280</div>
+                </div>
+                <div class="bg-gray-900/80 rounded-2xl p-6 border-2 border-orange-500/30 hover:border-orange-500/60 transition-all hover:scale-105">
+                    <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800" 
+                         alt="清蒸鮮魚" 
+                         class="w-full h-48 object-cover rounded-lg shadow-md mb-4">
+                    <h3 class="text-xl font-bold text-white mb-2">清蒸鮮魚</h3>
+                    <p class="text-gray-400 text-sm mb-4">新鮮海魚，清蒸保留原味鮮甜</p>
+                    <div class="text-2xl font-black text-orange-400">NT$ 180</div>
+                </div>
+                <div class="bg-gray-900/80 rounded-2xl p-6 border-2 border-orange-500/30 hover:border-orange-500/60 transition-all hover:scale-105">
+                    <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800" 
+                         alt="招牌炒飯" 
+                         class="w-full h-48 object-cover rounded-lg shadow-md mb-4">
+                    <h3 class="text-xl font-bold text-white mb-2">招牌炒飯</h3>
+                    <p class="text-gray-400 text-sm mb-4">粒粒分明，香氣四溢的經典炒飯</p>
+                    <div class="text-2xl font-black text-orange-400">NT$ 220</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Map 嵌入 -->
+    <section class="py-12 md:py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-green-400">店家位置</h2>
+            <div class="bg-gray-800/80 rounded-3xl overflow-hidden border-2 border-green-500/50 shadow-2xl">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.935293489!2d121.56541731500628!3d25.033975983972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb6da9c9e1f%3A0x1206bcf082fd10a6!2z5Y-w5YyX5biC!5e0!3m2!1szh-TW!2stw!4v1234567890"
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="w-full">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- 訂位按鈕 -->
+    <section class="py-12 md:py-16 px-4 bg-gradient-to-r from-green-900/60 to-orange-900/60">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-black mb-6 text-white">立即訂位，享受美食</h2>
+            <p class="text-gray-300 mb-8 text-lg">線上訂位系統，輕鬆預約您的最佳時段</p>
+            <a href="https://line.me/ti/p/AxSH0sjns3" 
+               target="_blank" 
+               class="inline-block bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-bold text-xl md:text-2xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(249,115,22,0.5)] transform transition-all duration-300 hover:scale-105">
+                📞 立即訂位
+            </a>
+        </div>
+    </section>
+
+    <!-- 返回首頁 -->
+    <section class="py-8 px-4 bg-black/80">
+        <div class="max-w-6xl mx-auto text-center">
+            <a href="index.html" class="text-gray-400 hover:text-white transition-colors underline">
+                ← 返回首頁
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-black py-8 text-center text-gray-500 text-sm">© 2026 Edward | 專業網站建置服務</footer>
+
+</body>
+</html>

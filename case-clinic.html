@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晨曦專業牙醫診所 - Edward 打造</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            body { background-attachment: fixed; }
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(17, 24, 39, 0.85);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    
+    <!-- 頂部標題 -->
+    <section class="py-8 md:py-12 px-4 bg-gradient-to-r from-blue-900/60 to-cyan-900/60 border-b-4 border-blue-500">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2">
+                <span class="text-blue-400">晨曦專業牙醫</span> 診所 - <span class="text-green-400">Edward 打造</span>
+            </h1>
+            <p class="text-gray-300 text-sm md:text-base">專業醫療團隊，守護您的口腔健康</p>
+        </div>
+    </section>
+
+    <!-- 主圖 - 專業牙科設備 -->
+    <section class="py-8 md:py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-gray-800/80 rounded-3xl overflow-hidden border-2 border-blue-500/50 shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80" 
+                     alt="專業牙科設備" 
+                     class="w-full object-cover rounded-lg shadow-md">
+            </div>
+        </div>
+    </section>
+
+    <!-- 醫師團隊介紹 -->
+    <section class="py-12 md:py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-blue-400">醫師團隊</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800/80 rounded-2xl p-6 border-2 border-blue-500/30 hover:border-blue-500/60 transition-all hover:scale-105 text-center">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" 
+                         alt="王醫師" 
+                         class="w-32 h-32 mx-auto mb-4 rounded-full object-cover shadow-md">
+                    <h3 class="text-xl font-bold text-white mb-2">王醫師</h3>
+                    <p class="text-blue-400 font-semibold mb-2">院長 / 植牙專科</p>
+                    <p class="text-gray-400 text-sm">20 年臨床經驗，專精於全口重建與植牙手術</p>
+                </div>
+                <div class="bg-gray-800/80 rounded-2xl p-6 border-2 border-blue-500/30 hover:border-blue-500/60 transition-all hover:scale-105 text-center">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" 
+                         alt="李醫師" 
+                         class="w-32 h-32 mx-auto mb-4 rounded-full object-cover shadow-md">
+                    <h3 class="text-xl font-bold text-white mb-2">李醫師</h3>
+                    <p class="text-blue-400 font-semibold mb-2">美白專科醫師</p>
+                    <p class="text-gray-400 text-sm">15 年經驗，專精於冷光美白與陶瓷貼片</p>
+                </div>
+                <div class="bg-gray-800/80 rounded-2xl p-6 border-2 border-blue-500/30 hover:border-blue-500/60 transition-all hover:scale-105 text-center">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" 
+                         alt="陳醫師" 
+                         class="w-32 h-32 mx-auto mb-4 rounded-full object-cover shadow-md">
+                    <h3 class="text-xl font-bold text-white mb-2">陳醫師</h3>
+                    <p class="text-blue-400 font-semibold mb-2">一般牙科醫師</p>
+                    <p class="text-gray-400 text-sm">10 年經驗，親切細心，專注於預防保健</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服務項目 -->
+    <section class="py-12 md:py-16 px-4 bg-gray-800/40">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-cyan-400">服務項目</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gradient-to-br from-blue-900/40 to-blue-800/20 rounded-2xl p-8 border-2 border-blue-500/50 hover:scale-105 transition-all">
+                    <div class="text-5xl mb-4">🦷</div>
+                    <h3 class="text-2xl font-bold text-blue-400 mb-4">植牙服務</h3>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li>✓ 3D 數位導航植牙</li>
+                        <li>✓ 全口重建規劃</li>
+                        <li>✓ 微創植牙技術</li>
+                        <li>✓ 術後追蹤照護</li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-cyan-900/40 to-cyan-800/20 rounded-2xl p-8 border-2 border-cyan-500/50 hover:scale-105 transition-all">
+                    <div class="text-5xl mb-4">✨</div>
+                    <h3 class="text-2xl font-bold text-cyan-400 mb-4">美白服務</h3>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li>✓ 冷光美白</li>
+                        <li>✓ 居家美白套組</li>
+                        <li>✓ 陶瓷貼片</li>
+                        <li>✓ 全瓷冠美學</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 預約諮詢表單 -->
+    <section class="py-12 md:py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-green-400">預約諮詢</h2>
+            <div class="bg-gray-800/80 rounded-3xl p-8 md:p-12 border-2 border-green-500/50">
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-white font-bold mb-2">姓名</label>
+                        <input type="text" 
+                               class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-green-500 transition-all outline-none"
+                               placeholder="請輸入您的姓名">
+                    </div>
+                    <div>
+                        <label class="block text-white font-bold mb-2">聯絡電話</label>
+                        <input type="tel" 
+                               class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-green-500 transition-all outline-none"
+                               placeholder="請輸入您的電話">
+                    </div>
+                    <div>
+                        <label class="block text-white font-bold mb-2">電子郵件</label>
+                        <input type="email" 
+                               class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-green-500 transition-all outline-none"
+                               placeholder="請輸入您的 Email">
+                    </div>
+                    <div>
+                        <label class="block text-white font-bold mb-2">預約項目</label>
+                        <select class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-green-500 transition-all outline-none">
+                            <option>植牙諮詢</option>
+                            <option>美白服務</option>
+                            <option>一般檢查</option>
+                            <option>其他</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-white font-bold mb-2">備註說明</label>
+                        <textarea rows="4" 
+                                  class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-green-500 transition-all outline-none"
+                                  placeholder="請描述您的需求或問題..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" 
+                                class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-400 hover:to-blue-400 text-white font-bold text-xl px-12 py-4 rounded-2xl shadow-[0_0_30px_rgba(34,197,94,0.5)] transform transition-all duration-300 hover:scale-105">
+                            送出預約申請
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 返回首頁 -->
+    <section class="py-8 px-4 bg-black/80">
+        <div class="max-w-6xl mx-auto text-center">
+            <a href="index.html" class="text-gray-400 hover:text-white transition-colors underline">
+                ← 返回首頁
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-black py-8 text-center text-gray-500 text-sm">© 2026 Edward | 專業網站建置服務</footer>
+
+</body>
+</html>
