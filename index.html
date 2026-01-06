@@ -38,8 +38,21 @@
         .pulse-animation { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .8; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .9; transform: scale(1.05); }
+        }
+        
+        .line-button-pulse {
+            animation: linePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes linePulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(34, 197, 94, 0.8), 0 0 40px rgba(34, 197, 94, 0.4);
+            }
         }
         
         .profile-image-container {
@@ -103,7 +116,7 @@
             </div>
             
             <p class="text-base sm:text-lg md:text-xl lg:text-3xl text-gray-300 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
-                <span class="text-orange-400 font-bold">Edward</span> 用 <span class="text-green-400 font-bold">最便宜價格</span> 為你的生意打造專屬數位門面，<span class="text-orange-400 font-bold">3 天內上線</span>。
+                <span class="text-orange-400 font-bold">Edward | 營收倍增網站專家</span> 用 <span class="text-green-400 font-bold">最便宜價格</span> 為你的生意打造專屬數位門面，<span class="text-orange-400 font-bold">3 天內上線</span>。
             </p>
             
             <div class="bg-gradient-to-r from-red-900/50 to-orange-900/50 border-2 border-red-500/50 rounded-2xl p-4 sm:p-6 mb-8 md:mb-12 max-w-2xl mx-auto">
@@ -166,6 +179,35 @@
                     <div class="text-4xl mb-4">📱</div>
                     <h3 class="text-lg font-bold text-green-400 mb-3">手機完美呈現</h3>
                     <p class="text-sm text-gray-300">響應式設計，任何裝置都好看</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 合作流程 -->
+    <section class="py-12 sm:py-16 md:py-20 px-4 bg-gray-800/40 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-16 text-white">合作流程</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="bg-gray-900/80 rounded-2xl p-6 border-2 border-green-500/30 hover:border-green-500/60 transition-all duration-300 text-center">
+                    <div class="text-5xl mb-4">💬</div>
+                    <h3 class="text-xl font-bold text-green-400 mb-3">1. 需求溝通</h3>
+                    <p class="text-gray-400 text-sm">深入了解您的業務需求與目標</p>
+                </div>
+                <div class="bg-gray-900/80 rounded-2xl p-6 border-2 border-green-500/30 hover:border-green-500/60 transition-all duration-300 text-center">
+                    <div class="text-5xl mb-4">📋</div>
+                    <h3 class="text-xl font-bold text-green-400 mb-3">2. 專業規劃</h3>
+                    <p class="text-gray-400 text-sm">量身打造最適合的網站架構</p>
+                </div>
+                <div class="bg-gray-900/80 rounded-2xl p-6 border-2 border-green-500/30 hover:border-green-500/60 transition-all duration-300 text-center">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h3 class="text-xl font-bold text-green-400 mb-3">3. 快速開發</h3>
+                    <p class="text-gray-400 text-sm">高效執行，3 天內完成開發</p>
+                </div>
+                <div class="bg-gray-900/80 rounded-2xl p-6 border-2 border-green-500/30 hover:border-green-500/60 transition-all duration-300 text-center">
+                    <div class="text-5xl mb-4">🚀</div>
+                    <h3 class="text-xl font-bold text-green-400 mb-3">4. 正式上線</h3>
+                    <p class="text-gray-400 text-sm">網站上線，開始為您賺錢</p>
                 </div>
             </div>
         </div>
@@ -261,7 +303,7 @@
                 </div>
             </div>
             <div class="mt-12 text-center">
-                <a href="https://line.me/ti/p/AxSH0sjns3" target="_blank" class="inline-block bg-orange-500 text-white font-bold text-xl px-10 py-5 rounded-2xl">幫我的店家架設專屬官網</a>
+                <a href="https://line.me/ti/p/AxSH0sjns3" target="_blank" class="inline-block bg-orange-500 text-white font-bold text-xl px-10 py-5 rounded-2xl line-button-pulse">幫我的店家架設專屬官網</a>
             </div>
         </div>
     </section>
@@ -303,16 +345,23 @@
                     <div class="text-5xl sm:text-7xl md:text-8xl font-black text-red-600 mb-6 drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]">
                         <span class="text-3xl md:text-5xl mr-2 text-red-800">TWD $</span><span id="monthly-loss-display">0</span>
                     </div>
-                    <div class="px-4">
+                    <div class="px-4 mb-6">
                         <p class="inline-block bg-red-600/10 text-red-500 border border-red-600/20 px-4 py-2 rounded-full font-bold animate-pulse">
                             ⚠️ 這筆錢，足以讓您請我做 10 個專業網站。現在止血還來得及！
                         </p>
+                    </div>
+                    <div class="px-4">
+                        <p class="text-gray-300 text-lg mb-4">現在止血還來得及，讓專業開發者為您規劃。</p>
+                        <a href="https://line.me/ti/p/AxSH0sjns3" target="_blank" 
+                           class="inline-block bg-green-500 hover:bg-green-400 text-white font-bold text-lg px-8 py-4 rounded-xl line-button-pulse">
+                            📱 LINE 諮詢專業規劃
+                        </a>
                     </div>
                 </div>
     
                 <div class="mt-10 text-center text-white">
                     <a href="https://line.me/ti/p/AxSH0sjns3" target="_blank" 
-                       class="inline-block w-full sm:w-auto bg-red-600 hover:bg-red-500 text-white font-black text-xl md:text-2xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(220,38,38,0.4)] transform transition-all duration-300 hover:scale-105 active:scale-95">
+                       class="inline-block w-full sm:w-auto bg-red-600 hover:bg-red-500 text-white font-black text-xl md:text-2xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(220,38,38,0.4)] transform transition-all duration-300 hover:scale-105 active:scale-95 line-button-pulse">
                         立即停止流失，聯繫 Edward 打造賺錢網站
                     </a>
                 </div>
@@ -324,7 +373,7 @@
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-black mb-6">準備好讓網站開始<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-orange-400">賺錢</span>了嗎？</h2>
             <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="https://line.me/ti/p/AxSH0sjns3" target="_blank" class="bg-green-500 text-white font-bold text-lg px-10 py-5 rounded-xl glow-effect w-full sm:w-auto">📱 加 LINE 諮詢</a>
+                <a href="https://line.me/ti/p/AxSH0sjns3" target="_blank" class="bg-green-500 text-white font-bold text-lg px-10 py-5 rounded-xl glow-effect w-full sm:w-auto line-button-pulse">📱 加 LINE 諮詢</a>
                 <a href="mailto:lovelove0727@icloud.com" class="bg-orange-500 text-white font-bold text-lg px-10 py-5 rounded-xl glow-effect-orange w-full sm:w-auto">✉️ Email 聯繫</a>
             </div>
         </div>
