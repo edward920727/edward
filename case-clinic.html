@@ -140,14 +140,14 @@
         </div>
     </section>
 
-    <!-- 最終成果 -->
+    <!-- 預估成果 -->
     <section class="py-12 md:py-16 px-4">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">最終成果</h2>
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">預估成果</h2>
             <div class="bg-white rounded-2xl p-8 border border-green-100 card-shadow">
                 <div class="text-center mb-6">
                     <div class="text-5xl font-black text-[#b45309] mb-2">100%</div>
-                    <p class="text-xl font-bold text-slate-800">諮詢量翻倍</p>
+                    <p class="text-xl font-bold text-slate-800">預估諮詢量翻倍</p>
                 </div>
                 <ul class="space-y-4 text-slate-600">
                     <li class="flex items-start gap-3">
@@ -163,6 +163,57 @@
                         <span>Google 地圖優化，新患者發現度增加</span>
                     </li>
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 自動預約模擬器 -->
+    <section class="py-12 md:py-16 px-4 bg-slate-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">自動預約模擬器</h2>
+            <div class="bg-white rounded-2xl p-8 border border-indigo-100 card-shadow">
+                <p class="text-slate-600 text-center mb-6">體驗一下自動預約系統的便利性</p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2">預約項目</label>
+                        <select id="appointment-type" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                            <option>植牙諮詢</option>
+                            <option>美白服務</option>
+                            <option>一般檢查</option>
+                            <option>洗牙</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2">選擇日期</label>
+                        <input type="date" id="appointment-date" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2">選擇時段</label>
+                        <select id="appointment-time" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2">姓名</label>
+                        <input type="text" id="appointment-name" placeholder="請輸入您的姓名" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2">聯絡電話</label>
+                        <input type="tel" id="appointment-phone" placeholder="0912-345-678" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                    </div>
+                    <button onclick="testAppointment()" class="w-full btn-primary hover:bg-indigo-600 text-white font-semibold text-lg px-6 py-4 rounded-xl border-2 border-indigo-300 transition-all duration-300">
+                        測試預約
+                    </button>
+                    <div id="appointment-result" class="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl hidden">
+                        <p class="text-green-700 font-semibold text-center">✓ 預約成功！系統已自動記錄您的預約資訊</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -293,6 +344,34 @@
     </section>
 
     <footer class="bg-white border-t border-slate-200 py-8 text-center text-slate-500 text-sm">© 2026 Edward | 專業網站建置服務</footer>
+
+    <script>
+        function testAppointment() {
+            const type = document.getElementById('appointment-type').value;
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+            const name = document.getElementById('appointment-name').value;
+            const phone = document.getElementById('appointment-phone').value;
+            
+            if (!date || !time || !name || !phone) {
+                alert('請填寫完整資訊');
+                return;
+            }
+            
+            const result = document.getElementById('appointment-result');
+            result.classList.remove('hidden');
+            result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // 3秒後隱藏結果
+            setTimeout(() => {
+                result.classList.add('hidden');
+            }, 3000);
+        }
+        
+        // 設定今天為最小日期
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointment-date').setAttribute('min', today);
+    </script>
 
 </body>
 </html>

@@ -73,6 +73,76 @@
             }
         }
         
+        .line-fixed-button {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 64px;
+            height: 64px;
+            background: #06C755;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(6, 199, 85, 0.4);
+            z-index: 1000;
+            animation: lineButtonPulse 2s ease-in-out infinite;
+            transition: transform 0.3s;
+        }
+        
+        .line-fixed-button:hover {
+            transform: scale(1.1);
+        }
+        
+        @keyframes lineButtonPulse {
+            0%, 100% { 
+                box-shadow: 0 4px 12px rgba(6, 199, 85, 0.4);
+            }
+            50% { 
+                box-shadow: 0 4px 20px rgba(6, 199, 85, 0.6), 0 0 30px rgba(6, 199, 85, 0.3);
+            }
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .navbar-menu {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .navbar-menu {
+                display: flex;
+            }
+        }
+        
+        .mobile-menu {
+            display: block;
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+        
+        .mobile-menu-items {
+            display: none;
+        }
+        
+        .mobile-menu-items.active {
+            display: block;
+        }
+        
         .btn-primary {
             background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
             color: white;
@@ -122,11 +192,94 @@
         @media (max-width: 768px) {
             .profile-image { width: 120px; height: 120px; }
         }
+        
+        /* 進場動畫 */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .pulse-highlight {
+            animation: pulseHighlight 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseHighlight {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(79, 70, 229, 0);
+            }
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
     </style>
 </head>
 <body class="text-slate-800">
     
-    <section class="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+    <!-- 導覽列 -->
+    <nav class="navbar">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-slate-800 font-bold text-lg">Edward | 專業網站建置</div>
+            <div class="navbar-menu gap-6">
+                <a href="#about" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">關於我們</a>
+                <a href="#services" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">服務優勢</a>
+                <a href="#cases" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">精選案例</a>
+                <a href="#contact" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">聯絡我們</a>
+            </div>
+            <button class="mobile-menu text-slate-800 text-2xl" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items bg-white border-t border-slate-200" id="mobile-menu-items">
+            <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-4">
+                <a href="#about" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">關於我們</a>
+                <a href="#services" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">服務優勢</a>
+                <a href="#cases" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">精選案例</a>
+                <a href="#contact" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">聯絡我們</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 固定右下角 LINE 按鈕 -->
+    <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%AE%E8%A9%A2%E7%B6%B2%E7%AB%99%E5%BB%BA%E7%BD%AE%E9%9C%80%E6%B1%82%EF%BC%81" 
+       target="_blank" 
+       class="line-fixed-button">
+        <i class="fab fa-line text-white text-2xl"></i>
+    </a>
+    
+    <section class="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden pt-24">
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-0 left-0 w-96 h-96 bg-green-400 rounded-full blur-3xl"></div>
             <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-300 rounded-full blur-3xl"></div>
@@ -140,7 +293,7 @@
             
             <div class="profile-image-container">
                 <div class="profile-image-border"></div>
-                <img src="profile.jpg" alt="Edward" class="profile-image" onerror="this.src='https://via.placeholder.com/200x200/22c55e/ffffff?text=你的照片'">
+                <img src="profile.jpg" alt="Edward" class="profile-image">
             </div>
             
             <p class="text-base sm:text-lg md:text-xl lg:text-3xl text-slate-600 mb-8 md:mb-12 leading-relaxed max-w-4xl mx-auto px-2">
@@ -189,7 +342,7 @@
         </div>
     </section>
     
-    <section class="py-12 sm:py-16 md:py-20 px-4">
+    <section id="services" class="py-12 sm:py-16 md:py-20 px-4">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12 text-slate-800">Edward 為你打造的解決方案</h2>
             <div class="grid md:grid-cols-3 gap-8 text-center">
@@ -215,24 +368,24 @@
     <!-- 合作流程 -->
     <section class="py-12 sm:py-16 md:py-20 px-4">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-16 text-slate-800">合作流程</h2>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-16 text-slate-800 fade-in-up">我們的合作流程</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-                <div class="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300 text-center card-shadow">
+                <div class="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300 text-center card-shadow slide-in-left delay-1">
                     <div class="text-5xl mb-4">💬</div>
                     <h3 class="text-xl font-bold text-green-600 mb-3">1. 需求溝通</h3>
                     <p class="text-slate-600 text-sm">深入了解您的業務需求與目標</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300 text-center card-shadow">
+                <div class="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300 text-center card-shadow slide-in-left delay-2">
                     <div class="text-5xl mb-4">📋</div>
                     <h3 class="text-xl font-bold text-green-600 mb-3">2. 專業規劃</h3>
                     <p class="text-slate-600 text-sm">量身打造最適合的網站架構</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300 text-center card-shadow">
+                <div class="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300 text-center card-shadow slide-in-left delay-3">
                     <div class="text-5xl mb-4">⚡</div>
                     <h3 class="text-xl font-bold text-green-600 mb-3">3. 快速開發</h3>
                     <p class="text-slate-600 text-sm">高效執行，3 天內完成開發</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300 text-center card-shadow">
+                <div class="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300 text-center card-shadow slide-in-left delay-4">
                     <div class="text-5xl mb-4">🚀</div>
                     <h3 class="text-xl font-bold text-green-600 mb-3">4. 正式上線</h3>
                     <p class="text-slate-600 text-sm">網站上線，開始為您賺錢</p>
@@ -242,11 +395,14 @@
     </section>
 
     <!-- 精選案例展示區 -->
-    <section class="py-12 sm:py-16 md:py-24 px-4">
+    <section id="cases" class="py-12 sm:py-16 md:py-24 px-4">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-16 text-slate-800">
-                我的客戶都這樣在 <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-green-600">Google 地圖上獲利</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-4 md:mb-6 text-slate-800">
+                針對您的產業需求，我可以為您打造的成果
             </h2>
+            <p class="text-center text-slate-600 text-lg mb-8 md:mb-12 max-w-3xl mx-auto">
+                以下為針對不同行業開發的展示範本。如果您有類似需求，我可以依照您的品牌特色進行高度客製化。
+            </p>
             <div class="grid md:grid-cols-3 gap-6 md:gap-8">
                 <!-- 案例 1: 餐廳 -->
                 <div class="bg-white rounded-2xl overflow-hidden border-2 border-orange-100 hover:border-orange-200 transition-all duration-300 hover:scale-105 card-shadow">
@@ -256,14 +412,19 @@
                              class="w-full h-48 object-cover rounded-t-lg">
                     </a>
                     <div class="p-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-3">知名餐廳：3 天改造，訂位成長 50%</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-3">餐飲業案例</h3>
                         <p class="text-slate-600 text-sm md:text-base mb-6 leading-relaxed">
-                            透過專業官網與 Google 地圖整合，讓顧客輕鬆找到店家並線上訂位，大幅提升轉換率。
+                            我可以幫您的餐廳建立像這樣的點餐與轉單系統，整合 Google 地圖與線上訂位功能，大幅提升轉換率。
                         </p>
                         <a href="case-restaurant.html" 
                            target="_blank" 
-                           class="inline-block w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-bold text-center px-6 py-3 rounded-xl transition-all duration-300">
+                           class="inline-block w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-bold text-center px-6 py-3 rounded-xl transition-all duration-300 mb-2">
                             查看完整案例
+                        </a>
+                        <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%8B%E4%BD%A0%E5%B9%AB%E6%88%91%E6%94%B9%E6%88%90%E9%80%99%E7%A8%AE%E9%A2%A8%E6%A0%BC%EF%BC%81" 
+                           target="_blank" 
+                           class="inline-block w-full btn-primary hover:bg-indigo-600 text-white font-semibold text-center px-6 py-3 rounded-xl border-2 border-indigo-300 transition-all duration-300">
+                            幫我改成這種風格
                         </a>
                     </div>
                 </div>
@@ -276,14 +437,19 @@
                              class="w-full h-48 object-cover rounded-t-lg">
                     </a>
                     <div class="p-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-3">專業診所：線上預約系統，諮詢量翻倍</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-3">診所業案例</h3>
                         <p class="text-slate-600 text-sm md:text-base mb-6 leading-relaxed">
-                            建立專業形象網站，整合預約表單與 Google 地圖，讓患者輕鬆找到診所並完成預約。
+                            如果您需要自動預約與專業門面，我可以幫您改成這樣，整合預約表單與 Google 地圖，讓患者輕鬆找到診所並完成預約。
                         </p>
                         <a href="case-clinic.html" 
                            target="_blank" 
-                           class="inline-block w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 text-white font-bold text-center px-6 py-3 rounded-xl transition-all duration-300">
+                           class="inline-block w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 text-white font-bold text-center px-6 py-3 rounded-xl transition-all duration-300 mb-2">
                             查看完整案例
+                        </a>
+                        <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%8B%E4%BD%A0%E5%B9%AB%E6%88%91%E6%94%B9%E6%88%90%E9%80%99%E7%A8%AE%E9%A2%A8%E6%A0%BC%EF%BC%81" 
+                           target="_blank" 
+                           class="inline-block w-full btn-primary hover:bg-indigo-600 text-white font-semibold text-center px-6 py-3 rounded-xl border-2 border-indigo-300 transition-all duration-300">
+                            幫我改成這種風格
                         </a>
                     </div>
                 </div>
@@ -296,14 +462,19 @@
                              class="w-full h-48 object-cover rounded-t-lg">
                     </a>
                     <div class="p-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-3">設計工作室：作品集展示，接案量提升 80%</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-3">工作室案例</h3>
                         <p class="text-slate-600 text-sm md:text-base mb-6 leading-relaxed">
-                            透過精美的作品集網站與 Google 地圖標記，讓潛在客戶更容易發現並信任專業服務。
+                            想要提升作品質感與報價？這是為您準備的佈局，透過精美的作品集網站與 Google 地圖標記，讓潛在客戶更容易發現並信任專業服務。
                         </p>
                         <a href="case-studio.html" 
                            target="_blank" 
-                           class="inline-block w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold text-center px-6 py-3 rounded-xl transition-all duration-300">
+                           class="inline-block w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold text-center px-6 py-3 rounded-xl transition-all duration-300 mb-2">
                             查看完整案例
+                        </a>
+                        <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%8B%E4%BD%A0%E5%B9%AB%E6%88%91%E6%94%B9%E6%88%90%E9%80%99%E7%A8%AE%E9%A2%A8%E6%A0%BC%EF%BC%81" 
+                           target="_blank" 
+                           class="inline-block w-full btn-primary hover:bg-indigo-600 text-white font-semibold text-center px-6 py-3 rounded-xl border-2 border-indigo-300 transition-all duration-300">
+                            幫我改成這種風格
                         </a>
                     </div>
                 </div>
@@ -397,12 +568,105 @@
         </div>
     </section>
 
+    <!-- 優勢對比圖 -->
+    <section class="py-12 sm:py-16 md:py-24 px-4 bg-slate-50 fade-in-up">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-12 text-slate-800">
+                為什麼您的網站需要 Edward？<span class="block text-lg md:text-xl text-slate-600 font-normal mt-2">(專業開發 vs 傳統公司)</span>
+            </h2>
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 card-shadow">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200">
+                                <th class="px-6 py-4 text-left text-slate-800 font-bold">比較項目</th>
+                                <th class="px-6 py-4 text-center text-slate-800 font-bold">傳統網頁公司</th>
+                                <th class="px-6 py-4 text-center text-slate-800 font-bold bg-indigo-50 border-2 border-indigo-300">Edward 開發</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="fade-in-up delay-1">
+                                <td class="px-6 py-4 text-slate-700 font-semibold">價格</td>
+                                <td class="px-6 py-4 text-center text-slate-600">10萬+</td>
+                                <td class="px-6 py-4 text-center text-[#b45309] font-bold bg-indigo-50 border-2 border-indigo-300 pulse-highlight">只要 1折 (萬元有找)</td>
+                            </tr>
+                            <tr class="fade-in-up delay-2">
+                                <td class="px-6 py-4 text-slate-700 font-semibold">工期</td>
+                                <td class="px-6 py-4 text-center text-slate-600">1-2 個月</td>
+                                <td class="px-6 py-4 text-center text-[#b45309] font-bold bg-indigo-50 border-2 border-indigo-300 pulse-highlight">速度只要 3天</td>
+                            </tr>
+                            <tr class="fade-in-up delay-3">
+                                <td class="px-6 py-4 text-slate-700 font-semibold">維護費</td>
+                                <td class="px-6 py-4 text-center text-slate-600">維護費高</td>
+                                <td class="px-6 py-4 text-center text-green-600 font-bold bg-indigo-50 border-2 border-indigo-300 pulse-highlight">一對一溝通</td>
+                            </tr>
+                            <tr class="fade-in-up delay-4">
+                                <td class="px-6 py-4 text-slate-700 font-semibold">流程</td>
+                                <td class="px-6 py-4 text-center text-slate-600">流程繁瑣</td>
+                                <td class="px-6 py-4 text-center text-green-600 font-bold bg-indigo-50 border-2 border-indigo-300 pulse-highlight">針對轉單優化</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="py-12 sm:py-16 md:py-20 px-4">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-black mb-6 text-slate-800">準備好讓網站開始<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-orange-500">賺錢</span>了嗎？</h2>
             <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%AE%E8%A9%A2%E7%B6%B2%E7%AB%99%E5%BB%BA%E7%BD%AE%E9%9C%80%E6%B1%82%EF%BC%81" target="_blank" class="btn-primary hover:bg-indigo-600 text-white font-semibold text-lg px-10 py-5 rounded-xl border-2 border-indigo-300 glow-effect w-full sm:w-auto line-button-pulse">📱 加 LINE 諮詢</a>
                 <a href="mailto:lovelove0727@icloud.com" class="bg-orange-500 text-white font-bold text-lg px-10 py-5 rounded-xl border-2 border-orange-300 glow-effect-orange w-full sm:w-auto">✉️ Email 聯繫</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常見問題解答 -->
+    <section class="py-12 sm:py-16 md:py-24 px-4">
+        <div class="max-w-4xl mx-auto fade-in-up">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-12 text-slate-800">網頁設計常見問題 Q&A</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Q: 網站建置需要多久時間？</h3>
+                    <p class="text-slate-600">A: 一般來說，我可以在 3 天內完成開發並上線。這比傳統網頁公司快 10-20 倍。</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Q: 價格大概是多少？</h3>
+                    <p class="text-slate-600">A: 我的價格是傳統網頁公司的 1 折，萬元有找。讓數位轉型不再是負擔。</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Q: 網站可以在手機上正常顯示嗎？</h3>
+                    <p class="text-slate-600">A: 當然可以！所有網站都是響應式設計，完美適配手機、平板、電腦各種裝置。</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Q: 後續維護怎麼辦？</h3>
+                    <p class="text-slate-600">A: 我提供一對一溝通服務，有任何問題都可以直接聯繫我，快速解決。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 關於 Edward -->
+    <section id="about" class="py-12 sm:py-16 md:py-24 px-4 bg-slate-50 fade-in-up">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-12 text-slate-800">關於 Edward</h2>
+            <div class="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 card-shadow">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-shrink-0 fade-in-up">
+                        <img src="profile.jpg" 
+                             alt="Edward" 
+                             class="w-48 h-48 rounded-full object-cover border-4 border-indigo-100 shadow-lg">
+                    </div>
+                    <div class="flex-1 fade-in-up delay-1">
+                        <p class="text-slate-700 text-lg md:text-xl leading-relaxed mb-6">
+                            我是一名熱愛開發的工程師，專門協助在地商家解決「網站太貴」與「開發太慢」的痛點。我深信數位轉型不該是沉重的負擔，而是讓您營收倍增的利器。
+                        </p>
+                        <p class="text-slate-600 text-base md:text-lg leading-relaxed">
+                            透過專業的技術能力與對商業邏輯的深度理解，我能夠在極短的時間內為您打造出既美觀又實用的網站，讓您的生意在數位世界中脫穎而出。
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -464,6 +728,76 @@ const targetDate = new Date("2026/01/8 23:59:59").getTime();
         }
         [dIn, tIn, rIn].forEach(i => i.addEventListener('input', calc));
         calc();
+
+        // 3. 手機選單切換
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuItems = document.getElementById('mobile-menu-items');
+        
+        if (mobileMenuBtn && mobileMenuItems) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuItems.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenuItems.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+
+        // 4. 平滑滾動
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    // 關閉手機選單
+                    if (mobileMenuItems) {
+                        mobileMenuItems.classList.remove('active');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+        
+        // 5. 進場動畫控制
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // 觀察所有需要動畫的元素
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right');
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Hero section 立即顯示（不需要滾動觸發）
+            const heroSection = document.getElementById('hero-problems');
+            if (heroSection) {
+                setTimeout(() => {
+                    heroSection.classList.add('visible');
+                }, 100);
+            }
+        });
     </script>
 </body>
 </html>
