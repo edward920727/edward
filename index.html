@@ -143,6 +143,84 @@
             display: block;
         }
         
+        /* 下拉選單樣式 */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 8px;
+            background: white;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
+            z-index: 1000;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #1e293b;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            border-radius: 8px;
+            margin: 4px;
+        }
+        
+        .dropdown-item:first-child {
+            margin-top: 0;
+        }
+        
+        .dropdown-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3730a3;
+        }
+        
+        /* 手機版下拉選單 */
+        .mobile-dropdown {
+            display: none;
+        }
+        
+        .mobile-dropdown.active {
+            display: block;
+        }
+        
+        .mobile-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .mobile-dropdown-items {
+            padding-left: 20px;
+            padding-top: 8px;
+            display: none;
+        }
+        
+        .mobile-dropdown.active .mobile-dropdown-items {
+            display: block;
+        }
+        
         .btn-primary {
             background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
             color: white;
@@ -301,10 +379,18 @@
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="text-slate-800 font-bold text-lg">Edward | 專業網站建置</div>
             <div class="navbar-menu gap-6">
-                <a href="#about" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">關於我們</a>
-                <a href="#services" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">服務優勢</a>
-                <a href="#cases" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">精選案例</a>
-                <a href="#contact" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">聯絡我們</a>
+                <a href="#about" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">關於我們</a>
+                <a href="#services" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">服務優勢</a>
+                <div class="dropdown">
+                    <a href="#cases" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors cursor-pointer">精選案例 <i class="fas fa-chevron-down text-xs ml-1"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="case-restaurant.html" class="dropdown-item">🍽️ 餐飲轉單範本</a>
+                        <a href="case-clinic.html" class="dropdown-item">🏥 醫療預約範本</a>
+                        <a href="case-studio.html" class="dropdown-item">🎨 品牌形象範本</a>
+                    </div>
+                </div>
+                <a href="#faq" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">常見問題</a>
+                <a href="#contact" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">聯絡我們</a>
             </div>
             <button class="mobile-menu text-slate-800 text-2xl" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -312,13 +398,27 @@
         </div>
         <div class="mobile-menu-items bg-white border-t border-slate-200" id="mobile-menu-items">
             <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-4">
-                <a href="#about" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">關於我們</a>
-                <a href="#services" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">服務優勢</a>
-                <a href="#cases" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">精選案例</a>
-                <a href="#contact" class="text-slate-700 hover:text-indigo-600 font-semibold transition-colors">聯絡我們</a>
+                <a href="#about" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">關於我們</a>
+                <a href="#services" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">服務優勢</a>
+                <div class="mobile-dropdown" id="mobile-cases-dropdown">
+                    <button class="mobile-dropdown-toggle text-[#1e293b] hover:text-indigo-600 font-medium transition-colors" onclick="toggleMobileDropdown('mobile-cases-dropdown')">
+                        <span>精選案例</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="mobile-dropdown-items">
+                        <a href="case-restaurant.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors">🍽️ 餐飲轉單範本</a>
+                        <a href="case-clinic.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors">🏥 醫療預約範本</a>
+                        <a href="case-studio.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors">🎨 品牌形象範本</a>
+                    </div>
+                </div>
+                <a href="#faq" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">常見問題</a>
+                <a href="#contact" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">聯絡我們</a>
             </div>
         </div>
     </nav>
+    
+    <!-- 導覽列佔位，避免內容被遮擋 -->
+    <div class="h-16 md:h-20"></div>
     
     <!-- 固定右下角 LINE 按鈕 -->
     <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%AE%E8%A9%A2%E7%B6%B2%E7%AB%99%E5%BB%BA%E7%BD%AE%E9%9C%80%E6%B1%82%EF%BC%81" 
@@ -755,7 +855,7 @@
     </section>
 
     <!-- 常見問題解答 -->
-    <section class="py-12 sm:py-16 md:py-24 px-4">
+    <section id="faq" class="py-12 sm:py-16 md:py-24 px-4">
         <div class="max-w-4xl mx-auto fade-in-up">
             <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8 md:mb-12 text-slate-800">網頁設計常見問題 Q&A</h2>
             <div class="space-y-4">
@@ -879,7 +979,23 @@ const targetDate = new Date("2026/01/8 23:59:59").getTime();
             });
         }
 
-        // 4. 平滑滾動
+        // 4. 手機版下拉選單切換
+        window.toggleMobileDropdown = function(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            if (dropdown) {
+                dropdown.classList.toggle('active');
+                const icon = dropdown.querySelector('.mobile-dropdown-toggle i');
+                if (dropdown.classList.contains('active')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            }
+        };
+        
+        // 5. 平滑滾動
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
