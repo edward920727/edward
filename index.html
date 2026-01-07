@@ -197,11 +197,8 @@
         
         /* 手機版下拉選單 */
         .mobile-dropdown {
-            display: none;
-        }
-        
-        .mobile-dropdown.active {
             display: block;
+            width: 100%;
         }
         
         .mobile-dropdown-toggle {
@@ -209,16 +206,39 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-size: inherit;
+            font-family: inherit;
+        }
+        
+        .mobile-dropdown.active .mobile-dropdown-toggle i {
+            transform: rotate(180deg);
         }
         
         .mobile-dropdown-items {
             padding-left: 20px;
             padding-top: 8px;
             display: none;
+            animation: slideDown 0.3s ease-out;
         }
         
         .mobile-dropdown.active .mobile-dropdown-items {
             display: block;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .btn-primary {
@@ -398,21 +418,21 @@
         </div>
         <div class="mobile-menu-items bg-white border-t border-slate-200" id="mobile-menu-items">
             <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-4">
-                <a href="#about" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">關於我們</a>
-                <a href="#services" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">服務優勢</a>
+                <a href="#about" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors py-1 block">關於我們</a>
+                <a href="#services" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors py-1 block">服務優勢</a>
                 <div class="mobile-dropdown" id="mobile-cases-dropdown">
-                    <button class="mobile-dropdown-toggle text-[#1e293b] hover:text-indigo-600 font-medium transition-colors" onclick="toggleMobileDropdown('mobile-cases-dropdown')">
+                    <button type="button" class="mobile-dropdown-toggle text-[#1e293b] hover:text-indigo-600 font-medium transition-colors py-1 w-full text-left" onclick="toggleMobileDropdown('mobile-cases-dropdown')">
                         <span>精選案例</span>
-                        <i class="fas fa-chevron-down text-xs"></i>
+                        <i class="fas fa-chevron-down text-xs transition-transform"></i>
                     </button>
                     <div class="mobile-dropdown-items">
-                        <a href="case-restaurant.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors">🍽️ 餐飲轉單範本</a>
-                        <a href="case-clinic.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors">🏥 醫療預約範本</a>
-                        <a href="case-studio.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors">🎨 品牌形象範本</a>
+                        <a href="case-restaurant.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors text-sm">🍽️ 餐飲轉單範本</a>
+                        <a href="case-clinic.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors text-sm">🏥 醫療預約範本</a>
+                        <a href="case-studio.html" class="block py-2 text-slate-600 hover:text-indigo-600 transition-colors text-sm">🎨 品牌形象範本</a>
                     </div>
                 </div>
-                <a href="#faq" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">常見問題</a>
-                <a href="#contact" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors">聯絡我們</a>
+                <a href="#faq" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors py-1 block">常見問題</a>
+                <a href="#contact" class="text-[#1e293b] hover:text-indigo-600 font-medium transition-colors py-1 block">聯絡我們</a>
             </div>
         </div>
     </nav>
@@ -924,7 +944,7 @@
     <script>
         // 1. 倒數計時
        // 請把日期改成你想要的截止日，格式：年/月/日 時:分:秒
-const targetDate = new Date("2026/01/8 23:59:59").getTime();
+const targetDate = new Date("2026/01/12 23:59:59").getTime();
         function updateCountdown() {
             const now = new Date().getTime();
             const dist = targetDate - now;
@@ -984,14 +1004,6 @@ const targetDate = new Date("2026/01/8 23:59:59").getTime();
             const dropdown = document.getElementById(dropdownId);
             if (dropdown) {
                 dropdown.classList.toggle('active');
-                const icon = dropdown.querySelector('.mobile-dropdown-toggle i');
-                if (dropdown.classList.contains('active')) {
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                } else {
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
             }
         };
         
