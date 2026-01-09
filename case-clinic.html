@@ -9,11 +9,18 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
         
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             position: relative;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         
         body::before {
@@ -28,24 +35,53 @@
             pointer-events: none;
         }
         
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, 30px) rotate(180deg); }
+        }
+        
         .card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .card-shadow:hover {
+            box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.15), 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
         }
         
         .glass-effect {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
         }
         
         .btn-primary {
             background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
             color: white;
             font-weight: 600;
+            transition: all 0.3s ease;
         }
         
         .btn-primary:hover {
-            background: #4338ca;
+            background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
         }
         
         .line-button-pulse {
@@ -60,123 +96,412 @@
                 box-shadow: 0 0 30px rgba(79, 70, 229, 0.5), 0 0 40px rgba(79, 70, 229, 0.2);
             }
         }
+        
+        /* 高級導覽列 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-menu {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .navbar-menu {
+                display: flex;
+            }
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #1e293b;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            color: #4f46e5;
+            transform: scale(1.1);
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+        
+        .mobile-menu-items {
+            display: none;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(226, 232, 240, 0.5);
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .mobile-menu-items.active {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .mobile-menu-items a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #1e293b;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+        }
+        
+        .mobile-menu-items a:hover {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4f46e5;
+            padding-left: 2rem;
+        }
+        
+        .navbar-menu a {
+            color: #1e293b;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .navbar-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: width 0.3s ease;
+        }
+        
+        .navbar-menu a:hover::after {
+            width: 80%;
+        }
+        
+        .navbar-menu a:hover {
+            color: #4f46e5;
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        /* 進場動畫 */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        
+        /* 高級卡片效果 */
+        .premium-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .premium-card:hover::before {
+            left: 100%;
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(79, 70, 229, 0.3);
+        }
+        
+        /* 漸層文字 */
+        .gradient-text {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* 圖片懸停效果 */
+        .image-hover {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        
+        .image-hover img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .image-hover:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* 按鈕動畫 */
+        .btn-animate {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-animate::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        
+        .btn-animate:hover::before {
+            width: 300px;
+            height: 300px;
+        }
     </style>
 </head>
 <body class="text-slate-800">
     
-    <!-- 導覽列 - 毛玻璃效果 -->
-    <nav class="glass-effect border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-slate-800 font-bold text-lg">← 返回首頁</a>
-            <span class="text-slate-600 text-sm">Edward | 專業網站建置</span>
+    <!-- 高級導覽列 - 漢堡選單 -->
+    <nav class="navbar glass-effect" role="navigation" aria-label="主要導覽選單">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo/品牌 -->
+                <div class="flex items-center">
+                    <a href="index.html" class="text-slate-800 font-bold text-lg md:text-xl hover:text-indigo-600 transition-colors flex items-center gap-2">
+                        <i class="fas fa-arrow-left text-sm"></i>
+                        <span>返回首頁</span>
+                    </a>
+                </div>
+                
+                <!-- 桌面版選單 -->
+                <div class="navbar-menu gap-2">
+                    <a href="#hero">首頁</a>
+                    <a href="#challenges">挑戰</a>
+                    <a href="#solutions">解決方案</a>
+                    <a href="#results">成果</a>
+                    <a href="#team">團隊</a>
+                    <a href="#services">服務</a>
+                    <a href="#contact">預約</a>
+                </div>
+                
+                <!-- 手機版漢堡選單按鈕 -->
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="開啟選單" aria-expanded="false">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+            
+            <!-- 手機版選單內容 -->
+            <div class="mobile-menu-items" id="mobile-menu-items">
+                <a href="#hero" class="mobile-menu-link">首頁</a>
+                <a href="#challenges" class="mobile-menu-link">面臨挑戰</a>
+                <a href="#solutions" class="mobile-menu-link">解決方案</a>
+                <a href="#results" class="mobile-menu-link">預估成果</a>
+                <a href="#team" class="mobile-menu-link">醫師團隊</a>
+                <a href="#services" class="mobile-menu-link">服務項目</a>
+                <a href="#contact" class="mobile-menu-link">預約諮詢</a>
+            </div>
         </div>
     </nav>
 
-    <!-- 頂部標題 -->
-    <section class="py-8 md:py-12 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mb-2">
-                <span class="text-blue-600">晨曦專業牙醫</span> 診所 - <span class="text-indigo-600">Edward 打造</span>
-            </h1>
-            <p class="text-slate-600 text-sm md:text-base">專業醫療團隊，守護您的口腔健康</p>
+    <!-- 導覽列佔位 -->
+    <div class="h-16 md:h-20"></div>
+
+    <!-- Hero 區塊 -->
+    <section id="hero" class="py-12 md:py-20 px-4 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center fade-in-up">
+                <div class="inline-block bg-gradient-to-r from-blue-100 to-indigo-100 text-indigo-700 px-6 py-2 rounded-full text-sm font-semibold mb-6 shadow-lg">
+                    ✨ 專業醫療網站案例
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+                    <span class="text-blue-600">晨曦專業牙醫</span> 診所
+                    <br class="md:hidden">
+                    <span class="text-slate-700">-</span> 
+                    <span class="gradient-text">Edward 打造</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    專業醫療團隊，守護您的口腔健康<br>
+                    <span class="text-indigo-600 font-semibold">3 天改造，諮詢量翻倍</span>
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- 主圖 -->
     <section class="py-8 md:py-12 px-4">
-        <div class="max-w-6xl mx-auto">
-            <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 card-shadow">
-                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800" 
+        <div class="max-w-7xl mx-auto">
+            <div class="premium-card image-hover rounded-3xl overflow-hidden p-0">
+                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&q=80" 
                      alt="專業牙科設備" 
-                     class="w-full object-cover">
+                     class="w-full h-[400px] md:h-[500px] object-cover">
             </div>
         </div>
     </section>
 
     <!-- 面臨挑戰 -->
-    <section class="py-12 md:py-16 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">面臨挑戰</h2>
-            <div class="bg-white rounded-2xl p-8 border border-red-100 card-shadow">
-                <ul class="space-y-4 text-slate-600">
-                    <li class="flex items-start gap-3">
-                        <span class="text-red-500 text-xl">✗</span>
-                        <span>缺乏專業形象網站，患者信任度不足</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-red-500 text-xl">✗</span>
-                        <span>無法線上預約，錯失潛在患者</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-red-500 text-xl">✗</span>
-                        <span>Google 地圖資訊不完整，患者找不到診所</span>
-                    </li>
-                </ul>
+    <section id="challenges" class="py-16 md:py-24 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                面臨挑戰
+            </h2>
+            <p class="text-center text-slate-600 mb-12 md:mb-16 text-lg fade-in-up delay-1">
+                傳統診所面臨的數位轉型困境
+            </p>
+            <div class="premium-card card-shadow fade-in-up delay-2">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="flex items-start gap-4 p-4 bg-red-50 rounded-xl border border-red-100">
+                        <div class="text-red-500 text-3xl flex-shrink-0">✗</div>
+                        <div>
+                            <h3 class="font-bold text-red-700 mb-2">缺乏專業形象</h3>
+                            <p class="text-slate-600 text-sm">缺乏專業形象網站，患者信任度不足</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-red-50 rounded-xl border border-red-100">
+                        <div class="text-red-500 text-3xl flex-shrink-0">✗</div>
+                        <div>
+                            <h3 class="font-bold text-red-700 mb-2">無法線上預約</h3>
+                            <p class="text-slate-600 text-sm">無法線上預約，錯失潛在患者</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-red-50 rounded-xl border border-red-100">
+                        <div class="text-red-500 text-3xl flex-shrink-0">✗</div>
+                        <div>
+                            <h3 class="font-bold text-red-700 mb-2">地圖資訊不完整</h3>
+                            <p class="text-slate-600 text-sm">Google 地圖資訊不完整，患者找不到診所</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 我的解決方案 -->
-    <section class="py-12 md:py-16 px-4 bg-slate-50">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">我的解決方案</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-2xl p-6 border border-indigo-100 card-shadow">
-                    <div class="text-4xl mb-4">🏥</div>
-                    <h3 class="text-lg font-bold text-indigo-600 mb-3">專業形象</h3>
-                    <p class="text-slate-600 text-sm">打造專業醫療形象網站，提升信任度</p>
+    <section id="solutions" class="py-16 md:py-24 px-4 bg-gradient-to-br from-indigo-50 to-blue-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                我的解決方案
+            </h2>
+            <p class="text-center text-slate-600 mb-12 md:mb-16 text-lg fade-in-up delay-1">
+                專業數位轉型，提升診所競爭力
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="premium-card card-shadow text-center fade-in-up delay-1">
+                    <div class="text-6xl mb-6">🏥</div>
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-4">專業形象</h3>
+                    <p class="text-slate-600 leading-relaxed">打造專業醫療形象網站，提升信任度與品牌價值</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border border-indigo-100 card-shadow">
-                    <div class="text-4xl mb-4">📅</div>
-                    <h3 class="text-lg font-bold text-indigo-600 mb-3">線上預約</h3>
-                    <p class="text-slate-600 text-sm">整合預約表單系統，方便患者預約</p>
+                <div class="premium-card card-shadow text-center fade-in-up delay-2">
+                    <div class="text-6xl mb-6">📅</div>
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-4">線上預約</h3>
+                    <p class="text-slate-600 leading-relaxed">整合預約表單系統，方便患者隨時預約，減少電話詢問</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border border-indigo-100 card-shadow">
-                    <div class="text-4xl mb-4">🗺️</div>
-                    <h3 class="text-lg font-bold text-indigo-600 mb-3">地圖整合</h3>
-                    <p class="text-slate-600 text-sm">完善 Google 地圖資訊，提升可發現性</p>
+                <div class="premium-card card-shadow text-center fade-in-up delay-3">
+                    <div class="text-6xl mb-6">🗺️</div>
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-4">地圖整合</h3>
+                    <p class="text-slate-600 leading-relaxed">完善 Google 地圖資訊，提升可發現性與導航便利性</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 預估成果 -->
-    <section class="py-12 md:py-16 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">預估成果</h2>
-            <div class="bg-white rounded-2xl p-8 border border-green-100 card-shadow">
-                <div class="text-center mb-6">
-                    <div class="text-5xl font-black text-[#b45309] mb-2">100%</div>
-                    <p class="text-xl font-bold text-slate-800">預估諮詢量翻倍</p>
+    <section id="results" class="py-16 md:py-24 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                預估成果
+            </h2>
+            <p class="text-center text-slate-600 mb-12 md:mb-16 text-lg fade-in-up delay-1">
+                數位轉型帶來的實際效益
+            </p>
+            <div class="premium-card card-shadow fade-in-up delay-2">
+                <div class="text-center mb-8">
+                    <div class="inline-block bg-gradient-to-r from-green-500 to-emerald-500 text-white px-8 py-4 rounded-2xl mb-6">
+                        <div class="text-6xl font-black mb-2">100%</div>
+                        <p class="text-2xl font-bold">預估諮詢量翻倍</p>
+                    </div>
                 </div>
-                <ul class="space-y-4 text-slate-600">
-                    <li class="flex items-start gap-3">
-                        <span class="text-green-600 text-xl">✓</span>
-                        <span>專業形象網站建立，患者信任度大幅提升</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-green-600 text-xl">✓</span>
-                        <span>線上預約系統上線，預約量穩定成長</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-green-600 text-xl">✓</span>
-                        <span>Google 地圖優化，新患者發現度增加</span>
-                    </li>
-                </ul>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-6 bg-green-50 rounded-xl border border-green-100">
+                        <div class="text-green-600 text-2xl mb-3">✓</div>
+                        <p class="text-slate-700 font-semibold">專業形象網站建立，患者信任度大幅提升</p>
+                    </div>
+                    <div class="p-6 bg-green-50 rounded-xl border border-green-100">
+                        <div class="text-green-600 text-2xl mb-3">✓</div>
+                        <p class="text-slate-700 font-semibold">線上預約系統上線，預約量穩定成長</p>
+                    </div>
+                    <div class="p-6 bg-green-50 rounded-xl border border-green-100">
+                        <div class="text-green-600 text-2xl mb-3">✓</div>
+                        <p class="text-slate-700 font-semibold">Google 地圖優化，新患者發現度增加</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 自動預約模擬器 -->
-    <section class="py-12 md:py-16 px-4 bg-slate-50">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">自動預約模擬器</h2>
-            <div class="bg-white rounded-2xl p-8 border border-indigo-100 card-shadow">
-                <p class="text-slate-600 text-center mb-6">體驗一下自動預約系統的便利性</p>
-                <div class="space-y-4">
+    <section class="py-16 md:py-24 px-4 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                自動預約模擬器
+            </h2>
+            <p class="text-center text-slate-600 mb-12 text-lg fade-in-up delay-1">
+                體驗一下自動預約系統的便利性
+            </p>
+            <div class="premium-card card-shadow fade-in-up delay-2">
+                <div class="space-y-6">
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-2">預約項目</label>
-                        <select id="appointment-type" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">預約項目</label>
+                        <select id="appointment-type" class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg">
                             <option>植牙諮詢</option>
                             <option>美白服務</option>
                             <option>一般檢查</option>
@@ -184,12 +509,12 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-2">選擇日期</label>
-                        <input type="date" id="appointment-date" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">選擇日期</label>
+                        <input type="date" id="appointment-date" class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg">
                     </div>
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-2">選擇時段</label>
-                        <select id="appointment-time" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">選擇時段</label>
+                        <select id="appointment-time" class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg">
                             <option>09:00</option>
                             <option>10:00</option>
                             <option>11:00</option>
@@ -200,73 +525,73 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-2">姓名</label>
-                        <input type="text" id="appointment-name" placeholder="請輸入您的姓名" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">姓名</label>
+                        <input type="text" id="appointment-name" placeholder="請輸入您的姓名" class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg">
                     </div>
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-2">聯絡電話</label>
-                        <input type="tel" id="appointment-phone" placeholder="0912-345-678" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">聯絡電話</label>
+                        <input type="tel" id="appointment-phone" placeholder="0912-345-678" class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg">
                     </div>
-                    <button onclick="testAppointment()" class="w-full btn-primary hover:bg-indigo-600 text-white font-semibold text-lg px-6 py-4 rounded-xl border-2 border-indigo-300 transition-all duration-300">
+                    <button onclick="testAppointment()" class="w-full btn-primary btn-animate text-white font-bold text-xl px-8 py-5 rounded-xl border-2 border-indigo-300 transition-all duration-300 line-button-pulse">
                         測試預約
                     </button>
-                    <div id="appointment-result" class="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl hidden">
-                        <div class="text-center mb-4">
-                            <div class="text-4xl mb-2">✓</div>
-                            <p class="text-green-700 font-semibold text-lg mb-2">預約成功！</p>
-                            <p class="text-green-600 text-sm">系統已自動記錄您的預約資訊</p>
+                    <div id="appointment-result" class="mt-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl hidden fade-in-up">
+                        <div class="text-center mb-6">
+                            <div class="text-6xl mb-4">✓</div>
+                            <p class="text-green-700 font-bold text-2xl mb-2">預約成功！</p>
+                            <p class="text-green-600 text-lg">系統已自動記錄您的預約資訊</p>
                         </div>
-                        <div class="mt-4 pt-4 border-t border-green-200">
-                            <button onclick="showAdminPanel()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg transition-all">
+                        <div class="mt-6 pt-6 border-t border-green-200">
+                            <button onclick="showAdminPanel()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-4 rounded-xl transition-all transform hover:scale-105">
                                 查看後台預約記錄
                             </button>
                         </div>
                     </div>
                     
                     <!-- 後台預約記錄展示 -->
-                    <div id="admin-panel" class="mt-6 bg-slate-50 rounded-2xl p-6 border border-slate-300 hidden">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-bold text-slate-800">後台預約管理系統</h3>
-                            <button onclick="closeAdminPanel()" class="text-slate-500 hover:text-slate-700">✕</button>
+                    <div id="admin-panel" class="mt-6 premium-card card-shadow hidden fade-in-up">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-800">後台預約管理系統</h3>
+                            <button onclick="closeAdminPanel()" class="text-slate-500 hover:text-slate-700 text-2xl transition-all hover:rotate-90">✕</button>
                         </div>
-                        <div class="bg-white rounded-xl p-4 mb-4">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                                <span class="text-xs text-slate-500">即時通知</span>
+                        <div class="premium-card bg-slate-50 mb-4">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                                <span class="text-sm text-slate-500 font-semibold">即時通知</span>
                             </div>
-                            <div class="bg-green-50 border border-green-200 rounded-lg p-3 mb-3">
+                            <div class="bg-green-50 border-2 border-green-200 rounded-xl p-4">
                                 <div class="flex items-start justify-between">
                                     <div>
-                                        <p class="font-semibold text-slate-800">新預約通知</p>
+                                        <p class="font-bold text-slate-800 text-lg mb-1">新預約通知</p>
                                         <p class="text-sm text-slate-600" id="admin-appointment-info"></p>
                                     </div>
-                                    <span class="text-xs text-green-600 font-semibold">剛剛</span>
+                                    <span class="text-xs text-green-600 font-bold bg-green-100 px-3 py-1 rounded-full">剛剛</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl p-4">
-                            <h4 class="font-semibold text-slate-800 mb-3">今日預約記錄</h4>
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between p-2 bg-slate-50 rounded">
+                        <div class="premium-card bg-slate-50">
+                            <h4 class="font-bold text-slate-800 mb-4 text-lg">今日預約記錄</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200">
                                     <div>
-                                        <p class="text-sm font-semibold text-slate-800">陳先生 - 植牙諮詢</p>
+                                        <p class="text-sm font-bold text-slate-800">陳先生 - 植牙諮詢</p>
                                         <p class="text-xs text-slate-600">09:00 · 0912-345-678</p>
                                     </div>
-                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">已確認</span>
+                                    <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-semibold">已確認</span>
                                 </div>
-                                <div class="flex items-center justify-between p-2 bg-slate-50 rounded">
+                                <div class="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200">
                                     <div>
-                                        <p class="text-sm font-semibold text-slate-800">林小姐 - 美白服務</p>
+                                        <p class="text-sm font-bold text-slate-800">林小姐 - 美白服務</p>
                                         <p class="text-xs text-slate-600">14:00 · 0987-654-321</p>
                                     </div>
-                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">已確認</span>
+                                    <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-semibold">已確認</span>
                                 </div>
-                                <div class="flex items-center justify-between p-2 bg-indigo-50 rounded border border-indigo-200">
+                                <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-2 border-indigo-200">
                                     <div>
-                                        <p class="text-sm font-semibold text-slate-800" id="new-appointment-name"></p>
+                                        <p class="text-sm font-bold text-slate-800" id="new-appointment-name"></p>
                                         <p class="text-xs text-slate-600" id="new-appointment-details"></p>
                                     </div>
-                                    <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded animate-pulse">新預約</span>
+                                    <span class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-semibold animate-pulse">新預約</span>
                                 </div>
                             </div>
                         </div>
@@ -277,61 +602,101 @@
     </section>
 
     <!-- 醫師團隊 -->
-    <section class="py-12 md:py-16 px-4 bg-slate-50">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">醫師團隊</h2>
+    <section id="team" class="py-16 md:py-24 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                醫師團隊
+            </h2>
+            <p class="text-center text-slate-600 mb-12 md:mb-16 text-lg fade-in-up delay-1">
+                專業醫療團隊，守護您的口腔健康
+            </p>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-blue-200 transition-all hover:scale-105 card-shadow text-center">
-                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" 
-                         alt="王醫師" 
-                         class="w-32 h-32 mx-auto mb-4 rounded-full object-cover">
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">王醫師</h3>
-                    <p class="text-blue-600 font-semibold mb-2">院長 / 植牙專科</p>
-                    <p class="text-slate-600 text-sm">20 年臨床經驗，專精於全口重建與植牙手術</p>
+                <div class="premium-card card-shadow text-center fade-in-up delay-1">
+                    <div class="image-hover rounded-full overflow-hidden w-40 h-40 mx-auto mb-6">
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=400&q=80" 
+                             alt="王醫師" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">王醫師</h3>
+                    <p class="text-blue-600 font-semibold mb-3 text-lg">院長 / 植牙專科</p>
+                    <p class="text-slate-600 leading-relaxed">20 年臨床經驗，專精於全口重建與植牙手術</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-blue-200 transition-all hover:scale-105 card-shadow text-center">
-                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" 
-                         alt="李醫師" 
-                         class="w-32 h-32 mx-auto mb-4 rounded-full object-cover">
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">李醫師</h3>
-                    <p class="text-blue-600 font-semibold mb-2">美白專科醫師</p>
-                    <p class="text-slate-600 text-sm">15 年經驗，專精於冷光美白與陶瓷貼片</p>
+                <div class="premium-card card-shadow text-center fade-in-up delay-2">
+                    <div class="image-hover rounded-full overflow-hidden w-40 h-40 mx-auto mb-6">
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=400&q=80" 
+                             alt="李醫師" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">李醫師</h3>
+                    <p class="text-blue-600 font-semibold mb-3 text-lg">美白專科醫師</p>
+                    <p class="text-slate-600 leading-relaxed">15 年經驗，專精於冷光美白與陶瓷貼片</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border border-slate-200 hover:border-blue-200 transition-all hover:scale-105 card-shadow text-center">
-                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" 
-                         alt="陳醫師" 
-                         class="w-32 h-32 mx-auto mb-4 rounded-full object-cover">
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">陳醫師</h3>
-                    <p class="text-blue-600 font-semibold mb-2">一般牙科醫師</p>
-                    <p class="text-slate-600 text-sm">10 年經驗，親切細心，專注於預防保健</p>
+                <div class="premium-card card-shadow text-center fade-in-up delay-3">
+                    <div class="image-hover rounded-full overflow-hidden w-40 h-40 mx-auto mb-6">
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=400&q=80" 
+                             alt="陳醫師" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">陳醫師</h3>
+                    <p class="text-blue-600 font-semibold mb-3 text-lg">一般牙科醫師</p>
+                    <p class="text-slate-600 leading-relaxed">10 年經驗，親切細心，專注於預防保健</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 服務項目 -->
-    <section class="py-12 md:py-16 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">服務項目</h2>
+    <section id="services" class="py-16 md:py-24 px-4 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                服務項目
+            </h2>
+            <p class="text-center text-slate-600 mb-12 md:mb-16 text-lg fade-in-up delay-1">
+                專業醫療服務，滿足您的各種需求
+            </p>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-2xl p-8 border border-blue-100 hover:border-blue-200 transition-all card-shadow">
-                    <div class="text-5xl mb-4">🦷</div>
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">植牙服務</h3>
-                    <ul class="text-slate-600 space-y-2 text-sm">
-                        <li>✓ 3D 數位導航植牙</li>
-                        <li>✓ 全口重建規劃</li>
-                        <li>✓ 微創植牙技術</li>
-                        <li>✓ 術後追蹤照護</li>
+                <div class="premium-card card-shadow fade-in-up delay-1">
+                    <div class="text-6xl mb-6">🦷</div>
+                    <h3 class="text-3xl font-bold text-blue-600 mb-6">植牙服務</h3>
+                    <ul class="text-slate-700 space-y-3 text-lg">
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 text-xl">✓</span>
+                            <span>3D 數位導航植牙</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 text-xl">✓</span>
+                            <span>全口重建規劃</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 text-xl">✓</span>
+                            <span>微創植牙技術</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 text-xl">✓</span>
+                            <span>術後追蹤照護</span>
+                        </li>
                     </ul>
                 </div>
-                <div class="bg-white rounded-2xl p-8 border border-cyan-100 hover:border-cyan-200 transition-all card-shadow">
-                    <div class="text-5xl mb-4">✨</div>
-                    <h3 class="text-2xl font-bold text-cyan-600 mb-4">美白服務</h3>
-                    <ul class="text-slate-600 space-y-2 text-sm">
-                        <li>✓ 冷光美白</li>
-                        <li>✓ 居家美白套組</li>
-                        <li>✓ 陶瓷貼片</li>
-                        <li>✓ 全瓷冠美學</li>
+                <div class="premium-card card-shadow fade-in-up delay-2">
+                    <div class="text-6xl mb-6">✨</div>
+                    <h3 class="text-3xl font-bold text-cyan-600 mb-6">美白服務</h3>
+                    <ul class="text-slate-700 space-y-3 text-lg">
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 text-xl">✓</span>
+                            <span>冷光美白</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 text-xl">✓</span>
+                            <span>居家美白套組</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 text-xl">✓</span>
+                            <span>陶瓷貼片</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 text-xl">✓</span>
+                            <span>全瓷冠美學</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -339,32 +704,37 @@
     </section>
 
     <!-- 預約諮詢表單 -->
-    <section class="py-12 md:py-16 px-4 bg-slate-50">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 md:mb-12 text-slate-800">預約諮詢</h2>
-            <div class="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 card-shadow">
+    <section id="contact" class="py-16 md:py-24 px-4">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                預約諮詢
+            </h2>
+            <p class="text-center text-slate-600 mb-12 text-lg fade-in-up delay-1">
+                填寫表單，我們將盡快與您聯繫
+            </p>
+            <div class="premium-card card-shadow fade-in-up delay-2">
                 <form class="space-y-6">
                     <div>
-                        <label class="block text-slate-800 font-bold mb-2">姓名</label>
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">姓名</label>
                         <input type="text" 
-                               class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none"
+                               class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg"
                                placeholder="請輸入您的姓名">
                     </div>
                     <div>
-                        <label class="block text-slate-800 font-bold mb-2">聯絡電話</label>
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">聯絡電話</label>
                         <input type="tel" 
-                               class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none"
+                               class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg"
                                placeholder="請輸入您的電話">
                     </div>
                     <div>
-                        <label class="block text-slate-800 font-bold mb-2">電子郵件</label>
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">電子郵件</label>
                         <input type="email" 
-                               class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none"
+                               class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg"
                                placeholder="請輸入您的 Email">
                     </div>
                     <div>
-                        <label class="block text-slate-800 font-bold mb-2">預約項目</label>
-                        <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none">
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">預約項目</label>
+                        <select class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg">
                             <option>植牙諮詢</option>
                             <option>美白服務</option>
                             <option>一般檢查</option>
@@ -372,14 +742,14 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-slate-800 font-bold mb-2">備註說明</label>
-                        <textarea rows="4" 
-                                  class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:border-indigo-500 focus:bg-white transition-all outline-none"
+                        <label class="block text-slate-800 font-bold mb-3 text-lg">備註說明</label>
+                        <textarea rows="5" 
+                                  class="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-5 py-4 text-slate-800 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 transition-all outline-none text-lg resize-none"
                                   placeholder="請描述您的需求或問題..."></textarea>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center pt-4">
                         <button type="submit" 
-                                class="btn-primary hover:bg-indigo-600 text-white font-semibold text-xl px-12 py-4 rounded-2xl border-2 border-indigo-300 transform transition-all duration-300 hover:scale-105 line-button-pulse">
+                                class="btn-primary btn-animate text-white font-bold text-xl px-12 py-5 rounded-xl border-2 border-indigo-300 transform transition-all duration-300 hover:scale-105 line-button-pulse">
                             送出預約申請
                         </button>
                     </div>
@@ -389,21 +759,110 @@
     </section>
 
     <!-- 行動呼籲 -->
-    <section class="py-12 md:py-16 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-black mb-6 text-slate-800">我也想要這樣的改造效果</h2>
-            <p class="text-slate-600 mb-8 text-lg">讓 Edward 為您的診所打造專業官網，提升業績</p>
-            <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E7%9C%8B%E4%BA%86%E9%A4%90%E5%BB%B3%E6%94%B9%E9%80%A0%E6%A1%88%E4%BE%8B%EF%BC%8C%E4%B9%9F%E6%83%B3%E7%82%BA%E6%88%91%E7%9A%84%E5%BA%97%E8%A6%8F%E5%8A%83%E7%B6%B2%E7%AB%99%E3%80%82" 
+    <section class="py-16 md:py-24 px-4 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-black mb-6 fade-in-up">我也想要這樣的改造效果</h2>
+            <p class="text-xl mb-10 text-indigo-100 fade-in-up delay-1">讓 Edward 為您的診所打造專業官網，提升業績</p>
+            <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E7%9C%8B%E4%BA%86%E9%86%AB%E7%99%82%E6%94%B9%E9%80%A0%E6%A1%88%E4%BE%8B%EF%BC%8C%E4%B9%9F%E6%83%B3%E7%82%BA%E6%88%91%E7%9A%84%E8%A8%BA%E6%89%80%E8%A6%8F%E5%8A%83%E7%B6%B2%E7%AB%99%E3%80%82" 
                target="_blank" 
-               class="inline-block btn-primary hover:bg-indigo-600 text-white font-semibold text-xl md:text-2xl px-12 py-6 rounded-2xl border-2 border-indigo-300 transform transition-all duration-300 hover:scale-105 line-button-pulse">
+               class="inline-block bg-white text-indigo-600 hover:bg-indigo-50 font-bold text-xl md:text-2xl px-12 py-6 rounded-2xl border-2 border-white transform transition-all duration-300 hover:scale-105 shadow-2xl fade-in-up delay-2">
                 聯繫 Edward - 立即諮詢
             </a>
         </div>
     </section>
 
-    <footer class="bg-white border-t border-slate-200 py-8 text-center text-slate-500 text-sm">© 2026 Edward | 專業網站建置服務</footer>
+    <footer class="bg-white border-t border-slate-200 py-12 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-slate-500 text-lg">© 2026 Edward | 專業網站建置服務</p>
+        </div>
+    </footer>
 
     <script>
+        // 漢堡選單切換
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuItems = document.getElementById('mobile-menu-items');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        if (mobileMenuBtn && mobileMenuItems) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuItems.classList.toggle('active');
+                const isActive = mobileMenuItems.classList.contains('active');
+                mobileMenuBtn.setAttribute('aria-expanded', isActive);
+                
+                if (isActive) {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                } else {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
+            
+            // 點擊選單項目後關閉選單
+            const menuLinks = mobileMenuItems.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuItems.classList.remove('active');
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+        
+        // 導覽列滾動效果
+        const navbar = document.querySelector('.navbar');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // 平滑滾動
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 進場動畫
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // 預約模擬器功能
         function testAppointment() {
             const type = document.getElementById('appointment-type').value;
             const date = document.getElementById('appointment-date').value;
