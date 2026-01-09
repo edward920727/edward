@@ -447,20 +447,88 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
             z-index: 10001;
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            overflow: hidden;
         }
         
         .logo-animation-overlay.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
+        }
+        
+        /* 水波紋效果 - 質感漸層 */
+        .ripple-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            pointer-events: none;
+            filter: blur(40px);
+            mix-blend-mode: screen;
+        }
+        
+        .ripple-effect.active {
+            opacity: 1;
+            animation: rippleExpand 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        @keyframes rippleExpand {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.95;
+                filter: blur(40px);
+            }
+            20% {
+                opacity: 0.85;
+                filter: blur(50px);
+            }
+            50% {
+                opacity: 0.6;
+                filter: blur(60px);
+            }
+            100% {
+                width: 400vw;
+                height: 400vh;
+                opacity: 0;
+                filter: blur(80px);
+            }
+        }
+        
+        /* 多層水波紋 - 高質感漸層 */
+        #ripple-1 {
+            background: radial-gradient(circle, 
+                rgba(99, 102, 241, 0.9) 0%, 
+                rgba(79, 70, 229, 0.7) 30%,
+                rgba(67, 56, 202, 0.5) 60%,
+                transparent 100%);
+        }
+        
+        #ripple-2 {
+            background: radial-gradient(circle, 
+                rgba(139, 92, 246, 0.8) 0%, 
+                rgba(124, 58, 237, 0.6) 30%,
+                rgba(109, 40, 217, 0.4) 60%,
+                transparent 100%);
+        }
+        
+        #ripple-3 {
+            background: radial-gradient(circle, 
+                rgba(168, 85, 247, 0.7) 0%, 
+                rgba(147, 51, 234, 0.5) 30%,
+                rgba(126, 34, 206, 0.3) 60%,
+                transparent 100%);
         }
         
         .logo-container {
@@ -484,13 +552,14 @@
             font-weight: 900;
             font-size: 120px;
             fill: none;
-            stroke: #4f46e5;
+            stroke: url(#logoGradient);
             stroke-width: 6;
             stroke-linecap: round;
             stroke-linejoin: round;
             stroke-dasharray: 2000;
             stroke-dashoffset: 2000;
             animation: drawText 3s ease-in-out forwards;
+            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
         }
         
         @keyframes drawText {
@@ -500,24 +569,27 @@
         }
         
         .logo-text.filled {
-            fill: #4f46e5;
-            stroke: #4f46e5;
+            fill: url(#logoGradient);
+            stroke: url(#logoGradient);
             stroke-width: 0;
             animation: fillText 0.6s ease forwards;
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8));
         }
         
         @keyframes fillText {
             0% {
                 fill: transparent;
-                stroke: #4f46e5;
+                stroke: url(#logoGradient);
             }
             50% {
-                fill: rgba(79, 70, 229, 0.5);
-                stroke: #4f46e5;
+                fill: url(#logoGradient);
+                fill-opacity: 0.5;
+                stroke: url(#logoGradient);
             }
             100% {
-                fill: #4f46e5;
-                stroke: #4f46e5;
+                fill: url(#logoGradient);
+                fill-opacity: 1;
+                stroke: url(#logoGradient);
             }
         }
         
@@ -553,10 +625,48 @@
             z-index: 10002;
         }
         
-        /* 網頁內容淡入 */
+        /* 網頁內容淡入 - 流暢展現 */
         body.content-visible > *:not(.logo-animation-overlay):not(.page-loader):not(.scroll-progress) {
             opacity: 1;
-            transition: opacity 1s ease;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* 內容淡入時的輕微上移效果 */
+        body:not(.content-visible) nav,
+        body:not(.content-visible) section,
+        body:not(.content-visible) footer {
+            transform: translateY(20px);
+        }
+        
+        body.content-visible nav,
+        body.content-visible section,
+        body.content-visible footer {
+            transform: translateY(0);
+        }
+        
+        /* 分層淡入效果 */
+        body.content-visible nav {
+            transition-delay: 0.1s;
+        }
+        
+        body.content-visible section:nth-of-type(1) {
+            transition-delay: 0.2s;
+        }
+        
+        body.content-visible section:nth-of-type(2) {
+            transition-delay: 0.3s;
+        }
+        
+        body.content-visible section:nth-of-type(3) {
+            transition-delay: 0.4s;
+        }
+        
+        body.content-visible section:nth-of-type(4) {
+            transition-delay: 0.5s;
+        }
+        
+        body.content-visible footer {
+            transition-delay: 0.6s;
         }
         
         /* Logo 在左上角的固定位置 */
@@ -592,6 +702,11 @@
             .logo-text {
                 font-size: 80px;
                 stroke-width: 5;
+                filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+            }
+            
+            .logo-text.filled {
+                filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8));
             }
             
             .navbar-logo svg {
@@ -602,6 +717,38 @@
             .navbar-logo text {
                 font-size: 20px;
             }
+            
+            /* 手機版水波紋優化 */
+            .ripple-effect {
+                filter: blur(30px);
+            }
+            
+            .ripple-effect.active {
+                animation: rippleExpandMobile 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            }
+            
+            @keyframes rippleExpandMobile {
+                0% {
+                    width: 0;
+                    height: 0;
+                    opacity: 0.95;
+                    filter: blur(30px);
+                }
+                20% {
+                    opacity: 0.85;
+                    filter: blur(40px);
+                }
+                50% {
+                    opacity: 0.6;
+                    filter: blur(50px);
+                }
+                100% {
+                    width: 400vw;
+                    height: 400vh;
+                    opacity: 0;
+                    filter: blur(60px);
+                }
+            }
         }
         
         /* 漢堡選單按鈕 - 三條線 */
@@ -609,14 +756,17 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 0;
+            padding: 8px;
             z-index: 1001;
             position: relative;
+            min-width: 44px;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .hamburger span {
@@ -645,7 +795,7 @@
         
         /* 點擊後：中間線消失，上下兩條線旋轉成 X */
         .hamburger.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
+            transform: translateY(12px) rotate(45deg);
         }
         
         .hamburger.active span:nth-child(2) {
@@ -655,7 +805,28 @@
         }
         
         .hamburger.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
+            transform: translateY(-12px) rotate(-45deg);
+        }
+        
+        /* 手機版漢堡選單優化 */
+        @media (max-width: 767px) {
+            .hamburger {
+                width: 44px;
+                height: 44px;
+                padding: 10px;
+            }
+            
+            .hamburger span {
+                height: 3.5px;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(13px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-13px) rotate(-45deg);
+            }
         }
         
         /* 桌面版選單 */
@@ -1069,8 +1240,20 @@
     
     <!-- Logo 筆畫動畫特效 -->
     <div class="logo-animation-overlay" id="logo-animation-overlay">
+        <!-- 水波紋效果容器 -->
+        <div class="ripple-effect" id="ripple-1"></div>
+        <div class="ripple-effect" id="ripple-2"></div>
+        <div class="ripple-effect" id="ripple-3"></div>
+        
         <div class="logo-container">
             <svg class="logo-svg" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
                 <text class="logo-text" x="50%" y="50%" text-anchor="middle" dominant-baseline="central">Edward</text>
             </svg>
         </div>
@@ -1087,7 +1270,13 @@
                 <div class="flex items-center gap-3">
                     <div class="navbar-logo" id="navbar-logo">
                         <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central">Edward</text>
+                            <defs>
+                                <linearGradient id="navbarLogoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="url(#navbarLogoGradient)">Edward</text>
                         </svg>
                     </div>
                     <a href="#" class="text-slate-800 font-bold text-lg md:text-xl hover:text-indigo-600 transition-colors">
@@ -1599,14 +1788,46 @@
     </footer>
 
     <script>
+        // 確保每次打開都在最上方
+        // 立即滾動到頂部（不等待載入）
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // 頁面卸載前滾動到頂部
+        window.addEventListener('beforeunload', () => {
+            window.scrollTo(0, 0);
+        });
+        
+        // DOM 載入完成時滾動到頂部
+        document.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
+        
+        // 頁面載入時滾動到頂部
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
+        
         // Logo 筆畫動畫特效
         window.addEventListener('load', () => {
+            // 確保在頂部
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            
             const pageLoader = document.getElementById('page-loader');
             const logoOverlay = document.getElementById('logo-animation-overlay');
             const logoSvg = logoOverlay ? logoOverlay.querySelector('.logo-svg') : null;
-            const logoPath = logoOverlay ? logoOverlay.querySelector('.logo-path') : null;
             const navbarLogo = document.getElementById('navbar-logo');
             const body = document.body;
+            const ripple1 = document.getElementById('ripple-1');
+            const ripple2 = document.getElementById('ripple-2');
+            const ripple3 = document.getElementById('ripple-3');
             
             // 隱藏載入動畫（每次都執行動畫）
             if (pageLoader) {
@@ -1631,7 +1852,7 @@
                         logoSvg.classList.add('animate-fill');
                     }
                     
-                    // 步驟 3: 填充完成後，縮小並移動到左上角（3.6秒後）
+                    // 步驟 3: 填充完成後，縮小並移動到左上角，同時觸發水波紋（3.6秒後）
                     setTimeout(() => {
                         // 計算目標位置（左上角導覽列位置）
                         const navbar = document.querySelector('.navbar');
@@ -1643,9 +1864,25 @@
                         const targetY = navbarRect.top - containerRect.top - (containerRect.height / 2) + 20;
                         const scale = 0.2;
                         
-                        // 設置動畫
+                        // 同時觸發 Logo 移動和水波紋效果
+                        // 設置 Logo 移動動畫
                         logoSvg.style.transform = `scale(${scale}) translate(${targetX / scale}px, ${targetY / scale}px)`;
                         logoSvg.classList.add('animate-move');
+                        
+                        // 立即觸發水波紋效果（與 Logo 移動同時）
+                        if (ripple1) {
+                            ripple1.classList.add('active');
+                        }
+                        if (ripple2) {
+                            setTimeout(() => {
+                                ripple2.classList.add('active');
+                            }, 200);
+                        }
+                        if (ripple3) {
+                            setTimeout(() => {
+                                ripple3.classList.add('active');
+                            }, 400);
+                        }
                         
                         // 步驟 4: 移動完成後，顯示左上角 Logo 並淡入網頁內容（4.6秒後）
                         setTimeout(() => {
@@ -1653,14 +1890,14 @@
                                 navbarLogo.classList.add('show');
                             }
                             
-                            // 淡入網頁內容
+                            // 流暢淡入網頁內容（在水波紋散開過程中開始）
                             body.classList.add('content-visible');
                             
-                            // 隱藏動畫覆蓋層
+                            // 水波紋完成後隱藏動畫覆蓋層（確保內容已完全顯示）
                             setTimeout(() => {
                                 logoOverlay.classList.add('hidden');
-                            }, 500);
-                        }, 1000);
+                            }, 1200);
+                        }, 800);
                     }, 600);
                 }, 3000);
             } else {
@@ -1672,6 +1909,15 @@
                 if (logoOverlay) {
                     logoOverlay.classList.add('hidden');
                 }
+            }
+        });
+        
+        // 頁面可見性改變時也滾動到頂部
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100);
             }
         });
         
