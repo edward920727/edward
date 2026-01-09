@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://edward920727.github.io/sitemap.xml
+
+# 允許所有搜尋引擎爬取
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# 爬取延遲（可選）
+Crawl-delay: 1
