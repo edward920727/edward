@@ -166,6 +166,75 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+        
+        /* 初始狀態：隱藏網頁內容 */
+        body:not(.content-visible) > *:not(.logo-animation-overlay):not(.page-loader):not(.scroll-progress) {
+            opacity: 0;
+        }
+        
+        /* 頁面載入動畫 */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loader-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* 滾動進度條 */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed, #ec4899);
+            z-index: 10000;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.1s ease;
         }
         
         /* 響應式優化 */
@@ -235,6 +304,42 @@
             .premium-card:hover {
                 transform: none;
             }
+            
+            /* 觸控回饋 */
+            a:active, button:active {
+                transform: scale(0.95);
+                transition: transform 0.1s ease;
+            }
+        }
+        
+        /* 行動裝置優化 */
+        @media (max-width: 640px) {
+            /* 優化按鈕大小 */
+            .btn-primary, a[class*="bg-"] {
+                font-size: 0.95rem;
+                padding: 0.75rem 1.5rem;
+            }
+            
+            /* 優化間距 */
+            section {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            
+            /* 優化文字大小 */
+            h1 {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            h2 {
+                font-size: 1.75rem !important;
+            }
+            
+            /* 優化卡片 */
+            .premium-card {
+                margin-bottom: 1.5rem;
+            }
         }
         
         /* 平板優化 */
@@ -280,11 +385,223 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
         }
         
         .navbar.scrolled {
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.98);
+        }
+        
+        .navbar.hidden {
+            transform: translateY(-100%);
+        }
+        
+        /* 導覽列選單項目動畫 */
+        .nav-menu a {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-menu a.active {
+            color: #4f46e5;
+            font-weight: 700;
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        .nav-menu a.active::after {
+            width: 80%;
+        }
+        
+        /* 按鈕點擊動畫 */
+        .btn-primary:active,
+        a[class*="bg-"]:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
+        }
+        
+        /* 卡片懸停效果增強 */
+        .premium-card {
+            will-change: transform;
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        
+        /* 圖片載入動畫 */
+        img {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        img.loaded {
+            opacity: 1;
+        }
+        
+        /* Logo 筆畫動畫特效 */
+        .logo-animation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            z-index: 10001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .logo-animation-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .logo-container {
+            width: 500px;
+            height: 200px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-svg {
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .logo-text {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 900;
+            font-size: 120px;
+            fill: none;
+            stroke: #4f46e5;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+            animation: drawText 3s ease-in-out forwards;
+        }
+        
+        @keyframes drawText {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        .logo-text.filled {
+            fill: #4f46e5;
+            stroke: #4f46e5;
+            stroke-width: 0;
+            animation: fillText 0.6s ease forwards;
+        }
+        
+        @keyframes fillText {
+            0% {
+                fill: transparent;
+                stroke: #4f46e5;
+            }
+            50% {
+                fill: rgba(79, 70, 229, 0.5);
+                stroke: #4f46e5;
+            }
+            100% {
+                fill: #4f46e5;
+                stroke: #4f46e5;
+            }
+        }
+        
+        .logo-svg.animate-draw {
+            animation: none;
+        }
+        
+        .logo-svg.animate-fill {
+            animation: fillLogo 0.5s ease forwards;
+        }
+        
+        .logo-svg.animate-move {
+            animation: moveToCorner 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes fillLogo {
+            0% {
+                filter: drop-shadow(0 0 0 rgba(79, 70, 229, 0));
+            }
+            100% {
+                filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.8));
+            }
+        }
+        
+        .logo-svg.animate-move {
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        
+        /* 優化移動動畫 */
+        .logo-svg.animate-move {
+            position: relative;
+            z-index: 10002;
+        }
+        
+        /* 網頁內容淡入 */
+        body.content-visible > *:not(.logo-animation-overlay):not(.page-loader):not(.scroll-progress) {
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        
+        /* Logo 在左上角的固定位置 */
+        .navbar-logo {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .navbar-logo.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        .navbar-logo svg {
+            width: 120px;
+            height: 40px;
+        }
+        
+        .navbar-logo text {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 900;
+            font-size: 24px;
+            fill: #4f46e5;
+        }
+        
+        @media (max-width: 640px) {
+            .logo-container {
+                width: 350px;
+                height: 150px;
+            }
+            
+            .logo-text {
+                font-size: 80px;
+                stroke-width: 5;
+            }
+            
+            .navbar-logo svg {
+                width: 100px;
+                height: 35px;
+            }
+            
+            .navbar-logo text {
+                font-size: 20px;
+            }
         }
         
         /* 漢堡選單按鈕 - 三條線 */
@@ -507,6 +824,16 @@
             transform: scaleY(1);
         }
         
+        .mobile-menu-link.active {
+            background: rgba(79, 70, 229, 0.15);
+            color: #4f46e5;
+            padding-left: 2rem;
+        }
+        
+        .mobile-menu-link.active::before {
+            transform: scaleY(1);
+        }
+        
         .mobile-menu-footer {
             padding: 2rem 1.5rem;
             border-top: 1px solid rgba(226, 232, 240, 0.5);
@@ -557,8 +884,8 @@
         /* 進場動畫 */
         .fade-in-up {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .fade-in-up.visible {
@@ -566,9 +893,44 @@
             transform: translateY(0);
         }
         
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
         
         /* 漸層文字 */
         .gradient-text {
@@ -697,12 +1059,37 @@
 </head>
 <body class="text-slate-800">
     
+    <!-- 頁面載入動畫 -->
+    <div class="page-loader" id="page-loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">載入中...</div>
+        </div>
+    </div>
+    
+    <!-- Logo 筆畫動畫特效 -->
+    <div class="logo-animation-overlay" id="logo-animation-overlay">
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+                <text class="logo-text" x="50%" y="50%" text-anchor="middle" dominant-baseline="central">Edward</text>
+            </svg>
+        </div>
+    </div>
+    
+    <!-- 滾動進度條 -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+    
     <!-- 導覽列 - 漢堡選單 -->
     <nav class="navbar" role="navigation" aria-label="主要導覽選單">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 md:h-20">
                 <!-- Logo -->
-                <div class="flex items-center">
+                <div class="flex items-center gap-3">
+                    <div class="navbar-logo" id="navbar-logo">
+                        <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central">Edward</text>
+                        </svg>
+                    </div>
                     <a href="#" class="text-slate-800 font-bold text-lg md:text-xl hover:text-indigo-600 transition-colors">
                         Edward | 專業網站建置
                     </a>
@@ -1207,11 +1594,112 @@
                     <a href="tel:+886917323860" class="text-indigo-600 hover:text-indigo-700">0917-323-860</a>
                 </p>
             </div>
-            <p class="text-slate-500 text-sm md:text-base">© 2026 Edward | 專業網站建置服務</p>
+            <p class="text-slate-500 text-sm md:text-base">© 2026 Edward Design Studio 版權宣告</p>
         </div>
     </footer>
 
     <script>
+        // Logo 筆畫動畫特效
+        window.addEventListener('load', () => {
+            const pageLoader = document.getElementById('page-loader');
+            const logoOverlay = document.getElementById('logo-animation-overlay');
+            const logoSvg = logoOverlay ? logoOverlay.querySelector('.logo-svg') : null;
+            const logoPath = logoOverlay ? logoOverlay.querySelector('.logo-path') : null;
+            const navbarLogo = document.getElementById('navbar-logo');
+            const body = document.body;
+            
+            // 隱藏載入動畫（每次都執行動畫）
+            if (pageLoader) {
+                setTimeout(() => {
+                    pageLoader.classList.add('hidden');
+                    setTimeout(() => {
+                        pageLoader.style.display = 'none';
+                    }, 500);
+                }, 800);
+            }
+            
+            // Logo 筆畫動畫序列（每次都執行）
+            if (logoOverlay && logoSvg) {
+                const logoText = logoSvg.querySelector('.logo-text');
+                
+                // 步驟 1: 繪製文字線條（3秒，由 CSS 動畫控制）
+                
+                // 步驟 2: 線條完成後，填充顏色（3秒後）
+                setTimeout(() => {
+                    if (logoText) {
+                        logoText.classList.add('filled');
+                        logoSvg.classList.add('animate-fill');
+                    }
+                    
+                    // 步驟 3: 填充完成後，縮小並移動到左上角（3.6秒後）
+                    setTimeout(() => {
+                        // 計算目標位置（左上角導覽列位置）
+                        const navbar = document.querySelector('.navbar');
+                        const navbarRect = navbar ? navbar.getBoundingClientRect() : { left: 20, top: 20 };
+                        const containerRect = logoOverlay.getBoundingClientRect();
+                        
+                        // 計算需要移動的距離
+                        const targetX = navbarRect.left - containerRect.left - (containerRect.width / 2) + 60;
+                        const targetY = navbarRect.top - containerRect.top - (containerRect.height / 2) + 20;
+                        const scale = 0.2;
+                        
+                        // 設置動畫
+                        logoSvg.style.transform = `scale(${scale}) translate(${targetX / scale}px, ${targetY / scale}px)`;
+                        logoSvg.classList.add('animate-move');
+                        
+                        // 步驟 4: 移動完成後，顯示左上角 Logo 並淡入網頁內容（4.6秒後）
+                        setTimeout(() => {
+                            if (navbarLogo) {
+                                navbarLogo.classList.add('show');
+                            }
+                            
+                            // 淡入網頁內容
+                            body.classList.add('content-visible');
+                            
+                            // 隱藏動畫覆蓋層
+                            setTimeout(() => {
+                                logoOverlay.classList.add('hidden');
+                            }, 500);
+                        }, 1000);
+                    }, 600);
+                }, 3000);
+            } else {
+                // 如果沒有 Logo 動畫元素，直接顯示內容
+                if (navbarLogo) {
+                    navbarLogo.classList.add('show');
+                }
+                body.classList.add('content-visible');
+                if (logoOverlay) {
+                    logoOverlay.classList.add('hidden');
+                }
+            }
+        });
+        
+        // 滾動進度條
+        const scrollProgress = document.getElementById('scroll-progress');
+        let lastScrollTop = 0;
+        let ticking = false;
+        
+        function updateScrollProgress() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollPercent = scrollTop / (documentHeight - windowHeight);
+            
+            if (scrollProgress) {
+                scrollProgress.style.transform = `scaleX(${scrollPercent})`;
+            }
+            
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScrollProgress);
+                ticking = true;
+            }
+        });
+        
         // 漢堡選單切換
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -1261,53 +1749,125 @@
             });
         }
         
-        // 導覽列滾動效果
+        // 導覽列滾動效果與當前區塊高亮
         const navbar = document.querySelector('.navbar');
+        const navLinks = document.querySelectorAll('.nav-menu a, .mobile-menu-link');
+        const sections = document.querySelectorAll('section[id]');
+        let lastScrollY = window.scrollY;
+        let scrollDirection = 'down';
         
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
+        function updateNavbar() {
+            const currentScroll = window.scrollY;
             
+            // 導覽列背景變化
             if (currentScroll > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
+            
+            // 判斷滾動方向（可選：隱藏/顯示導覽列）
+            if (currentScroll > lastScrollY && currentScroll > 100) {
+                scrollDirection = 'down';
+            } else {
+                scrollDirection = 'up';
+            }
+            lastScrollY = currentScroll;
+            
+            // 當前區塊高亮
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.offsetHeight;
+                
+                if (currentScroll >= sectionTop && currentScroll < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            // 更新導覽列連結狀態
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+                if (href === `#${currentSection}` || 
+                    (currentSection === 'home' && (href === '#' || href === '#home')) ||
+                    (href === '#home' && currentSection === 'home')) {
+                    link.classList.add('active');
+                }
+            });
+        }
         
-        // 平滑滾動
+        // 使用 requestAnimationFrame 優化滾動性能
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                window.cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = window.requestAnimationFrame(updateNavbar);
+        }, { passive: true });
+        
+        // 平滑滾動（增強版）
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const targetId = this.getAttribute('href');
+                const target = targetId === '#' ? document.body : document.querySelector(targetId);
+                
                 if (target) {
                     const offsetTop = target.offsetTop - 100;
+                    
+                    // 使用平滑滾動
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
                     });
+                    
                     closeMenu();
+                    
+                    // 更新導覽列狀態
+                    setTimeout(() => {
+                        updateNavbar();
+                    }, 100);
                 }
             });
         });
         
-        // 進場動畫
+        // 進場動畫（增強版 Intersection Observer）
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -80px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    // 可選：觀察一次後停止觀察
+                    // observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
         
         document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.fade-in-up');
+            // 觀察所有動畫元素
+            const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .scale-in');
             animatedElements.forEach(el => {
                 observer.observe(el);
+            });
+            
+            // 圖片載入動畫
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                    });
+                    img.addEventListener('error', () => {
+                        img.classList.add('loaded'); // 即使載入失敗也顯示
+                    });
+                }
             });
             
             // Q&A 常見問題展開/收合功能
@@ -1316,24 +1876,40 @@
             faqSections.forEach(section => {
                 const question = section.querySelector('.faq-question');
                 
-                question.addEventListener('click', () => {
-                    const isActive = section.classList.contains('active');
-                    
-                    // 關閉其他已開啟的 FAQ
-                    faqSections.forEach(otherSection => {
-                        if (otherSection !== section) {
-                            otherSection.classList.remove('active');
+                if (question) {
+                    question.addEventListener('click', () => {
+                        const isActive = section.classList.contains('active');
+                        
+                        // 關閉其他已開啟的 FAQ
+                        faqSections.forEach(otherSection => {
+                            if (otherSection !== section) {
+                                otherSection.classList.remove('active');
+                            }
+                        });
+                        
+                        // 切換當前 FAQ
+                        if (isActive) {
+                            section.classList.remove('active');
+                        } else {
+                            section.classList.add('active');
                         }
                     });
-                    
-                    // 切換當前 FAQ
-                    if (isActive) {
-                        section.classList.remove('active');
-                    } else {
-                        section.classList.add('active');
-                    }
-                });
+                }
             });
+            
+            // 初始化導覽列狀態
+            updateNavbar();
+        });
+        
+        // 視窗大小改變時重新計算
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            if (resizeTimeout) {
+                clearTimeout(resizeTimeout);
+            }
+            resizeTimeout = setTimeout(() => {
+                updateNavbar();
+            }, 250);
         });
     </script>
 
