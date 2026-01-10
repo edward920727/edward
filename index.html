@@ -818,6 +818,17 @@
             transform: translateY(0);
         }
         
+        .navbar > div {
+            width: 100%;
+        }
+        
+        .navbar > div > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
         .navbar.scrolled {
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             background: rgba(255, 255, 255, 0.98);
@@ -1208,6 +1219,7 @@
             display: none;
             opacity: 0;
             transition: opacity 0.5s ease;
+            flex-shrink: 0;
         }
         
         .navbar-logo.show {
@@ -1215,24 +1227,24 @@
             opacity: 1;
         }
         
-        .navbar-logo svg {
-            width: 120px;
+        .navbar-logo img {
+            width: auto;
             height: 40px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
         }
         
-        .navbar-logo text {
-            font-family: 'Noto Sans TC', sans-serif;
-            font-weight: 900;
-            font-size: 24px;
-            fill: #4f46e5;
+        .navbar-logo:hover img {
+            transform: scale(1.05);
         }
         
         @media (max-width: 640px) {
             /* 手機版動畫覆蓋層優化 */
             .logo-animation-overlay {
-                display: flex;
+            display: flex;
                 justify-content: center;
-                align-items: center;
+            align-items: center;
                 padding: 20px;
                 box-sizing: border-box;
             }
@@ -1250,7 +1262,7 @@
             }
             
             .logo-svg {
-                width: 100%;
+            width: 100%;
                 height: 100%;
                 max-width: 350px;
             }
@@ -1302,13 +1314,24 @@
                 filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8));
             }
             
-            .navbar-logo svg {
-                width: 100px;
-                height: 35px;
+            .navbar-logo img {
+                height: 32px;
             }
             
-            .navbar-logo text {
-                font-size: 20px;
+            /* 手機版導覽列對齊優化 */
+            .navbar > div > div {
+                align-items: center;
+                min-height: 64px;
+            }
+            
+            .navbar .flex.items-center {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .navbar .hamburger {
+                flex-shrink: 0;
+                margin-left: auto;
             }
             
             /* 手機版水波紋優化 */
@@ -1525,14 +1548,14 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            opacity: 0;
+                opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
             overflow: hidden;
-        }
+            }
         
         .mobile-menu.active {
-            opacity: 1;
+                opacity: 1;
             visibility: visible;
         }
         
@@ -2033,25 +2056,14 @@
     
     <!-- 導覽列 - 漢堡選單 -->
     <nav class="navbar" role="navigation" aria-label="主要導覽選單">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 md:h-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="flex justify-between items-center h-16 md:h-20 w-full">
                 <!-- Logo -->
-                <div class="flex items-center gap-3">
+                <a href="#home" class="flex items-center" title="回到首頁 - Edward 專業網站建置工作室">
                     <div class="navbar-logo" id="navbar-logo">
-                        <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="navbarLogoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="url(#navbarLogoGradient)">Edward</text>
-                        </svg>
+                        <img src="/logo.png" alt="Edward 專業網站建置工作室 Logo" loading="eager">
                     </div>
-                    <a href="#home" class="text-slate-800 font-bold text-lg md:text-xl hover:text-indigo-600 transition-colors" title="回到首頁 - Edward 專業網站建置工作室">
-                        Edward | 專業網站建置
-                    </a>
-                </div>
+                </a>
                 
                 <!-- 桌面版選單 -->
                 <div class="nav-menu gap-2">
@@ -2809,11 +2821,32 @@
                                         }
                                     });
                                     
-                                    // 步驟 4: 移動完成後，顯示左上角 Logo 並淡入網頁內容
+                                    // 步驟 4: 移動完成後，隱藏 SVG 並顯示 logo.png 圖片，然後淡入網頁內容
                                     setTimeout(() => {
                                         requestAnimationFrame(() => {
+                                            // 隱藏動畫中的 SVG
+                                            if (logoSvg) {
+                                                logoSvg.style.opacity = '0';
+                                                logoSvg.style.display = 'none';
+                                            }
+                                            
+                                            // 顯示左上角的 logo.png 圖片（代替藍色 Edward 文字）
                                             if (navbarLogo) {
                                                 navbarLogo.classList.add('show');
+                                                // 確保圖片正確顯示並淡入
+                                                const logoImg = navbarLogo.querySelector('img');
+                                                if (logoImg) {
+                                                    // 確保圖片可見
+                                                    logoImg.style.display = 'block';
+                                                    logoImg.style.opacity = '0';
+                                                    // 使用 requestAnimationFrame 確保淡入動畫流暢
+                                                    requestAnimationFrame(() => {
+                                                        requestAnimationFrame(() => {
+                                                            logoImg.style.transition = 'opacity 0.5s ease';
+                                                            logoImg.style.opacity = '1';
+                                                        });
+                                                    });
+                                                }
                                             }
                                             
                                             // 流暢淡入網頁內容（在水波紋散開過程中開始）
