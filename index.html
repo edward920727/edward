@@ -2638,27 +2638,38 @@
                     </div>
                 
                 <div class="prose prose-lg max-w-none mb-8" itemprop="articleBody">
-                    <h4 class="text-2xl font-bold text-slate-800 mb-4">響應式設計：行動優先的時代</h4>
-                    <p class="text-slate-700 leading-relaxed mb-4">
-                        根據 2026 年的數據統計，超過 70% 的網站流量來自行動裝置。這意味著，如果您的網站無法在手機上完美顯示，您可能已經失去了大部分潛在客戶。響應式設計（Responsive Design）不僅僅是讓網站「能夠」在手機上顯示，而是要確保無論在桌面、平板還是手機上，用戶都能獲得最佳的瀏覽體驗。
-                    </p>
-                    
-                    <h4 class="text-2xl font-bold text-slate-800 mb-4">SEO 優化：被找到的關鍵</h4>
-                    <p class="text-slate-700 leading-relaxed mb-4">
-                        一個再漂亮的網站，如果搜尋引擎找不到它，也無法帶來流量。專業的 SEO 優化包括：語意化 HTML 結構、Meta 標籤優化、網站速度優化、行動裝置友善設計、結構化資料（Schema.org）標記等。這些優化措施能讓您的網站在 Google 搜尋結果中獲得更好的排名，帶來更多自然流量。
-                    </p>
-                    
-                    <h4 class="text-2xl font-bold text-slate-800 mb-4">為什麼選擇 Edward 專業網站建置工作室？</h4>
-                    <p class="text-slate-700 leading-relaxed mb-4">
-                        Edward 專業網站建置工作室提供全方位的網站建置服務，包含響應式設計、SEO 優化、以及一年的免費技術支援。我們能在 3 天內完成開發並上線，價格只要傳統網頁公司的 1 折，讓您以最實惠的價格獲得專業級的網站品質。
-                    </p>
-                    
-                    <div class="bg-indigo-50 rounded-xl p-6 border border-indigo-100 my-6">
-                        <h5 class="text-xl font-bold text-indigo-800 mb-3">💡 專業建議</h5>
-                        <p class="text-slate-700 leading-relaxed">
-                            如果您正在考慮建立網站或重新設計現有網站，建議優先考慮響應式設計和 SEO 優化。這不僅能提升用戶體驗，更能大幅增加您的網站曝光率和轉換率。立即聯繫 Edward 專業網站建置工作室，讓我們為您打造能賺錢的數位門面。
+                    <!-- 預設顯示的內容 -->
+                    <div class="article-preview">
+                        <h4 class="text-2xl font-bold text-slate-800 mb-4">響應式設計：行動優先的時代</h4>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            根據 2026 年的數據統計，超過 70% 的網站流量來自行動裝置。這意味著，如果您的網站無法在手機上完美顯示，您可能已經失去了大部分潛在客戶。響應式設計（Responsive Design）不僅僅是讓網站「能夠」在手機上顯示，而是要確保無論在桌面、平板還是手機上，用戶都能獲得最佳的瀏覽體驗。
                         </p>
                     </div>
+                    
+                    <!-- 可展開的內容 -->
+                    <div id="article-1-expandable" class="article-expandable" style="display: none;">
+                        <h4 class="text-2xl font-bold text-slate-800 mb-4">SEO 優化：被找到的關鍵</h4>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            一個再漂亮的網站，如果搜尋引擎找不到它，也無法帶來流量。專業的 SEO 優化包括：語意化 HTML 結構、Meta 標籤優化、網站速度優化、行動裝置友善設計、結構化資料（Schema.org）標記等。這些優化措施能讓您的網站在 Google 搜尋結果中獲得更好的排名，帶來更多自然流量。
+                        </p>
+                        
+                        <h4 class="text-2xl font-bold text-slate-800 mb-4">為什麼選擇 Edward 專業網站建置工作室？</h4>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            Edward 專業網站建置工作室提供全方位的網站建置服務，包含響應式設計、SEO 優化、以及一年的免費技術支援。我們能在 3 天內完成開發並上線，價格只要傳統網頁公司的 1 折，讓您以最實惠的價格獲得專業級的網站品質。
+                        </p>
+                        
+                        <div class="bg-indigo-50 rounded-xl p-6 border border-indigo-100 my-6">
+                            <h5 class="text-xl font-bold text-indigo-800 mb-3">💡 專業建議</h5>
+                            <p class="text-slate-700 leading-relaxed">
+                                如果您正在考慮建立網站或重新設計現有網站，建議優先考慮響應式設計和 SEO 優化。這不僅能提升用戶體驗，更能大幅增加您的網站曝光率和轉換率。立即聯繫 Edward 專業網站建置工作室，讓我們為您打造能賺錢的數位門面。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 顯示更多/更少按鈕 -->
+                    <button class="article-toggle-btn w-full mt-4 py-3 px-6 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold rounded-xl transition-all duration-300 text-center" onclick="toggleArticle(this, 'article-1')">
+                        <span class="article-toggle-text">顯示更多 ↓</span>
+                    </button>
                 </div>
     
                 <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-200">
@@ -2706,12 +2717,17 @@
                     </div>
                 
                 <div class="prose prose-lg max-w-none mb-8" itemprop="articleBody">
-                    <h4 class="text-2xl font-bold text-slate-800 mb-4">市場行情 vs. Edward 價格：驚人的差異</h4>
-                    <p class="text-slate-700 leading-relaxed mb-4">
-                        傳統大型網頁設計公司的網站建置報價通常落在 <strong class="text-indigo-600">15 萬到 50 萬元</strong>不等，甚至更高。而 Edward 專業網站建置工作室採用 <strong class="text-green-600">按需求定價</strong>的方式，最便宜的方案僅需 <strong class="text-green-600">8,000 元</strong>起，價格遠低於市場行情。這樣巨大的價格差異，背後的原因是什麼？
-                    </p>
+                    <!-- 預設顯示的內容 -->
+                    <div class="article-preview">
+                        <h4 class="text-2xl font-bold text-slate-800 mb-4">市場行情 vs. Edward 價格：驚人的差異</h4>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            傳統大型網頁設計公司的網站建置報價通常落在 <strong class="text-indigo-600">15 萬到 50 萬元</strong>不等，甚至更高。而 Edward 專業網站建置工作室採用 <strong class="text-green-600">按需求定價</strong>的方式，最便宜的方案僅需 <strong class="text-green-600">8,000 元</strong>起，價格遠低於市場行情。這樣巨大的價格差異，背後的原因是什麼？
+                        </p>
+                    </div>
                     
-                    <h4 class="text-2xl font-bold text-slate-800 mb-4">省去不必要的成本，將價值回饋客戶</h4>
+                    <!-- 可展開的內容 -->
+                    <div id="article-2-expandable" class="article-expandable" style="display: none;">
+                        <h4 class="text-2xl font-bold text-slate-800 mb-4">省去不必要的成本，將價值回饋客戶</h4>
                     <p class="text-slate-700 leading-relaxed mb-4">
                         Edward 專業網站建置工作室採用精簡營運模式，省去了大型公司的三大主要成本：
                     </p>
@@ -2793,6 +2809,12 @@
                             立即聯繫我們，讓我們為您量身打造最適合的網站建置方案。不用再為大型公司的高額報價而卻步，專業網站建置，也可以很親民！我們將省下的成本直接回饋給客戶，讓每一分錢都花在您需要的功能上。
                         </p>
                     </div>
+                    </div>
+                    
+                    <!-- 顯示更多/更少按鈕 -->
+                    <button class="article-toggle-btn w-full mt-4 py-3 px-6 bg-green-100 hover:bg-green-200 text-green-700 font-semibold rounded-xl transition-all duration-300 text-center" onclick="toggleArticle(this, 'article-2')">
+                        <span class="article-toggle-text">顯示更多 ↓</span>
+                    </button>
                 </div>
     
                 <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-200">
@@ -2840,15 +2862,20 @@
                 </div>
                 
                 <div class="prose prose-lg max-w-none mb-8" itemprop="articleBody">
-                    <h2 class="text-3xl font-bold text-slate-800 mb-4 mt-8">為什麼小資商家需要架網站？</h2>
-                    <p class="text-slate-700 leading-relaxed mb-4">
-                        在這個數位時代，擁有自己的網站已經不再是大型企業的專利。根據 2026 年的市場調查，超過 <strong class="text-indigo-600">85%</strong> 的消費者會透過網路搜尋商家資訊，如果您的商家沒有架網站，就等於失去了大量的潛在客戶。對於小資商家而言，架網站不僅是品牌形象的建立，更是開拓新客源、降低行銷成本的重要工具。
-                    </p>
-                    <p class="text-slate-700 leading-relaxed mb-6">
-                        更重要的是，相比傳統的實體廣告（招牌、傳單、報紙廣告），架網站的成本更低、觸及範圍更廣，而且能夠 24 小時持續運作，為您帶來持續的曝光與商機。這也是為什麼越來越多的 small business 選擇投入網站建置，作為數位行銷的第一步。
-                    </p>
+                    <!-- 預設顯示的內容 -->
+                    <div class="article-preview">
+                        <h2 class="text-3xl font-bold text-slate-800 mb-4 mt-8">為什麼小資商家需要架網站？</h2>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            在這個數位時代，擁有自己的網站已經不再是大型企業的專利。根據 2026 年的市場調查，超過 <strong class="text-indigo-600">85%</strong> 的消費者會透過網路搜尋商家資訊，如果您的商家沒有架網站，就等於失去了大量的潛在客戶。對於小資商家而言，架網站不僅是品牌形象的建立，更是開拓新客源、降低行銷成本的重要工具。
+                        </p>
+                        <p class="text-slate-700 leading-relaxed mb-6">
+                            更重要的是，相比傳統的實體廣告（招牌、傳單、報紙廣告），架網站的成本更低、觸及範圍更廣，而且能夠 24 小時持續運作，為您帶來持續的曝光與商機。這也是為什麼越來越多的 small business 選擇投入網站建置，作為數位行銷的第一步。
+                        </p>
+                    </div>
                     
-                    <h2 class="text-3xl font-bold text-slate-800 mb-4 mt-8">架網站費用大解析：一次搞懂所有成本</h2>
+                    <!-- 可展開的內容 -->
+                    <div id="article-3-expandable" class="article-expandable" style="display: none;">
+                        <h2 class="text-3xl font-bold text-slate-800 mb-4 mt-8">架網站費用大解析：一次搞懂所有成本</h2>
                     <p class="text-slate-700 leading-relaxed mb-4">
                         許多人對架網站的第一個疑問就是：「網頁設計費用到底要多少？」其實，架網站的費用結構比想像中複雜，除了初始的網頁設計費用，還可能包含主機費用、域名費用、維護費用等。讓我們一一為您解析：
                     </p>
@@ -3134,6 +3161,12 @@
                             2026 年的網頁設計費用雖然因需求而異，但只要做好規劃，即使是預算有限的小資商家，也能用合理的價格架設出專業、有效的網站。記住，架網站不是一次性消費，而是長期投資，選擇值得信賴的設計師和適合的方案，才能讓每一分錢都發揮最大效益。
                         </p>
                     </div>
+                    </div>
+                    
+                    <!-- 顯示更多/更少按鈕 -->
+                    <button class="article-toggle-btn w-full mt-4 py-3 px-6 bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold rounded-xl transition-all duration-300 text-center" onclick="toggleArticle(this, 'article-3')">
+                        <span class="article-toggle-text">顯示更多 ↓</span>
+                    </button>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-200">
@@ -3863,6 +3896,50 @@
                 updateNavbar();
             }, 250);
         });
+        
+        // 文章展開/收起功能
+        function toggleArticle(button, articleId) {
+            const expandableId = articleId + '-expandable';
+            const expandableContent = document.getElementById(expandableId);
+            const toggleText = button.querySelector('.article-toggle-text');
+            
+            if (expandableContent && toggleText) {
+                // 檢查當前狀態：檢查 computed style 或直接檢查 display 屬性
+                const isHidden = expandableContent.style.display === 'none' || 
+                                 window.getComputedStyle(expandableContent).display === 'none';
+                
+                if (isHidden) {
+                    // 展開內容
+                    expandableContent.style.display = 'block';
+                    // 強制重排以觸發動畫
+                    expandableContent.offsetHeight;
+                    
+                    // 設置初始動畫狀態
+                    expandableContent.style.opacity = '0';
+                    expandableContent.style.transform = 'translateY(-10px)';
+                    expandableContent.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    
+                    // 觸發動畫
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            expandableContent.style.opacity = '1';
+                            expandableContent.style.transform = 'translateY(0)';
+                        });
+                    });
+                    
+                    toggleText.textContent = '顯示更少 ↑';
+                } else {
+                    // 收起內容
+                    expandableContent.style.opacity = '0';
+                    expandableContent.style.transform = 'translateY(-10px)';
+                    
+                    setTimeout(() => {
+                        expandableContent.style.display = 'none';
+                    }, 400);
+                    toggleText.textContent = '顯示更多 ↓';
+                }
+            }
+        }
     </script>
 
 </body>
