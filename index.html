@@ -1000,7 +1000,7 @@
         }
         
         .logo-letters {
-            transform-origin: center center;
+            transform-origin: 250px 100px;
         }
         
         .logo-letter {
@@ -1219,18 +1219,13 @@
             }
             
             .logo-svg {
-                viewBox: 0 0 350 150;
-            }
-            
-            /* 手機版字母位置調整 */
-            .logo-letters {
-                transform: scale(0.67) translate(0, -25px);
-                transform-origin: center center;
-            }
-            
-            /* 手機版 SVG viewBox 調整 */
-            .logo-svg {
                 viewBox: 0 0 500 200;
+            }
+            
+            /* 手機版字母位置調整 - 確保居中 */
+            .logo-letters {
+                transform: scale(0.65);
+                transform-origin: 250px 100px;
             }
             
             .logo-letter {
