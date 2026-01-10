@@ -71,14 +71,26 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     
-    <!-- Apple Touch Icon (使用 SVG data URI 避免 404) -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%234f46e5' rx='20'/%3E%3Ctext x='50%25' y='50%25' font-size='110' text-anchor='middle' dominant-baseline='middle' fill='white' font-family='Arial' font-weight='bold'%3EE%3C/text%3E%3C/svg%3E">
+    <!-- Favicon - 標準格式 (多種尺寸以確保兼容性) -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/logo.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/logo.png">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/logo.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/logo.png">
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileImage" content="/logo.png">
     
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json">
-    
-    <!-- Favicon (使用預設圖示，避免 404 錯誤) -->
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
     
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
