@@ -1236,16 +1236,18 @@
         }
         
         .navbar-logo img {
-            width: auto;
-            height: 36px; /* 調整高度為 30-40px 之間 (36px)，確保清晰可見 */
-            max-height: 40px;
-            min-height: 30px;
-            object-fit: contain;
-            display: block;
+            width: auto !important;
+            height: 36px !important; /* 強制設定高度為 36px，確保清晰可見 */
+            max-height: 36px !important;
+            min-height: 36px !important;
+            object-fit: contain !important;
+            display: block !important;
             transition: transform 0.3s ease;
             /* 確保透明背景 PNG 正確顯示 */
-            background: transparent;
+            background: transparent !important;
             mix-blend-mode: normal;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
         
         .navbar-logo:hover img {
@@ -1355,9 +1357,9 @@
             }
             
             .navbar-logo img {
-                height: 32px; /* 手機版調整高度為 30-40px 之間 (32px)，確保清晰可見 */
-                max-height: 40px;
-                min-height: 30px;
+                height: 36px !important; /* 手機版也強制設定為 36px，確保清晰可見 */
+                max-height: 36px !important;
+                min-height: 36px !important;
             }
             
             .navbar-brand-text {
