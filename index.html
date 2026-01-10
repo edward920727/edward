@@ -987,6 +987,7 @@
             align-items: center;
             will-change: transform;
             transform: translateZ(0);
+            margin: 0 auto;
         }
         
         .logo-svg {
@@ -1013,6 +1014,8 @@
         
         .logo-letters {
             transform-origin: 250px 100px;
+            width: 100%;
+            height: 100%;
         }
         
         .logo-letter {
@@ -1225,62 +1228,79 @@
         }
         
         @media (max-width: 640px) {
+            /* 手機版動畫覆蓋層優化 */
+            .logo-animation-overlay {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            
             .logo-container {
-                width: 350px;
-                height: 150px;
+                width: 90vw;
+                max-width: 350px;
+                height: auto;
+                aspect-ratio: 500 / 200;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto;
             }
             
             .logo-svg {
-                viewBox: 0 0 500 200;
+                width: 100%;
+                height: 100%;
+                max-width: 350px;
             }
             
-            /* 手機版字母位置調整 - 確保居中 */
+            /* 手機版字母位置調整 - 確保居中且不跑掉 */
             .logo-letters {
-                transform: scale(0.65);
+                transform: scale(0.7);
                 transform-origin: 250px 100px;
             }
             
             .logo-letter {
-                font-size: 80px;
-                stroke-width: 5;
+                font-size: 70px;
+                stroke-width: 4;
                 filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
             }
             
-            /* 手機版字母 dasharray 值調整 */
+            /* 手機版字母 dasharray 值調整 - 按比例縮小 */
             .letter-E {
-                stroke-dasharray: 267;
-                stroke-dashoffset: 267;
+                stroke-dasharray: 280;
+                stroke-dashoffset: 280;
             }
             
             .letter-d1 {
-                stroke-dasharray: 233;
-                stroke-dashoffset: 233;
+                stroke-dasharray: 245;
+                stroke-dashoffset: 245;
             }
             
             .letter-w {
-                stroke-dasharray: 300;
-                stroke-dashoffset: 300;
+                stroke-dasharray: 315;
+                stroke-dashoffset: 315;
             }
             
             .letter-a {
-                stroke-dasharray: 253;
-                stroke-dashoffset: 253;
+                stroke-dasharray: 266;
+                stroke-dashoffset: 266;
             }
             
             .letter-r {
-                stroke-dasharray: 213;
-                stroke-dashoffset: 213;
+                stroke-dasharray: 224;
+                stroke-dashoffset: 224;
             }
             
             .letter-d2 {
-                stroke-dasharray: 233;
-                stroke-dashoffset: 233;
+                stroke-dasharray: 245;
+                stroke-dashoffset: 245;
             }
             
             .logo-letter.filled {
                 filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8));
             }
-        }
             
             .navbar-logo svg {
                 width: 100px;
@@ -1318,9 +1338,58 @@
                 100% {
                     width: 400vw;
                     height: 400vh;
-                opacity: 0;
+                    opacity: 0;
                     filter: blur(60px);
                 }
+            }
+        }
+        
+        /* 超小螢幕優化 */
+        @media (max-width: 375px) {
+            .logo-container {
+                width: 95vw;
+                max-width: 320px;
+            }
+            
+            .logo-letters {
+                transform: scale(0.6);
+                transform-origin: 250px 100px;
+            }
+            
+            .logo-letter {
+                font-size: 60px;
+                stroke-width: 3.5;
+            }
+            
+            /* 超小螢幕字母 dasharray 值調整 */
+            .letter-E {
+                stroke-dasharray: 240;
+                stroke-dashoffset: 240;
+            }
+            
+            .letter-d1 {
+                stroke-dasharray: 210;
+                stroke-dashoffset: 210;
+            }
+            
+            .letter-w {
+                stroke-dasharray: 270;
+                stroke-dashoffset: 270;
+            }
+            
+            .letter-a {
+                stroke-dasharray: 228;
+                stroke-dashoffset: 228;
+            }
+            
+            .letter-r {
+                stroke-dasharray: 192;
+                stroke-dashoffset: 192;
+            }
+            
+            .letter-d2 {
+                stroke-dasharray: 210;
+                stroke-dashoffset: 210;
             }
         }
         
@@ -2653,21 +2722,32 @@
             // Logo 筆畫動畫序列（按字母順序依次出現）
             if (logoOverlay && logoSvg) {
                 const logoLetters = logoSvg.querySelectorAll('.logo-letter');
+                const isMobile = window.innerWidth <= 640;
                 
-                // 確保所有字母初始狀態正確
+                // 確保所有字母初始狀態正確（手機版特殊處理）
                 logoLetters.forEach(letter => {
                     letter.classList.remove('filled');
                     letter.style.willChange = 'stroke-dashoffset';
+                    // 重置動畫以確保每次都能正常觸發
+                    letter.style.animation = 'none';
+                    letter.style.opacity = '1';
                 });
                 
                 // 使用 requestAnimationFrame 確保動畫在下一幀開始
                 requestAnimationFrame(() => {
-                    // 強制觸發重排，確保動畫正常啟動
-                    logoLetters.forEach(letter => {
-                        void letter.offsetWidth;
-                    });
-                    
-                    // 步驟 1: 字母按順序繪製（E-d-w-a-r-d）
+                    requestAnimationFrame(() => {
+                        // 強制觸發重排，確保動畫正常啟動（手機版需要雙重重排）
+                        logoLetters.forEach(letter => {
+                            void letter.offsetWidth;
+                            // 重新觸發動畫（移除 inline style 讓 CSS 動畫生效）
+                            letter.style.animation = '';
+                        });
+                        
+                        // 確保 SVG 和容器都正確渲染
+                        void logoSvg.offsetWidth;
+                        void logoOverlay.offsetWidth;
+                        
+                        // 步驟 1: 字母按順序繪製（E-d-w-a-r-d）
                     // CSS 動畫會自動處理，每個字母有不同的延遲時間
                     // E: 0s, d1: 0.4s, w: 0.8s, a: 1.3s, r: 1.7s, d2: 2s
                     // 最後一個字母 d2 在 2.6 秒完成（2s 延遲 + 0.6s 動畫）
@@ -2751,7 +2831,8 @@
                             }, 600); // 等待填充動畫完成（0.5秒動畫 + 0.1秒緩衝）
                         });
                     }, 2700); // 等待所有字母繪製完成（最後一個字母 2.6 秒完成 + 0.1 秒緩衝）
-                });
+                    }); // 關閉第二個 requestAnimationFrame
+                }); // 關閉第一個 requestAnimationFrame
                 } else {
                 // 如果沒有 Logo 動畫元素，直接顯示內容
                 if (navbarLogo) {
