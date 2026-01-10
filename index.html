@@ -71,24 +71,25 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     
-    <!-- Favicon - 使用 logo.png (多種尺寸以確保兼容性) -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+    <!-- Favicon - 標準設定 (優先使用 favicon.png 和 favicon.ico) -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <!-- Favicon - 多種尺寸以確保兼容性 (備用) -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/logo.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/logo.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/logo.png">
-    <link rel="shortcut icon" type="image/png" href="/logo.png">
-    <!-- 預設 favicon (備用) -->
-    <link rel="icon" type="image/png" href="/logo.png">
     
     <!-- Apple Touch Icon (iOS 主畫面圖示) -->
+    <link rel="apple-touch-icon" href="/logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/logo.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/logo.png">
     <link rel="apple-touch-icon" sizes="76x76" href="/logo.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/logo.png">
-    <!-- 預設 Apple Touch Icon -->
-    <link rel="apple-touch-icon" href="/logo.png">
     
     <!-- Microsoft Tiles (Windows 開始畫面) -->
     <meta name="msapplication-TileImage" content="/logo.png">
@@ -1236,10 +1237,15 @@
         
         .navbar-logo img {
             width: auto;
-            height: 24px; /* 調整高度讓圖片中的 ED 文字與導覽列字體大小一致 (約 16-18px 文字高度) */
+            height: 36px; /* 調整高度為 30-40px 之間 (36px)，確保清晰可見 */
+            max-height: 40px;
+            min-height: 30px;
             object-fit: contain;
             display: block;
             transition: transform 0.3s ease;
+            /* 確保透明背景 PNG 正確顯示 */
+            background: transparent;
+            mix-blend-mode: normal;
         }
         
         .navbar-logo:hover img {
@@ -1349,7 +1355,9 @@
             }
             
             .navbar-logo img {
-                height: 20px; /* 手機版調整高度，讓 ED 文字與導覽列字體大小一致 (約 14-16px 文字高度) */
+                height: 32px; /* 手機版調整高度為 30-40px 之間 (32px)，確保清晰可見 */
+                max-height: 40px;
+                min-height: 30px;
             }
             
             .navbar-brand-text {
