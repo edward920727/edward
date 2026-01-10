@@ -986,10 +986,21 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* 確保 SVG 在手機版正常渲染 */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* 手機版 SVG 優化 */
+        @media (max-width: 640px) {
+            .logo-svg {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
         }
         
         .logo-text {
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 900;
             font-size: 120px;
             fill: none;
@@ -1003,6 +1014,11 @@
             filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
             will-change: stroke-dashoffset;
             transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            /* 確保文字在手機版正確渲染 */
+            text-rendering: geometricPrecision;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         @keyframes drawText {
@@ -1157,11 +1173,58 @@
             .logo-text {
                 font-size: 80px;
                 stroke-width: 5;
+                stroke-dasharray: 1333;
+                stroke-dashoffset: 1333;
+                fill: none;
+                stroke: url(#logoGradient);
                 filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+                animation: drawTextMobile 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+                will-change: stroke-dashoffset;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
+            
+            @keyframes drawTextMobile {
+                0% {
+                    stroke-dashoffset: 1333;
+                }
+                100% {
+                    stroke-dashoffset: 0;
+                }
             }
             
             .logo-text.filled {
+                fill: url(#logoGradient);
+                stroke: url(#logoGradient);
+                stroke-width: 0;
+                stroke-dasharray: none;
+                stroke-dashoffset: 0;
+                animation: fillTextMobile 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
                 filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8));
+                will-change: fill-opacity, filter;
+            }
+            
+            @keyframes fillTextMobile {
+                0% {
+                    fill: transparent;
+                    stroke: url(#logoGradient);
+                    fill-opacity: 0;
+                    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+                }
+                40% {
+                    fill-opacity: 0.4;
+                    filter: drop-shadow(0 0 18px rgba(99, 102, 241, 0.65));
+                }
+                70% {
+                    fill-opacity: 0.7;
+                    filter: drop-shadow(0 0 19px rgba(99, 102, 241, 0.75));
+                }
+                100% {
+                    fill: url(#logoGradient);
+                    fill-opacity: 1;
+                    stroke: url(#logoGradient);
+                    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8));
+                }
             }
             
             .navbar-logo svg {
@@ -2524,19 +2587,63 @@
                 }, 800);
             }
             
-            // Logo 筆畫動畫序列（優化版，使用 requestAnimationFrame 確保流暢）
+            // Logo 筆畫動畫序列（優化版，使用 requestAnimationFrame 確保流暢，支援手機版）
             if (logoOverlay && logoSvg) {
                 const logoText = logoSvg.querySelector('.logo-text');
                 
+                // 檢測是否為手機版
+                const isMobile = window.innerWidth <= 640;
+                
+                // 確保 SVG 元素可見（手機版特殊處理）
+                if (logoText) {
+                    // 強制觸發重繪，確保動畫能正常啟動（特別是手機版）
+                    logoText.style.opacity = '0';
+                    void logoText.offsetWidth; // 觸發重排
+                    logoText.style.opacity = '';
+                    
+                    // 移除可能存在的 filled 類，確保從初始狀態開始
+                    logoText.classList.remove('filled');
+                    
+                    // 如果是手機版，確保 stroke-dasharray 值正確
+                    if (isMobile) {
+                        logoText.style.strokeDasharray = '1333';
+                        logoText.style.strokeDashoffset = '1333';
+                    } else {
+                        logoText.style.strokeDasharray = '2000';
+                        logoText.style.strokeDashoffset = '2000';
+                    }
+                    
+                    // 觸發重排，確保樣式應用
+                    void logoText.offsetWidth;
+                }
+                
                 // 使用 requestAnimationFrame 確保動畫在下一幀開始
                 requestAnimationFrame(() => {
+                    // 再次使用 requestAnimationFrame 確保動畫在正確的時機開始
+                    requestAnimationFrame(() => {
+                        if (logoText) {
+                            // 確保動畫屬性正確設置
+                            logoText.style.willChange = 'stroke-dashoffset';
+                        }
+                    });
+                    
                     // 步驟 1: 繪製文字線條（2.5秒，由 CSS 動畫控制，已優化）
+                    // 手機版會自動使用 drawTextMobile，桌面版使用 drawText
                     
                     // 步驟 2: 線條完成後，填充顏色（2.5秒後）
                     setTimeout(() => {
                         requestAnimationFrame(() => {
                             if (logoText) {
+                                // 移除之前的 filled 類，重新觸發填充動畫
+                                logoText.classList.remove('filled');
+                                void logoText.offsetWidth; // 觸發重排
+                                
+                                // 添加填充類，觸發填充動畫（CSS 會自動處理手機版）
                                 logoText.classList.add('filled');
+                                
+                                // 設置 will-change 為填充相關屬性
+                                logoText.style.willChange = 'fill-opacity, filter';
+                                
                                 logoSvg.classList.add('animate-fill');
                             }
                             
