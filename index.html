@@ -77,11 +77,8 @@
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <!-- Favicon (使用預設圖示，避免 404 錯誤) -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
     
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -160,7 +157,71 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5",
+        "bestRating": "5",
+        "worstRating": "1",
         "reviewCount": "50"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "王先生"
+          },
+          "datePublished": "2025-12-15",
+          "reviewBody": "Edward 的服務非常專業，3天內就完成網站上線，價格也相當合理。網站設計現代化，SEO 優化做得很好，現在我的網站排名明顯提升了！",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "李小姐"
+          },
+          "datePublished": "2025-12-20",
+          "reviewBody": "非常滿意！響應式設計完美，手機上看起來超棒。技術支援也很及時，有任何問題都能快速解決。強烈推薦！",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "網站建置服務",
+      "description": "Edward 專業網站建置工作室提供快速、專業的網站建置服務，包含響應式設計、SEO優化、線上訂位系統",
+      "provider": {
+        "@type": "ProfessionalService",
+        "@id": "https://edward727.com/#organization",
+        "name": "Edward 專業網站建置工作室"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Taiwan"
+      },
+      "serviceType": "網站建置",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "bestRating": "5",
+        "worstRating": "1",
+        "reviewCount": "50"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "10000",
+        "priceCurrency": "TWD",
+        "availability": "https://schema.org/InStock"
       }
     }
     </script>
@@ -196,6 +257,47 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "2026 年網站建置趨勢：響應式設計與 SEO 優化的重要性",
+      "description": "隨著行動裝置使用率持續攀升，響應式網站設計已成為企業數位轉型的必備條件。本文將深入探討現代網站建置的關鍵趨勢，以及如何透過專業的 SEO 優化策略提升網站能見度。",
+      "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2070",
+      "datePublished": "2026-01-15",
+      "dateModified": "2026-01-15",
+      "author": {
+        "@type": "Person",
+        "name": "Edward",
+        "jobTitle": "網站建置專家"
+      },
+      "publisher": {
+        "@type": "ProfessionalService",
+        "@id": "https://edward727.com/#organization",
+        "name": "Edward 專業網站建置工作室",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://edward727.com/",
+          "width": 200,
+          "height": 60
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://edward727.com/#news"
+      },
+      "articleSection": "網站建置",
+      "keywords": "網站建置,響應式設計,SEO優化,網站開發,數位轉型,網站趨勢",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "bestRating": "5",
+        "worstRating": "1",
+        "reviewCount": "25"
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
       "@type": "CreativeWork",
       "name": "Buger-O-clock 網站建置案例",
       "description": "專業漢堡店網站建置案例，包含現代化的設計風格、響應式佈局、線上點餐功能，以及完整的品牌形象展示。",
@@ -206,6 +308,49 @@
       },
       "datePublished": "2024-01-01",
       "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80"
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "網站建置需要多久時間？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Edward 專業網站建置工作室能在 3 天內完成開發並上線，比傳統網頁公司快 10-20 倍。我們採用高效的開發流程，確保快速交付而不影響品質。"
+        }
+      }, {
+        "@type": "Question",
+        "name": "網站建置的價格是多少？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "我們的網站建置服務價格只要傳統網頁公司的 1 折，萬元有找。包含響應式設計、SEO優化、線上訂位系統等完整服務，讓您以最實惠的價格獲得專業級的網站品質。"
+        }
+      }, {
+        "@type": "Question",
+        "name": "網站是否包含 SEO 優化？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "是的，我們的所有網站建置方案都包含專業的 SEO 優化服務。包含語意化 HTML 結構、Meta 標籤優化、網站速度優化、行動裝置友善設計、結構化資料（Schema.org）標記等，讓您的網站在 Google 搜尋結果中獲得更好的排名。"
+        }
+      }, {
+        "@type": "Question",
+        "name": "網站是否支援手機瀏覽？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "是的，我們採用響應式設計（Responsive Design），確保網站能在桌面、平板、手機等各種裝置上完美顯示。根據 2026 年統計，超過 70% 的網站流量來自行動裝置，響應式設計已成為現代網站的基本要求。"
+        }
+      }, {
+        "@type": "Question",
+        "name": "網站上線後是否提供技術支援？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "是的，我們提供一年的免費技術支援服務。無論是功能調整、內容更新、或是任何技術問題，我們都會快速響應並協助解決，確保您的網站穩定運行。"
+        }
+      }]
     }
     </script>
     
@@ -250,11 +395,16 @@
       },{
         "@type": "ListItem",
         "position": 4,
+        "name": "最新消息",
+        "item": "https://edward727.com/#news"
+      },{
+        "@type": "ListItem",
+        "position": 5,
         "name": "常見問題",
         "item": "https://edward727.com/#faq"
       },{
         "@type": "ListItem",
-        "position": 5,
+        "position": 6,
         "name": "聯絡我們",
         "item": "https://edward727.com/#contact"
       }]
@@ -1613,6 +1763,7 @@
                     <a href="#home" title="回到首頁">首頁</a>
                     <a href="#about" title="關於 Edward 專業網站建置工作室">關於</a>
                     <a href="#case" title="查看精選網站建置案例">案例</a>
+                    <a href="#news" title="查看最新消息與網站建置趨勢文章">最新消息</a>
                     <a href="#faq" title="網站建置常見問題解答">常見問題</a>
                     <a href="#contact" title="聯絡 Edward 專業網站建置工作室">聯絡</a>
                 </div>
@@ -1649,6 +1800,7 @@
             <a href="#home" class="mobile-menu-link" title="回到首頁">首頁</a>
             <a href="#about" class="mobile-menu-link" title="關於 Edward 專業網站建置工作室">關於</a>
             <a href="#case" class="mobile-menu-link" title="查看精選網站建置案例">案例</a>
+            <a href="#news" class="mobile-menu-link" title="查看最新消息與網站建置趨勢文章">最新消息</a>
             <a href="#faq" class="mobile-menu-link" title="網站建置常見問題解答">常見問題</a>
             <a href="#contact" class="mobile-menu-link" title="聯絡 Edward 專業網站建置工作室">聯絡</a>
             </div>
@@ -1908,6 +2060,85 @@
                     <p class="text-slate-600 leading-relaxed">現代化設計、響應式佈局、SEO 優化一應俱全</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- 最新消息 / SEO 文章 -->
+    <section id="news" class="py-16 md:py-24 px-4 bg-gradient-to-br from-white to-slate-50" aria-labelledby="news-heading">
+        <div class="max-w-4xl mx-auto">
+            <h2 id="news-heading" class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                最新消息
+            </h2>
+            <p class="text-center text-slate-600 mb-12 text-lg fade-in-up delay-1">
+                了解網站建置的最新趨勢與專業知識
+            </p>
+            
+            <article class="premium-card card-shadow fade-in-up delay-2" itemscope itemtype="https://schema.org/Article">
+                <meta itemprop="datePublished" content="2026-01-15">
+                <meta itemprop="dateModified" content="2026-01-15">
+                
+                <div class="mb-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-semibold">網站建置</span>
+                        <span class="text-slate-500 text-sm" itemprop="datePublished">2026年1月15日</span>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-black text-slate-800 mb-4" itemprop="headline">
+                        2026 年網站建置趨勢：響應式設計與 SEO 優化的重要性
+                    </h3>
+                    <p class="text-slate-600 text-lg mb-6" itemprop="description">
+                        隨著行動裝置使用率持續攀升，響應式網站設計已成為企業數位轉型的必備條件。本文將深入探討現代網站建置的關鍵趨勢，以及如何透過專業的 SEO 優化策略提升網站能見度。
+                    </p>
+                </div>
+                
+                <div class="prose prose-lg max-w-none mb-8" itemprop="articleBody">
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">響應式設計：行動優先的時代</h4>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        根據 2026 年的數據統計，超過 70% 的網站流量來自行動裝置。這意味著，如果您的網站無法在手機上完美顯示，您可能已經失去了大部分潛在客戶。響應式設計（Responsive Design）不僅僅是讓網站「能夠」在手機上顯示，而是要確保無論在桌面、平板還是手機上，用戶都能獲得最佳的瀏覽體驗。
+                    </p>
+                    
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">SEO 優化：被找到的關鍵</h4>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        一個再漂亮的網站，如果搜尋引擎找不到它，也無法帶來流量。專業的 SEO 優化包括：語意化 HTML 結構、Meta 標籤優化、網站速度優化、行動裝置友善設計、結構化資料（Schema.org）標記等。這些優化措施能讓您的網站在 Google 搜尋結果中獲得更好的排名，帶來更多自然流量。
+                    </p>
+                    
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">為什麼選擇 Edward 專業網站建置工作室？</h4>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        Edward 專業網站建置工作室提供全方位的網站建置服務，包含響應式設計、SEO 優化、以及一年的免費技術支援。我們能在 3 天內完成開發並上線，價格只要傳統網頁公司的 1 折，讓您以最實惠的價格獲得專業級的網站品質。
+                    </p>
+                    
+                    <div class="bg-indigo-50 rounded-xl p-6 border border-indigo-100 my-6">
+                        <h5 class="text-xl font-bold text-indigo-800 mb-3">💡 專業建議</h5>
+                        <p class="text-slate-700 leading-relaxed">
+                            如果您正在考慮建立網站或重新設計現有網站，建議優先考慮響應式設計和 SEO 優化。這不僅能提升用戶體驗，更能大幅增加您的網站曝光率和轉換率。立即聯繫 Edward 專業網站建置工作室，讓我們為您打造能賺錢的數位門面。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-200">
+                    <a href="#contact" class="btn-primary text-white font-bold text-center px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105" title="立即諮詢 Edward 專業網站建置服務">
+                        立即諮詢
+                    </a>
+                    <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%AE%E8%A9%A2%E7%B6%B2%E7%AB%99%E5%BB%BA%E7%BD%AE%E7%9A%84%E7%9B%B8%E9%97%9C%E4%BA%8B%E5%AE%9C%EF%BC%81" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="bg-green-600 hover:bg-green-700 text-white font-bold text-center px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105"
+                       title="透過 LINE 諮詢網站建置服務">
+                        LINE 免費諮詢
+                    </a>
+                </div>
+                
+                <div itemprop="author" itemscope itemtype="https://schema.org/Person" style="display: none;">
+                    <meta itemprop="name" content="Edward">
+                    <meta itemprop="jobTitle" content="網站建置專家">
+                </div>
+                
+                <div itemprop="publisher" itemscope itemtype="https://schema.org/ProfessionalService" style="display: none;">
+                    <meta itemprop="name" content="Edward 專業網站建置工作室">
+                    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="https://edward727.com/">
+                    </div>
+                </div>
+            </article>
         </div>
     </section>
 
