@@ -999,7 +999,11 @@
             }
         }
         
-        .logo-text {
+        .logo-letters {
+            transform-origin: center center;
+        }
+        
+        .logo-letter {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 900;
             font-size: 120px;
@@ -1008,41 +1012,85 @@
             stroke-width: 6;
             stroke-linecap: round;
             stroke-linejoin: round;
-            stroke-dasharray: 2000;
-            stroke-dashoffset: 2000;
-            animation: drawText 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
-            will-change: stroke-dashoffset;
+            will-change: stroke-dashoffset, fill-opacity, opacity;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
-            /* 確保文字在手機版正確渲染 */
             text-rendering: geometricPrecision;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
         
-        @keyframes drawText {
+        /* 每個字母按照順序出現 */
+        .letter-E {
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: drawLetter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0s;
+        }
+        
+        .letter-d1 {
+            stroke-dasharray: 350;
+            stroke-dashoffset: 350;
+            animation: drawLetter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.4s;
+        }
+        
+        .letter-w {
+            stroke-dasharray: 450;
+            stroke-dashoffset: 450;
+            animation: drawLetter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.8s;
+        }
+        
+        .letter-a {
+            stroke-dasharray: 380;
+            stroke-dashoffset: 380;
+            animation: drawLetter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 1.3s;
+        }
+        
+        .letter-r {
+            stroke-dasharray: 320;
+            stroke-dashoffset: 320;
+            animation: drawLetter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 1.7s;
+        }
+        
+        .letter-d2 {
+            stroke-dasharray: 350;
+            stroke-dashoffset: 350;
+            animation: drawLetter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 2s;
+        }
+        
+        @keyframes drawLetter {
             0% {
-                stroke-dashoffset: 2000;
+                opacity: 0;
+                stroke-dashoffset: var(--dash-offset, 400);
+            }
+            1% {
+                opacity: 1;
             }
             100% {
+                opacity: 1;
                 stroke-dashoffset: 0;
             }
         }
         
-        .logo-text.filled {
+        /* 字母繪製完成後的填充效果 */
+        .logo-letter.filled {
             fill: url(#logoGradient);
             stroke: url(#logoGradient);
             stroke-width: 0;
-            animation: fillText 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8));
-            will-change: fill-opacity, filter;
+            stroke-dasharray: none;
+            stroke-dashoffset: 0;
+            animation: fillLetter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         
-        @keyframes fillText {
+        @keyframes fillLetter {
             0% {
                 fill: transparent;
-                stroke: url(#logoGradient);
                 fill-opacity: 0;
                 filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
             }
@@ -1057,10 +1105,10 @@
             100% {
                 fill: url(#logoGradient);
                 fill-opacity: 1;
-                stroke: url(#logoGradient);
                 filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8));
             }
         }
+        
         
         .logo-svg.animate-draw {
             animation: none;
@@ -1170,62 +1218,62 @@
                 height: 150px;
             }
             
-            .logo-text {
+            .logo-svg {
+                viewBox: 0 0 350 150;
+            }
+            
+            /* 手機版字母位置調整 */
+            .logo-letters {
+                transform: scale(0.67) translate(0, -25px);
+                transform-origin: center center;
+            }
+            
+            /* 手機版 SVG viewBox 調整 */
+            .logo-svg {
+                viewBox: 0 0 500 200;
+            }
+            
+            .logo-letter {
                 font-size: 80px;
                 stroke-width: 5;
-                stroke-dasharray: 1333;
-                stroke-dashoffset: 1333;
-                fill: none;
-                stroke: url(#logoGradient);
                 filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
-                animation: drawTextMobile 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-                will-change: stroke-dashoffset;
-                transform: translateZ(0);
-                -webkit-transform: translateZ(0);
             }
             
-            @keyframes drawTextMobile {
-                0% {
-                    stroke-dashoffset: 1333;
-                }
-                100% {
-                    stroke-dashoffset: 0;
-                }
+            /* 手機版字母 dasharray 值調整 */
+            .letter-E {
+                stroke-dasharray: 267;
+                stroke-dashoffset: 267;
             }
             
-            .logo-text.filled {
-                fill: url(#logoGradient);
-                stroke: url(#logoGradient);
-                stroke-width: 0;
-                stroke-dasharray: none;
-                stroke-dashoffset: 0;
-                animation: fillTextMobile 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            .letter-d1 {
+                stroke-dasharray: 233;
+                stroke-dashoffset: 233;
+            }
+            
+            .letter-w {
+                stroke-dasharray: 300;
+                stroke-dashoffset: 300;
+            }
+            
+            .letter-a {
+                stroke-dasharray: 253;
+                stroke-dashoffset: 253;
+            }
+            
+            .letter-r {
+                stroke-dasharray: 213;
+                stroke-dashoffset: 213;
+            }
+            
+            .letter-d2 {
+                stroke-dasharray: 233;
+                stroke-dashoffset: 233;
+            }
+            
+            .logo-letter.filled {
                 filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8));
-                will-change: fill-opacity, filter;
             }
-            
-            @keyframes fillTextMobile {
-                0% {
-                    fill: transparent;
-                    stroke: url(#logoGradient);
-                    fill-opacity: 0;
-                    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
-                }
-                40% {
-                    fill-opacity: 0.4;
-                    filter: drop-shadow(0 0 18px rgba(99, 102, 241, 0.65));
-                }
-                70% {
-                    fill-opacity: 0.7;
-                    filter: drop-shadow(0 0 19px rgba(99, 102, 241, 0.75));
-                }
-                100% {
-                    fill: url(#logoGradient);
-                    fill-opacity: 1;
-                    stroke: url(#logoGradient);
-                    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8));
-                }
-            }
+        }
             
             .navbar-logo svg {
                 width: 100px;
@@ -1263,7 +1311,7 @@
                 100% {
                     width: 400vw;
                     height: 400vh;
-                    opacity: 0;
+                opacity: 0;
                     filter: blur(60px);
                 }
             }
@@ -1303,7 +1351,7 @@
         }
         
         .hamburger span:nth-child(2) {
-            opacity: 1;
+                opacity: 1;
             transform: scaleX(1);
         }
         
@@ -1509,15 +1557,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-                opacity: 0;
+            opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease 0.4s, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
-            }
+        }
         
         .mobile-menu.active .mobile-menu-header h3 {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            opacity: 1;
+            transform: translateY(0);
+        }
         
         /* 選單項目 - 特大號標題感 */
         .mobile-menu-links {
@@ -1688,7 +1736,7 @@
         }
         
         .fade-in-up.visible {
-            opacity: 1;
+                opacity: 1;
             transform: translateY(0) translateZ(0);
         }
         
@@ -1891,7 +1939,15 @@
                         <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
                     </linearGradient>
                 </defs>
-                <text class="logo-text" x="50%" y="50%" text-anchor="middle" dominant-baseline="central">Edward</text>
+                <!-- 將 Edward 分成單獨字母，按順序出現 -->
+                <g class="logo-letters" transform="translate(250, 100)">
+                    <text class="logo-letter letter-E" x="-200" y="0" text-anchor="middle" dominant-baseline="central">E</text>
+                    <text class="logo-letter letter-d1" x="-130" y="0" text-anchor="middle" dominant-baseline="central">d</text>
+                    <text class="logo-letter letter-w" x="-60" y="0" text-anchor="middle" dominant-baseline="central">w</text>
+                    <text class="logo-letter letter-a" x="20" y="0" text-anchor="middle" dominant-baseline="central">a</text>
+                    <text class="logo-letter letter-r" x="80" y="0" text-anchor="middle" dominant-baseline="central">r</text>
+                    <text class="logo-letter letter-d2" x="140" y="0" text-anchor="middle" dominant-baseline="central">d</text>
+                </g>
             </svg>
             </div>
         </div>
@@ -2092,7 +2148,7 @@
                                  alt="Buger-O-clock 漢堡店網站案例 - Edward 專業網站建置作品展示，包含響應式設計、線上點餐系統、現代化 UI" 
                                  class="w-full h-[400px] md:h-[500px] object-cover"
                                  loading="lazy"
-                                 width="1200"
+                             width="1200"
                                  height="800">
                     </a>
                         </div>
@@ -2587,67 +2643,44 @@
                 }, 800);
             }
             
-            // Logo 筆畫動畫序列（優化版，使用 requestAnimationFrame 確保流暢，支援手機版）
+            // Logo 筆畫動畫序列（按字母順序依次出現）
             if (logoOverlay && logoSvg) {
-                const logoText = logoSvg.querySelector('.logo-text');
+                const logoLetters = logoSvg.querySelectorAll('.logo-letter');
                 
-                // 檢測是否為手機版
-                const isMobile = window.innerWidth <= 640;
-                
-                // 確保 SVG 元素可見（手機版特殊處理）
-                if (logoText) {
-                    // 強制觸發重繪，確保動畫能正常啟動（特別是手機版）
-                    logoText.style.opacity = '0';
-                    void logoText.offsetWidth; // 觸發重排
-                    logoText.style.opacity = '';
-                    
-                    // 移除可能存在的 filled 類，確保從初始狀態開始
-                    logoText.classList.remove('filled');
-                    
-                    // 如果是手機版，確保 stroke-dasharray 值正確
-                    if (isMobile) {
-                        logoText.style.strokeDasharray = '1333';
-                        logoText.style.strokeDashoffset = '1333';
-                    } else {
-                        logoText.style.strokeDasharray = '2000';
-                        logoText.style.strokeDashoffset = '2000';
-                    }
-                    
-                    // 觸發重排，確保樣式應用
-                    void logoText.offsetWidth;
-                }
+                // 確保所有字母初始狀態正確
+                logoLetters.forEach(letter => {
+                    letter.classList.remove('filled');
+                    letter.style.willChange = 'stroke-dashoffset';
+                });
                 
                 // 使用 requestAnimationFrame 確保動畫在下一幀開始
                 requestAnimationFrame(() => {
-                    // 再次使用 requestAnimationFrame 確保動畫在正確的時機開始
-                    requestAnimationFrame(() => {
-                        if (logoText) {
-                            // 確保動畫屬性正確設置
-                            logoText.style.willChange = 'stroke-dashoffset';
-                        }
+                    // 強制觸發重排，確保動畫正常啟動
+                    logoLetters.forEach(letter => {
+                        void letter.offsetWidth;
                     });
                     
-                    // 步驟 1: 繪製文字線條（2.5秒，由 CSS 動畫控制，已優化）
-                    // 手機版會自動使用 drawTextMobile，桌面版使用 drawText
+                    // 步驟 1: 字母按順序繪製（E-d-w-a-r-d）
+                    // CSS 動畫會自動處理，每個字母有不同的延遲時間
+                    // E: 0s, d1: 0.4s, w: 0.8s, a: 1.3s, r: 1.7s, d2: 2s
+                    // 最後一個字母 d2 在 2.6 秒完成（2s 延遲 + 0.6s 動畫）
                     
-                    // 步驟 2: 線條完成後，填充顏色（2.5秒後）
+                    // 步驟 2: 所有字母繪製完成後，統一填充顏色（約 2.7 秒後）
                     setTimeout(() => {
                         requestAnimationFrame(() => {
-                            if (logoText) {
-                                // 移除之前的 filled 類，重新觸發填充動畫
-                                logoText.classList.remove('filled');
-                                void logoText.offsetWidth; // 觸發重排
-                                
-                                // 添加填充類，觸發填充動畫（CSS 會自動處理手機版）
-                                logoText.classList.add('filled');
-                                
-                                // 設置 will-change 為填充相關屬性
-                                logoText.style.willChange = 'fill-opacity, filter';
-                                
-                                logoSvg.classList.add('animate-fill');
-                            }
+                            // 為所有字母添加填充效果
+                            logoLetters.forEach((letter, index) => {
+                                setTimeout(() => {
+                                    requestAnimationFrame(() => {
+                                        letter.classList.add('filled');
+                                        letter.style.willChange = 'fill-opacity, filter';
+                                    });
+                                }, index * 50); // 每個字母略微錯開，創造流暢的填充效果
+                            });
                             
-                            // 步驟 3: 填充完成後，縮小並移動到左上角，同時觸發水波紋（3秒後）
+                            logoSvg.classList.add('animate-fill');
+                            
+                            // 步驟 3: 填充完成後（約 0.5 秒），縮小並移動到左上角，同時觸發水波紋
                             setTimeout(() => {
                                 requestAnimationFrame(() => {
                                     // 計算目標位置（左上角導覽列位置）
@@ -2689,7 +2722,7 @@
                                         }
                                     });
                                     
-                                    // 步驟 4: 移動完成後，顯示左上角 Logo 並淡入網頁內容（4.2秒後）
+                                    // 步驟 4: 移動完成後，顯示左上角 Logo 並淡入網頁內容
                                     setTimeout(() => {
                                         requestAnimationFrame(() => {
                                             if (navbarLogo) {
@@ -2708,9 +2741,9 @@
                                         });
                                     }, 1000);
                                 });
-                            }, 500);
+                            }, 600); // 等待填充動畫完成（0.5秒動畫 + 0.1秒緩衝）
                         });
-                    }, 2500);
+                    }, 2700); // 等待所有字母繪製完成（最後一個字母 2.6 秒完成 + 0.1 秒緩衝）
                 });
                 } else {
                 // 如果沒有 Logo 動畫元素，直接顯示內容
@@ -2901,7 +2934,7 @@
                 if (entry.isIntersecting) {
                     // 使用 requestAnimationFrame 確保動畫在下一幀執行，提升流暢度
                     requestAnimationFrame(() => {
-                        entry.target.classList.add('visible');
+                    entry.target.classList.add('visible');
                     });
                     // 動畫觸發後停止觀察，提升性能
                     observer.unobserve(entry.target);
