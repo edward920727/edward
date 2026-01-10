@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://edward920727.github.io/sitemap.xml
+Sitemap: https://edward727.com/sitemap.xml
 
 # 允許所有搜尋引擎爬取
 User-agent: Googlebot
