@@ -891,7 +891,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100% !important;
             height: 100%;
             background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
             z-index: 10001;
@@ -900,7 +900,7 @@
             align-items: center;
             opacity: 1;
             visibility: visible;
-            overflow: visible;
+            overflow: hidden; /* 改為 hidden，防止內容超出爆版 */
             will-change: opacity, transform;
             transform: translateZ(0);
             backface-visibility: hidden;
@@ -908,6 +908,10 @@
             /* 確保在所有裝置上完美居中 */
             padding: 0;
             margin: 0;
+            box-sizing: border-box;
+            /* 確保父容器寬度正確 */
+            right: 0;
+            bottom: 0;
         }
         
         .logo-animation-overlay.hidden {
@@ -1014,6 +1018,9 @@
             right: auto;
             margin-left: auto;
             margin-right: auto;
+            /* 確保父容器寬度正確 */
+            max-width: 100%;
+            box-sizing: border-box;
         }
         
         .logo-svg {
@@ -1291,24 +1298,25 @@
             color: #4f46e5;
         }
         
-        @media (max-width: 640px) {
-            /* 手機版動畫覆蓋層優化 - 完美居中 */
+        @media (max-width: 768px) {
+            /* 手機版動畫覆蓋層優化 - 完美居中，防止爆版 */
             .logo-animation-overlay {
                 display: flex !important;
                 justify-content: center !important;
                 align-items: center !important;
-                padding: 20px;
+                padding: 10px !important;
                 box-sizing: border-box;
-                overflow: visible;
-                /* 強制居中 */
+                overflow: hidden !important; /* 防止內容超出爆版 */
+                width: 100% !important;
+                /* 確保完美居中 */
                 left: 0 !important;
                 right: 0 !important;
                 margin: 0 !important;
             }
             
             .logo-container {
-                width: calc(100vw - 40px);
-                max-width: 420px;
+                width: 100% !important;
+                max-width: min(90vw, 380px) !important; /* 使用 min() 確保不會超出螢幕，防止 E 被切掉 */
                 height: auto;
                 aspect-ratio: 500 / 200;
                 position: relative;
@@ -1316,72 +1324,77 @@
                 justify-content: center !important;
                 align-items: center !important;
                 margin: 0 auto !important;
-                overflow: visible;
+                overflow: hidden !important; /* 防止內容超出爆版 */
                 padding: 0 !important;
                 box-sizing: border-box;
-                /* 確保完美居中 - 移除所有可能導致偏移的屬性 */
+                /* 使用 flexbox 居中，確保完美水平垂直居中 */
                 left: auto !important;
                 right: auto !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
+                /* 只保留 GPU 加速，避免衝突 */
+                transform: translateZ(0) !important;
             }
             
             .logo-svg {
                 width: 100% !important;
                 height: 100% !important;
-                max-width: 420px;
-                overflow: visible;
+                max-width: 100% !important;
+                overflow: hidden !important; /* 防止內容超出 */
                 /* 確保 SVG 完美居中 */
                 margin: 0 auto !important;
                 display: block;
                 position: relative;
             }
             
-            /* 手機版字母位置調整 - 完美居中，移除所有偏移 */
+            /* 手機版字母位置調整 - 響應式縮小，確保完整顯示並完美居中 */
             .logo-letters {
-                transform: scale(0.65) !important;
-                /* 因為字母組已經 translate(250, 100) 到 SVG 中心，所以使用 center center 作為縮放基準 */
+                transform: scale(0.52) !important; /* 縮小到 0.52，確保完整顯示且居中 */
                 transform-origin: center center !important;
-                /* 確保字母組完美居中 */
-                margin: 0;
-                display: block;
+                /* 確保字母組完美居中，移除所有偏移 */
+                margin: 0 !important;
+                display: block !important;
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
             }
             
             .logo-letter {
-                font-size: 70px;
-                stroke-width: 4;
-                filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+                font-size: 52px !important; /* 響應式縮小字體，確保完整顯示 */
+                stroke-width: 3.5 !important;
+                filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.5));
             }
             
-            /* 手機版字母 dasharray 值調整 - 按比例縮小 */
+            /* 手機版字母 dasharray 值調整 - 按比例縮小（配合縮小後的字體 52px） */
             .letter-E {
-                stroke-dasharray: 280;
-                stroke-dashoffset: 280;
+                stroke-dasharray: 173; /* 400 * (52/120) ≈ 173 */
+                stroke-dashoffset: 173;
             }
             
             .letter-d1 {
-                stroke-dasharray: 245;
-                stroke-dashoffset: 245;
+                stroke-dasharray: 152; /* 350 * (52/120) ≈ 152 */
+                stroke-dashoffset: 152;
             }
             
             .letter-w {
-                stroke-dasharray: 315;
-                stroke-dashoffset: 315;
+                stroke-dasharray: 195; /* 450 * (52/120) ≈ 195 */
+                stroke-dashoffset: 195;
             }
             
             .letter-a {
-                stroke-dasharray: 266;
-                stroke-dashoffset: 266;
+                stroke-dasharray: 165; /* 380 * (52/120) ≈ 165 */
+                stroke-dashoffset: 165;
             }
             
             .letter-r {
-                stroke-dasharray: 224;
-                stroke-dashoffset: 224;
+                stroke-dasharray: 139; /* 320 * (52/120) ≈ 139 */
+                stroke-dashoffset: 139;
             }
             
             .letter-d2 {
-                stroke-dasharray: 245;
-                stroke-dashoffset: 245;
+                stroke-dasharray: 152; /* 350 * (52/120) ≈ 152 */
+                stroke-dashoffset: 152;
             }
             
             .logo-letter.filled {
@@ -1452,92 +1465,91 @@
             }
         }
         
-        /* 超小螢幕優化 - 完美居中 */
+        /* 超小螢幕優化 - 完美居中，防止爆版 */
         @media (max-width: 375px) {
             .logo-animation-overlay {
                 display: flex !important;
                 justify-content: center !important;
                 align-items: center !important;
-                padding: 15px;
+                padding: 10px !important;
                 box-sizing: border-box;
-                /* 強制居中 */
+                overflow: hidden !important; /* 防止爆版 */
+                width: 100% !important;
+                /* 確保完美居中 */
                 left: 0 !important;
                 right: 0 !important;
                 margin: 0 !important;
             }
             
             .logo-container {
-                width: calc(100vw - 30px) !important;
-                max-width: 380px;
-                overflow: visible;
+                width: 100% !important;
+                max-width: 95vw !important;
+                overflow: hidden !important; /* 防止內容超出爆版 */
                 padding: 0 !important;
                 box-sizing: border-box;
-                /* 確保完美居中 - 移除所有可能導致偏移的屬性 */
+                /* 使用 flexbox 居中，確保完美水平垂直居中 */
                 left: auto !important;
                 right: auto !important;
                 margin: 0 auto !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
+                /* 只保留 GPU 加速，避免衝突 */
+                transform: translateZ(0) !important;
             }
             
             .logo-svg {
-                overflow: visible;
-                max-width: 380px;
+                overflow: hidden !important; /* 防止內容超出爆版 */
+                max-width: 100% !important;
                 width: 100% !important;
                 height: 100% !important;
-                margin: 0 auto;
-            display: block;
+                margin: 0 auto !important;
+                display: block !important;
             }
             
             .logo-letters {
-                transform: scale(0.6) !important;
-                /* 因為字母組已經 translate(250, 100) 到 SVG 中心，所以使用 center center 作為縮放基準 */
+                transform: scale(0.45) !important; /* 超小螢幕進一步縮小，確保完整顯示 */
                 transform-origin: center center !important;
-                /* 確保完美居中 */
-                margin: 0;
-                display: block;
-            }
-            
-            /* 確保 SVG 完美居中顯示 */
-            .logo-svg {
-                margin: 0 auto !important;
-                display: block;
+                /* 確保完美居中，移除所有偏移 */
+                margin: 0 !important;
+                display: block !important;
+                max-width: 100%;
+                max-height: 100%;
             }
             
             .logo-letter {
-                font-size: 60px;
-                stroke-width: 3.5;
+                font-size: 45px !important; /* 超小螢幕更小的字體，確保完整顯示 */
+                stroke-width: 3 !important;
             }
             
-            /* 超小螢幕字母 dasharray 值調整 */
+            /* 超小螢幕字母 dasharray 值調整 - 配合 45px 字體 */
             .letter-E {
-                stroke-dasharray: 240;
-                stroke-dashoffset: 240;
+                stroke-dasharray: 150; /* 400 * (45/120) ≈ 150 */
+                stroke-dashoffset: 150;
             }
             
             .letter-d1 {
-                stroke-dasharray: 210;
-                stroke-dashoffset: 210;
+                stroke-dasharray: 131; /* 350 * (45/120) ≈ 131 */
+                stroke-dashoffset: 131;
             }
             
             .letter-w {
-                stroke-dasharray: 270;
-                stroke-dashoffset: 270;
+                stroke-dasharray: 169; /* 450 * (45/120) ≈ 169 */
+                stroke-dashoffset: 169;
             }
             
             .letter-a {
-                stroke-dasharray: 228;
-                stroke-dashoffset: 228;
+                stroke-dasharray: 143; /* 380 * (45/120) ≈ 143 */
+                stroke-dashoffset: 143;
             }
             
             .letter-r {
-                stroke-dasharray: 192;
-                stroke-dashoffset: 192;
+                stroke-dasharray: 120; /* 320 * (45/120) ≈ 120 */
+                stroke-dashoffset: 120;
             }
             
             .letter-d2 {
-                stroke-dasharray: 210;
-                stroke-dashoffset: 210;
+                stroke-dasharray: 131; /* 350 * (45/120) ≈ 131 */
+                stroke-dashoffset: 131;
             }
         }
         
