@@ -117,8 +117,16 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://images.unsplash.com">
     
+    <!-- Font Awesome CSS - 异步加载，不阻塞渲染 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <script>
+        // Font Awesome 异步加载回退脚本
+        !function(e){"use strict";var t=function(t,n,o){var i,r=e.document,a=e.getComputedStyle(e.documentElement),c="hidden"===a&&a.visibility&&"hidden"!==a.visibility?r.createElement("link"):r.createElement("style");if(n)c.href=n,c.rel="stylesheet";else{if(!o)return;c.innerHTML=o}if((i=r.head||r.getElementsByTagName("head")[0]).hasChildNodes())for(var l=i.childNodes,d=l.length-1;d>=0;d--)if("LINK"===l[d].nodeName.toUpperCase()||"STYLE"===l[d].nodeName.toUpperCase()){i.insertBefore(c,l[d].nextSibling);break}i.appendChild(c),c.addEventListener&&c.addEventListener("load",function(){this.media="all"})};if("undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t,"undefined"!=typeof exports){var n=exports}else{var o=e.loadCSS;for(var r in o)o.hasOwnProperty(r)&&(n[r]=o[r])}n.media="print",n.onloadCSS=function(e,t){function n(){for(var t,o=0;o<l.length;o++)l[o].href&&l[o].href===e&&(t=!0);t?i():setTimeout(n)}var o,r=e||n.href.all[0],a=n.href.all||[],i=function(){var e,t;o?clearTimeout(o):(e=r,t="onloadcssdefined",n["q" in Array.prototype?Array.prototype:function(){var e=Array.prototype.slice;return function(){return e.call(this,arguments)}}()].push(function(){e&&e.call(t,t)})),t&&t.call(r,"function"==typeof i&&i)},l=r.sheet?r.sheet.cssRules&&r.sheet.cssRules.length?r.sheet:r.sheet.cssRules?r.sheet:r.sheet.ownerSheet?r.sheet.ownerSheet.cssRules||r.sheet.ownerSheet.cssText:null:null;n.href.all=a,n.href.all.push(r),l&&l.cssRules?i():l&&l.cssText?i():(r.addEventListener?r.addEventListener("load",i):r.attachEvent&&r.attachEvent("onload",i),r.onloadcssdefined&&(o=setTimeout(n,500)))}}(this);
+    </script>
+    
+    <!-- Tailwind CSS - 保持同步加载（因为它是运行时生成CSS的），但已优化其他资源 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -2302,7 +2310,7 @@
                 <!-- Logo -->
                 <a href="#home" class="flex items-center gap-2 md:gap-3" title="回到首頁 - Edward 專業網站建置工作室">
                     <div class="navbar-logo" id="navbar-logo">
-                        <img src="/logo.png" alt="Edward 專業網站建置工作室 Logo" loading="eager">
+                        <img src="/logo.png" alt="Edward 專業網站建置工作室 Logo" loading="eager" fetchpriority="high" width="60" height="60">
                     </div>
                     <span class="navbar-brand-text text-slate-800 font-bold whitespace-nowrap">Edward專業網頁建置</span>
                 </a>
@@ -2381,8 +2389,10 @@
                  alt="Edward 專業網站建置工作室 - 數位轉型網站開發服務背景圖" 
                  class="w-full h-full object-cover"
                  loading="eager"
+                 fetchpriority="high"
                  width="1920"
                  height="1080"
+                 decoding="async"
                  style="filter: brightness(1.3) contrast(0.8) saturate(0.5);">
             <div class="absolute inset-0 bg-gradient-to-br from-white/70 via-indigo-50/50 to-blue-50/70"></div>
             <div class="absolute inset-0 bg-white/40"></div>
@@ -2478,7 +2488,8 @@
                                  alt="Buger-O-clock 漢堡店網站案例 - Edward 專業網站建置作品展示，包含響應式設計、線上點餐系統、現代化 UI" 
                                  class="w-full h-[400px] md:h-[500px] object-cover"
                                  loading="lazy"
-                             width="1200"
+                                 decoding="async"
+                                 width="1200"
                                  height="800">
                     </a>
                         </div>
@@ -3430,37 +3441,54 @@
     </footer>
     
     <script>
-        // 確保每次打開都在最上方
-        // 立即滾動到頂部（不等待載入）
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
+        // 優化：使用 requestIdleCallback 或在 DOMContentLoaded 中執行非關鍵初始化
+        // 確保每次打開都在最上方 - 使用 requestAnimationFrame 優化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                requestAnimationFrame(() => {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                });
+            });
+        } else {
+            // 如果 DOM 已經載入，立即執行
+            requestAnimationFrame(() => {
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            });
+        }
         
-        // 頁面卸載前滾動到頂部
+        // 頁面卸載前滾動到頂部 - 使用 passive 事件優化
         window.addEventListener('beforeunload', () => {
             window.scrollTo(0, 0);
-        });
+        }, { passive: true });
         
-        // DOM 載入完成時滾動到頂部
-        document.addEventListener('DOMContentLoaded', () => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
-        });
-        
-        // 頁面載入時滾動到頂部
-        window.addEventListener('load', () => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
-        });
-        
-        // Logo 筆畫動畫特效
+        // 頁面載入完成時執行所有初始化（使用 passive 優化，合併事件處理器）
         window.addEventListener('load', () => {
             // 確保在頂部
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
+            requestAnimationFrame(() => {
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            });
+            
+            // Logo 筆畫動畫特效 - 使用 requestIdleCallback 在瀏覽器空閒時執行
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    initLogoAnimation();
+                }, { timeout: 2000 });
+            } else {
+                // 降級方案：使用 setTimeout
+                setTimeout(() => {
+                    initLogoAnimation();
+                }, 100);
+            }
+        }, { passive: true });
+        
+        // Logo 動畫初始化函數（分離出來以便優化）
+        function initLogoAnimation() {
             
             const pageLoader = document.getElementById('page-loader');
             const logoOverlay = document.getElementById('logo-animation-overlay');
@@ -3646,7 +3674,7 @@
                     logoOverlay.classList.add('hidden');
                 }
             }
-        });
+        } // end initLogoAnimation
         
         // 頁面可見性改變時也滾動到頂部
         document.addEventListener('visibilitychange', () => {
