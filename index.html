@@ -140,8 +140,8 @@
           "name": "台北市"
         },
         {
-          "@type": "Country",
-          "name": "Taiwan"
+        "@type": "Country",
+        "name": "Taiwan"
         }
       ],
       "serviceType": [
@@ -1147,7 +1147,7 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.8s;
+            transition: opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.2s;
         }
         
         /* 水波紋效果 - 質感漸層（GPU 加速優化） */
@@ -1170,7 +1170,7 @@
         
         .ripple-effect.active {
             opacity: 1;
-            animation: rippleExpand 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            animation: rippleExpand 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
         
         @keyframes rippleExpand {
@@ -1260,7 +1260,7 @@
             will-change: transform;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             overflow: visible;
             /* 確保 SVG 在所有裝置上完美居中 */
             margin: 0 auto;
@@ -1306,47 +1306,47 @@
             -moz-osx-font-smoothing: grayscale;
         }
         
-        /* 每個字母按照順序出現 */
+        /* 每個字母按照順序出現 - 縮短至1秒內完成 */
         .letter-E {
             stroke-dasharray: 400;
             stroke-dashoffset: 400;
-            animation: drawLetter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: drawLetter 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             animation-delay: 0s;
         }
         
         .letter-d1 {
             stroke-dasharray: 350;
             stroke-dashoffset: 350;
-            animation: drawLetter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            animation-delay: 0.4s;
+            animation: drawLetter 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.15s;
         }
         
         .letter-w {
             stroke-dasharray: 450;
             stroke-dashoffset: 450;
-            animation: drawLetter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            animation-delay: 0.8s;
+            animation: drawLetter 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.3s;
         }
         
         .letter-a {
             stroke-dasharray: 380;
             stroke-dashoffset: 380;
-            animation: drawLetter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            animation-delay: 1.3s;
+            animation: drawLetter 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.45s;
         }
         
         .letter-r {
             stroke-dasharray: 320;
             stroke-dashoffset: 320;
-            animation: drawLetter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            animation-delay: 1.7s;
+            animation: drawLetter 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.6s;
         }
         
         .letter-d2 {
             stroke-dasharray: 350;
             stroke-dashoffset: 350;
-            animation: drawLetter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            animation-delay: 2s;
+            animation: drawLetter 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.75s;
         }
         
         @keyframes drawLetter {
@@ -1400,7 +1400,7 @@
         }
         
         .logo-svg.animate-fill {
-            animation: fillLogo 0.5s ease forwards;
+            animation: fillLogo 0.1s ease forwards;
         }
         
         .logo-svg.animate-move {
@@ -1429,7 +1429,7 @@
         /* 網頁內容淡入 - 流暢展現（GPU 加速） */
         body.content-visible > *:not(.logo-animation-overlay):not(.page-loader):not(.scroll-progress) {
             opacity: 1;
-            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: opacity, transform;
         }
         
@@ -1448,29 +1448,29 @@
             opacity: 1;
         }
         
-        /* 分層淡入效果 */
+        /* 分層淡入效果 - 縮短延遲時間 */
         body.content-visible nav {
-            transition-delay: 0.1s;
+            transition-delay: 0.05s;
         }
         
         body.content-visible section:nth-of-type(1) {
-            transition-delay: 0.2s;
+            transition-delay: 0.1s;
         }
         
         body.content-visible section:nth-of-type(2) {
-            transition-delay: 0.3s;
+            transition-delay: 0.15s;
         }
         
         body.content-visible section:nth-of-type(3) {
-            transition-delay: 0.4s;
+            transition-delay: 0.2s;
         }
         
         body.content-visible section:nth-of-type(4) {
-            transition-delay: 0.5s;
+            transition-delay: 0.25s;
         }
         
         body.content-visible footer {
-            transition-delay: 0.6s;
+            transition-delay: 0.3s;
         }
         
         /* Logo 在左上角的固定位置 */
@@ -2626,7 +2626,7 @@
                                  class="w-full h-[400px] md:h-[500px] object-cover"
                                  loading="lazy"
                                  decoding="async"
-                                 width="1200"
+                             width="1200"
                                  height="800">
                     </a>
                         </div>
@@ -2875,7 +2875,7 @@
                         <strong class="text-red-600">不使用 Wix、WordPress、Shopify 等免費建站平台</strong>，也<strong class="text-red-600">不套用任何現成模板</strong>。
                         每個網站都是根據您的品牌和需求，<strong class="text-purple-600">從零開始打造</strong>，確保獨特性與專業品質。
                     </p>
-                </div>
+                    </div>
             </div>
         </div>
     </section>
@@ -2910,30 +2910,30 @@
                 <div class="prose prose-lg max-w-none mb-8" itemprop="articleBody">
                     <!-- 預設顯示的內容 -->
                     <div class="article-preview">
-                        <h4 class="text-2xl font-bold text-slate-800 mb-4">響應式設計：行動優先的時代</h4>
-                        <p class="text-slate-700 leading-relaxed mb-4">
-                            根據 2026 年的數據統計，超過 70% 的網站流量來自行動裝置。這意味著，如果您的網站無法在手機上完美顯示，您可能已經失去了大部分潛在客戶。響應式設計（Responsive Design）不僅僅是讓網站「能夠」在手機上顯示，而是要確保無論在桌面、平板還是手機上，用戶都能獲得最佳的瀏覽體驗。
-                        </p>
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">響應式設計：行動優先的時代</h4>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        根據 2026 年的數據統計，超過 70% 的網站流量來自行動裝置。這意味著，如果您的網站無法在手機上完美顯示，您可能已經失去了大部分潛在客戶。響應式設計（Responsive Design）不僅僅是讓網站「能夠」在手機上顯示，而是要確保無論在桌面、平板還是手機上，用戶都能獲得最佳的瀏覽體驗。
+                    </p>
                     </div>
                     
                     <!-- 可展開的內容 -->
                     <div id="article-1-expandable" class="article-expandable" style="display: none;">
-                        <h4 class="text-2xl font-bold text-slate-800 mb-4">SEO 優化：被找到的關鍵</h4>
-                        <p class="text-slate-700 leading-relaxed mb-4">
-                            一個再漂亮的網站，如果搜尋引擎找不到它，也無法帶來流量。專業的 SEO 優化包括：語意化 HTML 結構、Meta 標籤優化、網站速度優化、行動裝置友善設計、結構化資料（Schema.org）標記等。這些優化措施能讓您的網站在 Google 搜尋結果中獲得更好的排名，帶來更多自然流量。
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">SEO 優化：被找到的關鍵</h4>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        一個再漂亮的網站，如果搜尋引擎找不到它，也無法帶來流量。專業的 SEO 優化包括：語意化 HTML 結構、Meta 標籤優化、網站速度優化、行動裝置友善設計、結構化資料（Schema.org）標記等。這些優化措施能讓您的網站在 Google 搜尋結果中獲得更好的排名，帶來更多自然流量。
+                    </p>
+                    
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">為什麼選擇 Edward 專業網站建置工作室？</h4>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        Edward 專業網站建置工作室提供全方位的網站建置服務，包含響應式設計、SEO 優化、以及一年的免費技術支援。我們能在 3 天內完成開發並上線，價格只要傳統網頁公司的 1 折，讓您以最實惠的價格獲得專業級的網站品質。
+                    </p>
+                    
+                    <div class="bg-indigo-50 rounded-xl p-6 border border-indigo-100 my-6">
+                        <h5 class="text-xl font-bold text-indigo-800 mb-3">💡 專業建議</h5>
+                        <p class="text-slate-700 leading-relaxed">
+                            如果您正在考慮建立網站或重新設計現有網站，建議優先考慮響應式設計和 SEO 優化。這不僅能提升用戶體驗，更能大幅增加您的網站曝光率和轉換率。立即聯繫 Edward 專業網站建置工作室，讓我們為您打造能賺錢的數位門面。
                         </p>
-                        
-                        <h4 class="text-2xl font-bold text-slate-800 mb-4">為什麼選擇 Edward 專業網站建置工作室？</h4>
-                        <p class="text-slate-700 leading-relaxed mb-4">
-                            Edward 專業網站建置工作室提供全方位的網站建置服務，包含響應式設計、SEO 優化、以及一年的免費技術支援。我們能在 3 天內完成開發並上線，價格只要傳統網頁公司的 1 折，讓您以最實惠的價格獲得專業級的網站品質。
-                        </p>
-                        
-                        <div class="bg-indigo-50 rounded-xl p-6 border border-indigo-100 my-6">
-                            <h5 class="text-xl font-bold text-indigo-800 mb-3">💡 專業建議</h5>
-                            <p class="text-slate-700 leading-relaxed">
-                                如果您正在考慮建立網站或重新設計現有網站，建議優先考慮響應式設計和 SEO 優化。這不僅能提升用戶體驗，更能大幅增加您的網站曝光率和轉換率。立即聯繫 Edward 專業網站建置工作室，讓我們為您打造能賺錢的數位門面。
-                            </p>
-                        </div>
+                    </div>
                     </div>
                     
                     <!-- 顯示更多/更少按鈕 -->
@@ -2989,15 +2989,15 @@
                 <div class="prose prose-lg max-w-none mb-8" itemprop="articleBody">
                     <!-- 預設顯示的內容 -->
                     <div class="article-preview">
-                        <h4 class="text-2xl font-bold text-slate-800 mb-4">市場行情 vs. Edward 價格：驚人的差異</h4>
-                        <p class="text-slate-700 leading-relaxed mb-4">
-                            傳統大型網頁設計公司的網站建置報價通常落在 <strong class="text-indigo-600">15 萬到 50 萬元</strong>不等，甚至更高。而 Edward 專業網站建置工作室採用 <strong class="text-green-600">按需求定價</strong>的方式，最便宜的方案僅需 <strong class="text-green-600">8,000 元</strong>起，價格遠低於市場行情。這樣巨大的價格差異，背後的原因是什麼？
-                        </p>
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">市場行情 vs. Edward 價格：驚人的差異</h4>
+                    <p class="text-slate-700 leading-relaxed mb-4">
+                        傳統大型網頁設計公司的網站建置報價通常落在 <strong class="text-indigo-600">15 萬到 50 萬元</strong>不等，甚至更高。而 Edward 專業網站建置工作室採用 <strong class="text-green-600">按需求定價</strong>的方式，最便宜的方案僅需 <strong class="text-green-600">8,000 元</strong>起，價格遠低於市場行情。這樣巨大的價格差異，背後的原因是什麼？
+                    </p>
                     </div>
                     
                     <!-- 可展開的內容 -->
                     <div id="article-2-expandable" class="article-expandable" style="display: none;">
-                        <h4 class="text-2xl font-bold text-slate-800 mb-4">省去不必要的成本，將價值回饋客戶</h4>
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">省去不必要的成本，將價值回饋客戶</h4>
                     <p class="text-slate-700 leading-relaxed mb-4">
                         Edward 專業網站建置工作室採用精簡營運模式，省去了大型公司的三大主要成本：
                     </p>
@@ -3027,16 +3027,16 @@
                     <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 my-6">
                         <h5 class="text-xl font-bold text-slate-800 mb-4">兩個方案共同包含：</h5>
                         <ul class="list-disc list-inside text-slate-700 leading-relaxed mb-4 space-y-2">
-                            <li><strong>完整的響應式網站設計</strong>：桌面、平板、手機完美適配</li>
+                        <li><strong>完整的響應式網站設計</strong>：桌面、平板、手機完美適配</li>
                             <li><strong>基礎 SEO 優化</strong>：Meta 標籤、結構化資料、網站速度優化</li>
-                            <li><strong>現代化的設計風格</strong>：符合 2026 年最新設計趨勢</li>
+                        <li><strong>現代化的設計風格</strong>：符合 2026 年最新設計趨勢</li>
                         </ul>
                         <h5 class="text-xl font-bold text-indigo-600 mb-4">企業進階方案額外包含：</h5>
                         <ul class="list-disc list-inside text-slate-700 leading-relaxed space-y-2">
                             <li><strong>完整 SEO 優化</strong>：進階 SEO 策略與優化</li>
                             <li><strong>後台管理系統</strong>：讓您能自行更新內容</li>
-                            <li><strong>一年的技術支援</strong>：免費維護與技術諮詢</li>
-                        </ul>
+                        <li><strong>一年的技術支援</strong>：免費維護與技術諮詢</li>
+                    </ul>
                     </div>
                     
                     <h4 class="text-2xl font-bold text-slate-800 mb-4">透明化的價格結構：兩個主要方案</h4>
@@ -3054,11 +3054,11 @@
                                     <div class="flex items-center gap-2 text-slate-700">
                                         <span class="text-green-500">✓</span>
                                         <span>3 天快速上線</span>
-                                    </div>
+                            </div>
                                     <div class="flex items-center gap-2 text-slate-700">
                                         <span class="text-green-500">✓</span>
                                         <span>一頁式精簡版網站</span>
-                                    </div>
+                            </div>
                                     <div class="flex items-center gap-2 text-slate-700">
                                         <span class="text-green-500">✓</span>
                                         <span>響應式設計</span>
@@ -3550,7 +3550,7 @@
                                         <li>• 一頁式精簡版網站</li>
                                         <li>• 響應式設計</li>
                                         <li>• 基礎 SEO 優化</li>
-                                    </ul>
+                            </ul>
                                 </div>
                                 <div>
                                     <h4 class="text-lg font-bold text-indigo-600 mb-2">企業進階方案</h4>
@@ -3690,8 +3690,8 @@
                             </ul>
                             <p class="mt-4">一年後如需繼續技術支援，可選擇年度維護方案，費用合理且透明。</p>
                 </div>
-                </div>
-                </div>
+            </div>
+        </div>
                 
                 <!-- Q9 -->
                 <div class="faq-section fade-in-up delay-3">
@@ -3789,18 +3789,18 @@
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 requestAnimationFrame(() => {
-                    window.scrollTo(0, 0);
-                    document.documentElement.scrollTop = 0;
-                    document.body.scrollTop = 0;
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
                 });
             });
         } else {
             // 如果 DOM 已經載入，立即執行
             requestAnimationFrame(() => {
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
-            });
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
         }
         
         // 頁面卸載前滾動到頂部 - 使用 passive 事件優化
@@ -3812,9 +3812,9 @@
         window.addEventListener('load', () => {
             // 確保在頂部
             requestAnimationFrame(() => {
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
             });
             
             // Logo 筆畫動畫特效 - 使用 requestIdleCallback 在瀏覽器空閒時執行
@@ -3850,14 +3850,14 @@
                 logoSvg.setAttribute('viewBox', '-25 0 525 200');
             }
             
-            // 隱藏載入動畫（每次都執行動畫）
+            // 隱藏載入動畫（每次都執行動畫）- 縮短至200ms
             if (pageLoader) {
                 setTimeout(() => {
                     pageLoader.classList.add('hidden');
                     setTimeout(() => {
                         pageLoader.style.display = 'none';
-                    }, 500);
-                }, 800);
+                    }, 200);
+                }, 200);
             }
             
             // Logo 筆畫動畫序列（按字母順序依次出現）
@@ -3890,10 +3890,10 @@
                         
                         // 步驟 1: 字母按順序繪製（E-d-w-a-r-d）
                     // CSS 動畫會自動處理，每個字母有不同的延遲時間
-                    // E: 0s, d1: 0.4s, w: 0.8s, a: 1.3s, r: 1.7s, d2: 2s
-                    // 最後一個字母 d2 在 2.6 秒完成（2s 延遲 + 0.6s 動畫）
+                    // E: 0s, d1: 0.15s, w: 0.3s, a: 0.45s, r: 0.6s, d2: 0.75s
+                    // 最後一個字母 d2 在 0.85 秒完成（0.75s 延遲 + 0.1s 動畫）
                     
-                    // 步驟 2: 所有字母繪製完成後，統一填充顏色（約 2.7 秒後）
+                    // 步驟 2: 所有字母繪製完成後，統一填充顏色（約 0.9 秒後）
                     setTimeout(() => {
                         requestAnimationFrame(() => {
                             // 為所有字母添加填充效果
@@ -3903,12 +3903,12 @@
                                         letter.classList.add('filled');
                                         letter.style.willChange = 'fill-opacity, filter';
                                     });
-                                }, index * 50); // 每個字母略微錯開，創造流暢的填充效果
+                                }, index * 10); // 每個字母略微錯開，創造流暢的填充效果（縮短間隔）
                             });
                             
                             logoSvg.classList.add('animate-fill');
                             
-                            // 步驟 3: 填充完成後（約 0.5 秒），縮小並移動到左上角，同時觸發水波紋
+                            // 步驟 3: 填充完成後（約 0.1 秒），縮小並移動到左上角，同時觸發水波紋
                             setTimeout(() => {
                                 requestAnimationFrame(() => {
                                     // 計算目標位置（左上角導覽列位置）
@@ -3950,7 +3950,7 @@
                                         }
                                     });
                                     
-                                    // 步驟 4: 移動完成後，隱藏 SVG 並顯示 logo.png 圖片，然後淡入網頁內容
+                                    // 步驟 4: 移動完成後（0.3秒），隱藏 SVG 並顯示 logo.png 圖片，然後淡入網頁內容
                                     setTimeout(() => {
                                         requestAnimationFrame(() => {
                                             // 隱藏動畫中的 SVG
@@ -3971,7 +3971,7 @@
                                                     // 使用 requestAnimationFrame 確保淡入動畫流暢
                                                     requestAnimationFrame(() => {
                                                         requestAnimationFrame(() => {
-                                                            logoImg.style.transition = 'opacity 0.5s ease';
+                                                            logoImg.style.transition = 'opacity 0.1s ease';
                                                             logoImg.style.opacity = '1';
                                                         });
                                                     });
@@ -3980,7 +3980,7 @@
                                                 // 顯示品牌文字
                                                 const brandText = navbarLogo.parentElement?.querySelector('.navbar-brand-text');
                                                 if (brandText) {
-                                                    brandText.style.transition = 'opacity 0.5s ease';
+                                                    brandText.style.transition = 'opacity 0.1s ease';
                                                     brandText.style.opacity = '1';
                                                 }
                                             }
@@ -3993,9 +3993,9 @@
                                                 requestAnimationFrame(() => {
                                                     logoOverlay.classList.add('hidden');
                                                 });
-                                            }, 1500);
+                                            }, 200);
                                         });
-                                    }, 1000);
+                                    }, 300);
                                 });
                             }, 600); // 等待填充動畫完成（0.5秒動畫 + 0.1秒緩衝）
                         });
