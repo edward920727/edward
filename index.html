@@ -1304,7 +1304,7 @@
                 display: flex !important;
                 justify-content: center !important;
                 align-items: center !important;
-                padding: 10px !important;
+                padding: 0 !important; /* 移除所有 padding，防止偏移 */
                 box-sizing: border-box;
                 overflow: hidden !important; /* 防止內容超出爆版 */
                 width: 100% !important;
@@ -1316,7 +1316,7 @@
             
             .logo-container {
                 width: 100% !important;
-                max-width: min(90vw, 380px) !important; /* 使用 min() 確保不會超出螢幕，防止 E 被切掉 */
+                max-width: 100vw !important; /* 使用全寬，讓 SVG 可以正確居中 */
                 height: auto;
                 aspect-ratio: 500 / 200;
                 position: relative;
@@ -1324,8 +1324,8 @@
                 justify-content: center !important;
                 align-items: center !important;
                 margin: 0 auto !important;
-                overflow: hidden !important; /* 防止內容超出爆版 */
-                padding: 0 !important;
+                overflow: visible !important; /* 改為 visible，讓字母可以完整顯示 */
+                padding: 0 !important; /* 取消所有 padding */
                 box-sizing: border-box;
                 /* 使用 flexbox 居中，確保完美水平垂直居中 */
                 left: auto !important;
@@ -1340,61 +1340,75 @@
                 width: 100% !important;
                 height: 100% !important;
                 max-width: 100% !important;
-                overflow: hidden !important; /* 防止內容超出 */
-                /* 確保 SVG 完美居中 */
-                margin: 0 auto !important;
-                display: block;
-                position: relative;
+                overflow: visible !important; /* 改為 visible，讓字母可以完整顯示 */
+                /* 確保 SVG 完美居中 - 使用絕對定位和 transform 來強制居中 */
+                margin: 0 !important;
+                display: block !important;
+                position: absolute !important;
+                /* 使用 left: 50% 和 translateX(-50%) 強制水平居中 */
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) translateZ(0) !important;
+                right: auto !important;
+                bottom: auto !important;
+                /* 確保 SVG 的寬度正確，不會超出容器 */
+                max-width: 100vw !important;
             }
             
-            /* 手機版字母位置調整 - 響應式縮小，確保完整顯示並完美居中 */
+            /* 手機版字母位置調整 - 保持原字體大小，修正居中位置 */
             .logo-letters {
-                transform: scale(0.52) !important; /* 縮小到 0.52，確保完整顯示且居中 */
+                /* 計算字母組的中心：E(-200), d1(-130), w(-60), a(20), r(80), d2(140) */
+                /* 字母組的中心約在 x = -25（相對於字母組原點） */
+                /* 當字母組被 translate(250, 100) 移動後，中心在 (225, 100)，而不是 (250, 100) */
+                /* 要讓字母組真正居中，需要調整 SVG viewBox 或者調整整個 SVG 的位置 */
+                /* 由於我們已經在 .logo-svg 中使用 translate(-50%, -50%) 居中整個 SVG */
+                /* 我們需要調整 SVG 的 viewBox，讓字母組在 viewBox 中心 */
                 transform-origin: center center !important;
-                /* 確保字母組完美居中，移除所有偏移 */
+                /* 確保字母組完美居中，移除所有偏移和 margin */
                 margin: 0 !important;
+                padding: 0 !important;
                 display: block !important;
                 width: 100%;
                 height: 100%;
-                max-width: 100%;
-                max-height: 100%;
+                /* 注意：SVG 的 transform 屬性無法用 CSS 覆蓋，所以我們調整整個 SVG 的位置 */
             }
             
             .logo-letter {
-                font-size: 52px !important; /* 響應式縮小字體，確保完整顯示 */
-                stroke-width: 3.5 !important;
-                filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.5));
+                /* 保持原字體大小，不縮小 */
+                font-size: 120px !important; /* 保持原始字體大小 */
+                stroke-width: 6 !important; /* 保持原始 stroke-width */
+                filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
             }
             
-            /* 手機版字母 dasharray 值調整 - 按比例縮小（配合縮小後的字體 52px） */
+            /* 手機版字母 dasharray 值調整 - 保持原始大小 */
             .letter-E {
-                stroke-dasharray: 173; /* 400 * (52/120) ≈ 173 */
-                stroke-dashoffset: 173;
+                stroke-dasharray: 400 !important; /* 保持原始值 */
+                stroke-dashoffset: 400 !important;
             }
             
             .letter-d1 {
-                stroke-dasharray: 152; /* 350 * (52/120) ≈ 152 */
-                stroke-dashoffset: 152;
+                stroke-dasharray: 350 !important; /* 保持原始值 */
+                stroke-dashoffset: 350 !important;
             }
             
             .letter-w {
-                stroke-dasharray: 195; /* 450 * (52/120) ≈ 195 */
-                stroke-dashoffset: 195;
+                stroke-dasharray: 450 !important; /* 保持原始值 */
+                stroke-dashoffset: 450 !important;
             }
             
             .letter-a {
-                stroke-dasharray: 165; /* 380 * (52/120) ≈ 165 */
-                stroke-dashoffset: 165;
+                stroke-dasharray: 380 !important; /* 保持原始值 */
+                stroke-dashoffset: 380 !important;
             }
             
             .letter-r {
-                stroke-dasharray: 139; /* 320 * (52/120) ≈ 139 */
-                stroke-dashoffset: 139;
+                stroke-dasharray: 320 !important; /* 保持原始值 */
+                stroke-dashoffset: 320 !important;
             }
             
             .letter-d2 {
-                stroke-dasharray: 152; /* 350 * (52/120) ≈ 152 */
-                stroke-dashoffset: 152;
+                stroke-dasharray: 350 !important; /* 保持原始值 */
+                stroke-dashoffset: 350 !important;
             }
             
             .logo-letter.filled {
@@ -2167,7 +2181,7 @@
         <div class="ripple-effect" id="ripple-3"></div>
         
         <div class="logo-container">
-            <svg class="logo-svg" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+            <svg class="logo-svg" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;" id="logo-svg-main">
                 <defs>
                     <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
@@ -2858,6 +2872,14 @@
             const ripple1 = document.getElementById('ripple-1');
             const ripple2 = document.getElementById('ripple-2');
             const ripple3 = document.getElementById('ripple-3');
+            
+            // 手機版調整 SVG viewBox，讓字母組真正居中
+            // 字母組的中心約在 x = -25（相對於字母組原點），所以當字母組被 translate(250, 100) 移動後，
+            // 字母組的中心在 (225, 100)，而不是 SVG 中心 (250, 100)
+            // 調整 viewBox 從 "0 0 500 200" 到 "-25 0 525 200"，讓字母組的中心在 SVG 中心
+            if (logoSvg && window.innerWidth <= 768) {
+                logoSvg.setAttribute('viewBox', '-25 0 525 200');
+            }
             
             // 隱藏載入動畫（每次都執行動畫）
             if (pageLoader) {
