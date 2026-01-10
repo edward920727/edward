@@ -872,15 +872,20 @@
             opacity: 1;
             visibility: visible;
             overflow: hidden;
+            will-change: opacity, transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .logo-animation-overlay.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.8s;
         }
         
-        /* 水波紋效果 - 質感漸層 */
+        /* 水波紋效果 - 質感漸層（GPU 加速優化） */
         .ripple-effect {
             position: absolute;
             top: 50%;
@@ -888,16 +893,19 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) translateZ(0);
             opacity: 0;
             pointer-events: none;
             filter: blur(40px);
             mix-blend-mode: screen;
+            will-change: width, height, opacity, transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .ripple-effect.active {
             opacity: 1;
-            animation: rippleExpand 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: rippleExpand 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
         
         @keyframes rippleExpand {
@@ -906,20 +914,30 @@
                 height: 0;
                 opacity: 0.95;
                 filter: blur(40px);
+                transform: translate(-50%, -50%) scale(0) translateZ(0);
             }
-            20% {
-                opacity: 0.85;
+            15% {
+                opacity: 0.9;
+                filter: blur(45px);
+            }
+            30% {
+                opacity: 0.75;
                 filter: blur(50px);
             }
             50% {
-                opacity: 0.6;
+                opacity: 0.55;
+                filter: blur(55px);
+            }
+            70% {
+                opacity: 0.35;
                 filter: blur(60px);
             }
             100% {
                 width: 400vw;
                 height: 400vh;
                 opacity: 0;
-                filter: blur(80px);
+                filter: blur(70px);
+                transform: translate(-50%, -50%) scale(1) translateZ(0);
             }
         }
         
@@ -955,13 +973,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            will-change: transform;
+            transform: translateZ(0);
         }
         
         .logo-svg {
             width: 100%;
             height: 100%;
-            transform-origin: center;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center center;
+            transform: translateZ(0);
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .logo-text {
@@ -975,12 +999,17 @@
             stroke-linejoin: round;
             stroke-dasharray: 2000;
             stroke-dashoffset: 2000;
-            animation: drawText 3s ease-in-out forwards;
+            animation: drawText 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+            will-change: stroke-dashoffset;
+            transform: translateZ(0);
         }
         
         @keyframes drawText {
-            to {
+            0% {
+                stroke-dashoffset: 2000;
+            }
+            100% {
                 stroke-dashoffset: 0;
             }
         }
@@ -989,24 +1018,31 @@
             fill: url(#logoGradient);
             stroke: url(#logoGradient);
             stroke-width: 0;
-            animation: fillText 0.6s ease forwards;
+            animation: fillText 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8));
+            will-change: fill-opacity, filter;
         }
         
         @keyframes fillText {
             0% {
                 fill: transparent;
                 stroke: url(#logoGradient);
+                fill-opacity: 0;
+                filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
             }
-            50% {
-                fill: url(#logoGradient);
-                fill-opacity: 0.5;
-                stroke: url(#logoGradient);
+            40% {
+                fill-opacity: 0.4;
+                filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.65));
+            }
+            70% {
+                fill-opacity: 0.7;
+                filter: drop-shadow(0 0 28px rgba(99, 102, 241, 0.75));
             }
             100% {
                 fill: url(#logoGradient);
                 fill-opacity: 1;
                 stroke: url(#logoGradient);
+                filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8));
             }
         }
         
@@ -1019,7 +1055,17 @@
         }
         
         .logo-svg.animate-move {
-            animation: moveToCorner 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: moveToCorner 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            will-change: transform;
+        }
+        
+        @keyframes moveToCorner {
+            0% {
+                transform: scale(1) translate(0, 0) translateZ(0);
+            }
+            100% {
+                transform: scale(0.2) translate(var(--target-x, 0), var(--target-y, 0)) translateZ(0);
+            }
         }
         
         @keyframes fillLogo {
@@ -1031,34 +1077,26 @@
             }
         }
         
-        .logo-svg.animate-move {
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        
-        /* 優化移動動畫 */
-        .logo-svg.animate-move {
-            position: relative;
-            z-index: 10002;
-        }
-        
-        /* 網頁內容淡入 - 流暢展現 */
+        /* 網頁內容淡入 - 流暢展現（GPU 加速） */
         body.content-visible > *:not(.logo-animation-overlay):not(.page-loader):not(.scroll-progress) {
             opacity: 1;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
         }
         
         /* 內容淡入時的輕微上移效果 */
         body:not(.content-visible) nav,
         body:not(.content-visible) section,
         body:not(.content-visible) footer {
-            transform: translateY(20px);
+            transform: translateY(15px) translateZ(0);
+            opacity: 0;
         }
         
         body.content-visible nav,
         body.content-visible section,
         body.content-visible footer {
-            transform: translateY(0);
+            transform: translateY(0) translateZ(0);
+            opacity: 1;
         }
         
         /* 分層淡入效果 */
@@ -1576,49 +1614,61 @@
             border-color: rgba(79, 70, 229, 0.3);
         }
         
-        /* 進場動畫 */
+        /* 進場動畫（GPU 加速優化） */
         .fade-in-up {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(30px) translateZ(0);
+            transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .fade-in-up.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateZ(0);
         }
         
         .fade-in-left {
             opacity: 0;
-            transform: translateX(-40px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-30px) translateZ(0);
+            transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .fade-in-left.visible {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) translateZ(0);
         }
         
         .fade-in-right {
             opacity: 0;
-            transform: translateX(40px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(30px) translateZ(0);
+            transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .fade-in-right.visible {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) translateZ(0);
         }
         
         .scale-in {
             opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.95) translateZ(0);
+            transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
         .scale-in.visible {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) translateZ(0);
         }
         
         .delay-1 { transition-delay: 0.1s; }
@@ -2474,67 +2524,87 @@
                 }, 800);
             }
             
-            // Logo 筆畫動畫序列（每次都執行）
+            // Logo 筆畫動畫序列（優化版，使用 requestAnimationFrame 確保流暢）
             if (logoOverlay && logoSvg) {
                 const logoText = logoSvg.querySelector('.logo-text');
                 
-                // 步驟 1: 繪製文字線條（3秒，由 CSS 動畫控制）
-                
-                // 步驟 2: 線條完成後，填充顏色（3秒後）
-                setTimeout(() => {
-                    if (logoText) {
-                        logoText.classList.add('filled');
-                        logoSvg.classList.add('animate-fill');
-                    }
+                // 使用 requestAnimationFrame 確保動畫在下一幀開始
+                requestAnimationFrame(() => {
+                    // 步驟 1: 繪製文字線條（2.5秒，由 CSS 動畫控制，已優化）
                     
-                    // 步驟 3: 填充完成後，縮小並移動到左上角，同時觸發水波紋（3.6秒後）
+                    // 步驟 2: 線條完成後，填充顏色（2.5秒後）
                     setTimeout(() => {
-                        // 計算目標位置（左上角導覽列位置）
-                        const navbar = document.querySelector('.navbar');
-                        const navbarRect = navbar ? navbar.getBoundingClientRect() : { left: 20, top: 20 };
-                        const containerRect = logoOverlay.getBoundingClientRect();
-                        
-                        // 計算需要移動的距離
-                        const targetX = navbarRect.left - containerRect.left - (containerRect.width / 2) + 60;
-                        const targetY = navbarRect.top - containerRect.top - (containerRect.height / 2) + 20;
-                        const scale = 0.2;
-                        
-                        // 同時觸發 Logo 移動和水波紋效果
-                        // 設置 Logo 移動動畫
-                        logoSvg.style.transform = `scale(${scale}) translate(${targetX / scale}px, ${targetY / scale}px)`;
-                        logoSvg.classList.add('animate-move');
-                        
-                        // 立即觸發水波紋效果（與 Logo 移動同時）
-                        if (ripple1) {
-                            ripple1.classList.add('active');
-                        }
-                        if (ripple2) {
-                            setTimeout(() => {
-                                ripple2.classList.add('active');
-                            }, 200);
-                        }
-                        if (ripple3) {
-                            setTimeout(() => {
-                                ripple3.classList.add('active');
-                            }, 400);
-                        }
-                        
-                        // 步驟 4: 移動完成後，顯示左上角 Logo 並淡入網頁內容（4.6秒後）
-                        setTimeout(() => {
-                            if (navbarLogo) {
-                                navbarLogo.classList.add('show');
+                        requestAnimationFrame(() => {
+                            if (logoText) {
+                                logoText.classList.add('filled');
+                                logoSvg.classList.add('animate-fill');
                             }
                             
-                            // 流暢淡入網頁內容（在水波紋散開過程中開始）
-                            body.classList.add('content-visible');
-                            
-                            // 水波紋完成後隱藏動畫覆蓋層（確保內容已完全顯示）
+                            // 步驟 3: 填充完成後，縮小並移動到左上角，同時觸發水波紋（3秒後）
                             setTimeout(() => {
-                                logoOverlay.classList.add('hidden');
-                            }, 1200);
-                        }, 800);
-                    }, 600);
-                }, 3000);
+                                requestAnimationFrame(() => {
+                                    // 計算目標位置（左上角導覽列位置）
+                                    const navbar = document.querySelector('.navbar');
+                                    const navbarRect = navbar ? navbar.getBoundingClientRect() : { left: 20, top: 20 };
+                                    const containerRect = logoOverlay.getBoundingClientRect();
+                                    
+                                    // 計算需要移動的距離
+                                    const targetX = navbarRect.left - containerRect.left - (containerRect.width / 2) + 60;
+                                    const targetY = navbarRect.top - containerRect.top - (containerRect.height / 2) + 20;
+                                    const scale = 0.2;
+                                    
+                                    // 設置 CSS 變數供動畫使用
+                                    logoSvg.style.setProperty('--target-x', `${targetX / scale}px`);
+                                    logoSvg.style.setProperty('--target-y', `${targetY / scale}px`);
+                                    
+                                    // 同時觸發 Logo 移動和水波紋效果（GPU 加速）
+                                    logoSvg.style.transform = `scale(${scale}) translate(${targetX / scale}px, ${targetY / scale}px) translateZ(0)`;
+                                    logoSvg.classList.add('animate-move');
+                                    
+                                    // 立即觸發水波紋效果（與 Logo 移動同時，使用 requestAnimationFrame）
+                                    requestAnimationFrame(() => {
+                                        if (ripple1) {
+                                            ripple1.classList.add('active');
+                                        }
+                                        if (ripple2) {
+                                            setTimeout(() => {
+                                                requestAnimationFrame(() => {
+                                                    ripple2.classList.add('active');
+                                                });
+                                            }, 150);
+                                        }
+                                        if (ripple3) {
+                                            setTimeout(() => {
+                                                requestAnimationFrame(() => {
+                                                    ripple3.classList.add('active');
+                                                });
+                                            }, 300);
+                                        }
+                                    });
+                                    
+                                    // 步驟 4: 移動完成後，顯示左上角 Logo 並淡入網頁內容（4.2秒後）
+                                    setTimeout(() => {
+                                        requestAnimationFrame(() => {
+                                            if (navbarLogo) {
+                                                navbarLogo.classList.add('show');
+                                            }
+                                            
+                                            // 流暢淡入網頁內容（在水波紋散開過程中開始）
+                                            body.classList.add('content-visible');
+                                            
+                                            // 水波紋完成後隱藏動畫覆蓋層（確保內容已完全顯示）
+                                            setTimeout(() => {
+                                                requestAnimationFrame(() => {
+                                                    logoOverlay.classList.add('hidden');
+                                                });
+                                            }, 1500);
+                                        });
+                                    }, 1000);
+                                });
+                            }, 500);
+                        });
+                    }, 2500);
+                });
                 } else {
                 // 如果沒有 Logo 動畫元素，直接顯示內容
                 if (navbarLogo) {
@@ -2713,18 +2783,21 @@
             });
         });
         
-        // 進場動畫（增強版 Intersection Observer）
+        // 進場動畫（優化版 Intersection Observer，使用 requestAnimationFrame）
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -80px 0px'
+            threshold: 0.05,
+            rootMargin: '0px 0px -50px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // 可選：觀察一次後停止觀察
-                    // observer.unobserve(entry.target);
+                    // 使用 requestAnimationFrame 確保動畫在下一幀執行，提升流暢度
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('visible');
+                    });
+                    // 動畫觸發後停止觀察，提升性能
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
