@@ -71,23 +71,28 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     
-    <!-- Favicon - 標準格式 (多種尺寸以確保兼容性) -->
+    <!-- Favicon - 使用 logo.png (多種尺寸以確保兼容性) -->
     <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/logo.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/logo.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/logo.png">
     <link rel="shortcut icon" type="image/png" href="/logo.png">
+    <!-- 預設 favicon (備用) -->
+    <link rel="icon" type="image/png" href="/logo.png">
     
-    <!-- Apple Touch Icon -->
+    <!-- Apple Touch Icon (iOS 主畫面圖示) -->
     <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/logo.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/logo.png">
     <link rel="apple-touch-icon" sizes="76x76" href="/logo.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/logo.png">
+    <!-- 預設 Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="/logo.png">
     
-    <!-- Microsoft Tiles -->
+    <!-- Microsoft Tiles (Windows 開始畫面) -->
     <meta name="msapplication-TileImage" content="/logo.png">
+    <meta name="msapplication-TileColor" content="#4f46e5">
     
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json">
@@ -1229,7 +1234,7 @@
         
         .navbar-logo img {
             width: auto;
-            height: 40px;
+            height: 24px; /* 調整高度讓圖片中的 ED 文字與導覽列字體大小一致 (約 16-18px 文字高度) */
             object-fit: contain;
             display: block;
             transition: transform 0.3s ease;
@@ -1237,6 +1242,28 @@
         
         .navbar-logo:hover img {
             transform: scale(1.05);
+        }
+        
+        /* Logo 後面的品牌文字 */
+        .navbar-brand-text {
+            font-size: 1rem; /* 16px - 與導覽列字體大小一致 */
+            line-height: 1.5;
+            transition: color 0.3s ease, opacity 0.5s ease;
+            opacity: 0;
+        }
+        
+        /* 當 logo 顯示時，品牌文字也顯示 */
+        .navbar-logo.show ~ .navbar-brand-text {
+            opacity: 1;
+        }
+        
+        /* 透過 JavaScript 控制，確保品牌文字在 logo 顯示時也顯示 */
+        a:has(.navbar-logo.show) .navbar-brand-text {
+            opacity: 1;
+        }
+        
+        a:hover .navbar-brand-text {
+            color: #4f46e5;
         }
         
         @media (max-width: 640px) {
@@ -1315,7 +1342,16 @@
             }
             
             .navbar-logo img {
-                height: 32px;
+                height: 20px; /* 手機版調整高度，讓 ED 文字與導覽列字體大小一致 (約 14-16px 文字高度) */
+            }
+            
+            .navbar-brand-text {
+                font-size: 0.875rem; /* 14px - 手機版稍小 */
+            }
+            
+            /* 手機版品牌文字可能需要調整間距 */
+            .navbar > div > div > a {
+                gap: 0.5rem;
             }
             
             /* 手機版導覽列對齊優化 */
@@ -2059,10 +2095,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="flex justify-between items-center h-16 md:h-20 w-full">
                 <!-- Logo -->
-                <a href="#home" class="flex items-center" title="回到首頁 - Edward 專業網站建置工作室">
+                <a href="#home" class="flex items-center gap-2 md:gap-3" title="回到首頁 - Edward 專業網站建置工作室">
                     <div class="navbar-logo" id="navbar-logo">
                         <img src="/logo.png" alt="Edward 專業網站建置工作室 Logo" loading="eager">
                     </div>
+                    <span class="navbar-brand-text text-slate-800 font-bold whitespace-nowrap">Edward專業網頁建置</span>
                 </a>
                 
                 <!-- 桌面版選單 -->
@@ -2830,7 +2867,7 @@
                                                 logoSvg.style.display = 'none';
                                             }
                                             
-                                            // 顯示左上角的 logo.png 圖片（代替藍色 Edward 文字）
+                                            // 顯示左上角的 logo.png 圖片和品牌文字（代替藍色 Edward 文字）
                                             if (navbarLogo) {
                                                 navbarLogo.classList.add('show');
                                                 // 確保圖片正確顯示並淡入
@@ -2846,6 +2883,13 @@
                                                             logoImg.style.opacity = '1';
                                                         });
                                                     });
+                                                }
+                                                
+                                                // 顯示品牌文字
+                                                const brandText = navbarLogo.parentElement?.querySelector('.navbar-brand-text');
+                                                if (brandText) {
+                                                    brandText.style.transition = 'opacity 0.5s ease';
+                                                    brandText.style.opacity = '1';
                                                 }
                                             }
                                             
@@ -2870,6 +2914,11 @@
                 // 如果沒有 Logo 動畫元素，直接顯示內容
                 if (navbarLogo) {
                     navbarLogo.classList.add('show');
+                    // 顯示品牌文字
+                    const brandText = navbarLogo.parentElement?.querySelector('.navbar-brand-text');
+                    if (brandText) {
+                        brandText.style.opacity = '1';
+                    }
                 }
                 body.classList.add('content-visible');
                 if (logoOverlay) {
