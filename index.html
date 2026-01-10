@@ -490,7 +490,7 @@
         "name": "網站建置的價格是多少？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Edward 專業網站建置工作室採用按需求定價的方式，沒有固定價格，完全根據您的實際需求提供客製化報價。最便宜的方案可以從 8,000 元起，遠低於市場行情的 15-50 萬元。我們省去大型公司的廣告與人事行政成本，將價值直接回饋給客戶。價格包含完整響應式設計、SEO優化、線上訂位系統等完整服務，讓您以最合理的成本獲得專業級的網站品質。"
+          "text": "Edward 專業網站建置工作室提供兩個主要方案：微型創業方案（萬元有找，限一頁式精簡版，主打 3 天快速上線）與企業進階方案（30,000 元起，包含多頁面、完整 SEO 優化與後台管理）。所有方案都包含響應式設計與基礎 SEO 優化，價格透明且符合不同需求。我們省去大型公司的廣告與人事行政成本，將價值直接回饋給客戶。"
         }
       }, {
         "@type": "Question",
@@ -838,6 +838,14 @@
                 transform: none;
             }
             
+            .tech-item:hover {
+                transform: none;
+            }
+            
+            .tech-item:hover .tech-icon-wrapper {
+                transform: scale(1.05);
+            }
+            
             /* 觸控回饋 */
             a:active, button:active {
                 transform: scale(0.95);
@@ -851,6 +859,20 @@
             .btn-primary, a[class*="bg-"] {
                 font-size: 0.95rem;
                 padding: 0.75rem 1.5rem;
+            }
+            
+            /* 技術棧區塊響應式優化 */
+            #tech-stack .tech-item {
+                padding: 1rem;
+            }
+            
+            #tech-stack .tech-icon-wrapper {
+                height: 48px;
+            }
+            
+            #tech-stack .tech-icon-wrapper svg {
+                width: 40px;
+                height: 40px;
             }
             
             /* 優化間距 */
@@ -972,6 +994,34 @@
         
         .premium-card:hover {
             transform: translateY(-8px) scale(1.02);
+        }
+        
+        /* 技術棧區塊特殊樣式 */
+        .tech-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-6px) scale(1.05);
+            border-color: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2), 0 10px 10px -5px rgba(99, 102, 241, 0.1);
+        }
+        
+        .tech-icon-wrapper {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tech-item:hover .tech-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .tech-item .tech-icon-wrapper svg {
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        
+        .tech-item:hover .tech-icon-wrapper svg {
+            filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
         }
         
         /* 圖片載入動畫 */
@@ -2621,6 +2671,105 @@
         </div>
     </section>
 
+    <!-- 專業技術棧 (Tech Stack) -->
+    <section id="tech-stack" class="py-16 md:py-24 px-4 bg-gradient-to-br from-white to-slate-50" aria-labelledby="tech-stack-heading">
+        <div class="max-w-7xl mx-auto">
+            <h2 id="tech-stack-heading" class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
+                專業技術棧
+            </h2>
+            <p class="text-center text-slate-600 mb-12 text-lg fade-in-up delay-1">
+                Tech Stack
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
+                <!-- Tailwind CSS -->
+                <div class="tech-item premium-card card-shadow text-center fade-in-up delay-1 group cursor-pointer">
+                    <div class="tech-icon-wrapper mb-4 flex justify-center items-center h-16">
+                        <svg class="w-12 h-12 text-blue-500 transition-all duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.91,0.23,1.56,0.82,2.12,1.49 c0.68,0.81,1.31,1.56,2.88,1.56c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.91-0.23-1.56-0.82-2.12-1.49 C14.571,5.42,13.941,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.91,0.23,1.56,0.82,2.12,1.49 c0.68,0.81,1.31,1.56,2.88,1.56c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.91-0.23-1.56-0.82-2.12-1.49 C8.571,12.62,7.941,12,6.001,12z M18.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.91,0.23,1.56,0.82,2.12,1.49 c0.68,0.81,1.31,1.56,2.88,1.56c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.91-0.23-1.56-0.82-2.12-1.49 C20.571,12.62,19.941,12,18.001,12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm md:text-base font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors duration-300">Tailwind CSS</h3>
+                    <p class="text-xs text-slate-500">Utility-first CSS</p>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="tech-item premium-card card-shadow text-center fade-in-up delay-2 group cursor-pointer">
+                    <div class="tech-icon-wrapper mb-4 flex justify-center items-center h-16">
+                        <svg class="w-12 h-12 text-yellow-500 transition-all duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3,3H21V21H3V3M7.73,18.04C8.13,18.89 8.92,19.59 10.27,19.59C11.77,19.59 12.8,18.79 12.8,17.04V11.26H11.1V16.9C11.1,17.85 10.89,18.04 10.2,18.04C9.54,18.04 9.12,17.68 8.82,17.21L7.73,18.04M13.71,17.86C14.21,18.84 15.22,19.59 16.8,19.59C18.4,19.59 19.6,18.76 19.6,17.23C19.6,15.82 18.79,15.19 17.35,14.57L16.93,14.39C16.2,14.08 15.89,13.87 15.89,13.37C15.89,12.96 16.2,12.64 16.7,12.64C17.18,12.64 17.5,12.85 17.79,13.37L19.1,12.5C18.55,11.54 17.77,11.17 16.7,11.17C15.19,11.17 14.22,12.13 14.22,13.4C14.22,14.78 15.03,15.43 16.25,15.95L16.67,16.13C17.45,16.47 17.91,16.68 17.91,17.26C17.91,17.74 17.46,18.09 16.76,18.09C15.93,18.09 15.45,17.66 15.09,17.06L13.71,17.86Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm md:text-base font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors duration-300">JavaScript</h3>
+                    <p class="text-xs text-slate-500">ES6+ Modern JS</p>
+                </div>
+
+                <!-- React/Next.js -->
+                <div class="tech-item premium-card card-shadow text-center fade-in-up delay-3 group cursor-pointer">
+                    <div class="tech-icon-wrapper mb-4 flex justify-center items-center h-16">
+                        <svg class="w-12 h-12 text-blue-400 transition-all duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                            <ellipse cx="12" cy="12" rx="11" ry="4.2" fill="none" stroke="currentColor" stroke-width="1"/>
+                            <ellipse cx="12" cy="12" rx="11" ry="4.2" fill="none" stroke="currentColor" stroke-width="1" transform="rotate(60 12 12)"/>
+                            <ellipse cx="12" cy="12" rx="11" ry="4.2" fill="none" stroke="currentColor" stroke-width="1" transform="rotate(120 12 12)"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm md:text-base font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors duration-300">React/Next.js</h3>
+                    <p class="text-xs text-slate-500">React Framework</p>
+                </div>
+
+                <!-- Node.js -->
+                <div class="tech-item premium-card card-shadow text-center fade-in-up delay-4 group cursor-pointer">
+                    <div class="tech-icon-wrapper mb-4 flex justify-center items-center h-16">
+                        <svg class="w-12 h-12 text-green-600 transition-all duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392c1.307,0.654,2.105-0.116,2.105-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.570,0.329,0.924,0.944,0.924,1.603v10.15c0,0.659-0.354,1.265-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm md:text-base font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors duration-300">Node.js</h3>
+                    <p class="text-xs text-slate-500">Backend Runtime</p>
+                </div>
+
+                <!-- AWS/Vercel -->
+                <div class="tech-item premium-card card-shadow text-center fade-in-up delay-5 group cursor-pointer">
+                    <div class="tech-icon-wrapper mb-4 flex justify-center items-center h-16">
+                        <svg class="w-12 h-12 text-slate-700 transition-all duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 22.525H0l12-21.05 12 21.05z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm md:text-base font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors duration-300">AWS/Vercel</h3>
+                    <p class="text-xs text-slate-500">Cloud Platform</p>
+                </div>
+
+                <!-- Google Analytics -->
+                <div class="tech-item premium-card card-shadow text-center fade-in-up delay-6 group cursor-pointer">
+                    <div class="tech-icon-wrapper mb-4 flex justify-center items-center h-16">
+                        <svg class="w-12 h-12 text-yellow-400 transition-all duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm md:text-base font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors duration-300">Google Analytics</h3>
+                    <p class="text-xs text-slate-500">Data Analytics</p>
+                </div>
+
+                <!-- SEO Optimization -->
+                <div class="tech-item premium-card card-shadow text-center fade-in-up delay-7 group cursor-pointer">
+                    <div class="tech-icon-wrapper mb-4 flex justify-center items-center h-16">
+                        <svg class="w-12 h-12 text-purple-500 transition-all duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm md:text-base font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors duration-300">SEO Optimization</h3>
+                    <p class="text-xs text-slate-500">Search Engine</p>
+                </div>
+            </div>
+            <p class="text-center text-slate-500 text-sm mt-8 fade-in-up delay-8">
+                採用業界標準技術，確保網站效能與品質
+            </p>
+        </div>
+    </section>
+
     <!-- 最新消息 / SEO 文章 -->
     <section id="news" class="py-16 md:py-24 px-4 bg-gradient-to-br from-white to-slate-50" aria-labelledby="news-heading">
         <div class="max-w-4xl mx-auto">
@@ -2760,45 +2909,82 @@
                         </p>
                     </div>
                     
-                    <h4 class="text-2xl font-bold text-slate-800 mb-4">按需求定價，您能獲得什麼？</h4>
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">兩個主要方案，滿足不同需求</h4>
                     <p class="text-slate-700 leading-relaxed mb-4">
-                        Edward 專業網站建置工作室採用 <strong class="text-green-600">按需求定價</strong>的方式，根據您的實際需求提供客製化報價。無論是最便宜的 8,000 元入門方案，還是功能完整的進階方案，我們提供的服務品質絕不打折。所有方案都包含：
+                        Edward 專業網站建置工作室提供 <strong class="text-green-600">兩個主要方案</strong>：<strong class="text-green-600">微型創業方案（萬元有找，限一頁式精簡版）</strong>與<strong class="text-indigo-600">企業進階方案（30,000 元起）</strong>。無論選擇哪個方案，我們提供的服務品質絕不打折。所有方案都包含：
                     </p>
                     
-                    <ul class="list-disc list-inside text-slate-700 leading-relaxed mb-6 space-y-2">
-                        <li><strong>完整的響應式網站設計</strong>：桌面、平板、手機完美適配</li>
-                        <li><strong>專業的 SEO 優化</strong>：Meta 標籤、結構化資料、網站速度優化</li>
-                        <li><strong>現代化的設計風格</strong>：符合 2026 年最新設計趨勢</li>
-                        <li><strong>快速的開發時程</strong>：3 天內完成開發並上線</li>
-                        <li><strong>一年的技術支援</strong>：免費維護與技術諮詢</li>
-                        <li><strong>簡單易用的後台系統</strong>：讓您能自行更新內容</li>
-                    </ul>
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 my-6">
+                        <h5 class="text-xl font-bold text-slate-800 mb-4">兩個方案共同包含：</h5>
+                        <ul class="list-disc list-inside text-slate-700 leading-relaxed mb-4 space-y-2">
+                            <li><strong>完整的響應式網站設計</strong>：桌面、平板、手機完美適配</li>
+                            <li><strong>基礎 SEO 優化</strong>：Meta 標籤、結構化資料、網站速度優化</li>
+                            <li><strong>現代化的設計風格</strong>：符合 2026 年最新設計趨勢</li>
+                        </ul>
+                        <h5 class="text-xl font-bold text-indigo-600 mb-4">企業進階方案額外包含：</h5>
+                        <ul class="list-disc list-inside text-slate-700 leading-relaxed space-y-2">
+                            <li><strong>完整 SEO 優化</strong>：進階 SEO 策略與優化</li>
+                            <li><strong>後台管理系統</strong>：讓您能自行更新內容</li>
+                            <li><strong>一年的技術支援</strong>：免費維護與技術諮詢</li>
+                        </ul>
+                    </div>
                     
-                    <h4 class="text-2xl font-bold text-slate-800 mb-4">透明化的價格結構：按需求定價</h4>
+                    <h4 class="text-2xl font-bold text-slate-800 mb-4">透明化的價格結構：兩個主要方案</h4>
                     <p class="text-slate-700 leading-relaxed mb-4">
-                        Edward 專業網站建置工作室採用 <strong class="text-green-600">按需求定價</strong>的方式，沒有固定價格，完全根據您的實際需求提供客製化報價。我們相信每個企業的需求都不同，因此價格也會有所不同。一般企業形象網站的參考價格區間如下：
+                        Edward 專業網站建置工作室提供 <strong class="text-green-600">兩個主要方案</strong>，價格透明且符合不同需求。我們相信每個企業的需求都不同，因此提供明確的方案選擇，讓您清楚了解每個方案包含的服務內容：
                     </p>
                     
                     <div class="bg-gradient-to-r from-green-50 to-indigo-50 rounded-xl p-6 border border-green-200 my-6">
-                        <div class="grid md:grid-cols-3 gap-4 mb-4">
-                            <div class="bg-white rounded-lg p-4 text-center border-2 border-green-500">
-                                <div class="text-2xl font-bold text-green-600 mb-2">入門方案</div>
-                                <div class="text-2xl font-black text-slate-800 mb-2">$8,000<br><span class="text-lg">-$10,000</span></div>
-                                <div class="text-sm text-slate-600">基礎企業形象網站<br>最便宜的方案</div>
+                        <div class="grid md:grid-cols-2 gap-6 mb-4">
+                            <div class="bg-white rounded-lg p-6 text-center border-2 border-green-500 shadow-lg">
+                                <div class="text-3xl font-bold text-green-600 mb-3">微型創業方案</div>
+                                <div class="text-3xl font-black text-slate-800 mb-3">萬元有找</div>
+                                <div class="text-sm text-slate-500 mb-4">（限一頁式精簡版）</div>
+                                <div class="space-y-2 text-left mb-4">
+                                    <div class="flex items-center gap-2 text-slate-700">
+                                        <span class="text-green-500">✓</span>
+                                        <span>3 天快速上線</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-700">
+                                        <span class="text-green-500">✓</span>
+                                        <span>一頁式精簡版網站</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-700">
+                                        <span class="text-green-500">✓</span>
+                                        <span>響應式設計</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-700">
+                                        <span class="text-green-500">✓</span>
+                                        <span>基礎 SEO 優化</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bg-white rounded-lg p-4 text-center">
-                                <div class="text-2xl font-bold text-indigo-600 mb-2">標準方案</div>
-                                <div class="text-2xl font-black text-slate-800 mb-2">$20,000<br><span class="text-lg">-$40,000</span></div>
-                                <div class="text-sm text-slate-600">完整功能網站<br>根據需求報價</div>
-                            </div>
-                            <div class="bg-white rounded-lg p-4 text-center">
-                                <div class="text-2xl font-bold text-purple-600 mb-2">進階方案</div>
-                                <div class="text-2xl font-black text-slate-800 mb-2">$50,000+</div>
-                                <div class="text-sm text-slate-600">客製化功能網站<br>複雜功能開發</div>
+                            <div class="bg-white rounded-lg p-6 text-center border-2 border-indigo-500 shadow-lg">
+                                <div class="text-3xl font-bold text-indigo-600 mb-3">企業進階方案</div>
+                                <div class="text-3xl font-black text-slate-800 mb-3">30,000 元起</div>
+                                <div class="text-sm text-slate-500 mb-4">（多頁面完整版）</div>
+                                <div class="space-y-2 text-left mb-4">
+                                    <div class="flex items-center gap-2 text-slate-700">
+                                        <span class="text-indigo-500">✓</span>
+                                        <span>多頁面網站架構</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-700">
+                                        <span class="text-indigo-500">✓</span>
+                                        <span>完整 SEO 優化</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-700">
+                                        <span class="text-indigo-500">✓</span>
+                                        <span>後台管理系統</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-700">
+                                        <span class="text-indigo-500">✓</span>
+                                        <span>一年技術支援</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <p class="text-center text-slate-600 text-sm font-semibold">
-                            * 收費方式按需求而定，沒有一定價格。實際價格會根據功能需求進行客製化報價，最便宜可以 8,000 元起。
+                            * 實際價格會根據功能需求進行客製化報價。微型創業方案限一頁式精簡版，企業進階方案包含多頁面、完整 SEO 優化與後台管理。
                         </p>
                     </div>
                     
@@ -3244,14 +3430,30 @@
                     </button>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            <p>網站設計費用取決於功能需求。我的價格優勢是傳統網頁公司的 <strong class="text-green-600">1 折</strong>，萬元有找就能擁有專業網站。</p>
-                            <ul>
-                                <li>企業形象網站：30,000 - 60,000 元</li>
-                                <li>購物平台網站：40,000 - 80,000 元</li>
-                                <li>訂位/預約系統：50,000 - 100,000 元</li>
-                                <li>客製化功能：依需求報價</li>
-                            </ul>
-                            <p class="mt-4">所有價格都包含響應式設計、SEO 優化、以及一年的技術支援服務。</p>
+                            <p>我們提供兩個主要方案，價格透明且符合不同需求：</p>
+                            <div class="bg-gradient-to-r from-green-50 to-indigo-50 rounded-xl p-4 my-4">
+                                <div class="mb-4">
+                                    <h4 class="text-lg font-bold text-green-600 mb-2">微型創業方案</h4>
+                                    <p class="text-slate-700 mb-2"><strong>萬元有找（限一頁式精簡版）</strong></p>
+                                    <ul class="text-sm text-slate-600 space-y-1">
+                                        <li>• 3 天快速上線</li>
+                                        <li>• 一頁式精簡版網站</li>
+                                        <li>• 響應式設計</li>
+                                        <li>• 基礎 SEO 優化</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-indigo-600 mb-2">企業進階方案</h4>
+                                    <p class="text-slate-700 mb-2"><strong>30,000 元起</strong></p>
+                                    <ul class="text-sm text-slate-600 space-y-1">
+                                        <li>• 多頁面網站架構</li>
+                                        <li>• 完整 SEO 優化</li>
+                                        <li>• 後台管理系統</li>
+                                        <li>• 一年技術支援</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p class="mt-4">所有方案都包含響應式設計與基礎 SEO 優化。企業進階方案額外包含完整 SEO 優化、後台管理系統與一年技術支援服務。</p>
                                     </div>
                     </div>
                                     </div>
