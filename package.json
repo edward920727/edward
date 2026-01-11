@@ -1,0 +1,9 @@
+{
+  "name": "edward-website",
+  "version": "1.0.0",
+  "description": "Edward 專業網站建置工作室",
+  "scripts": {
+    "dev": "npx http-server . -p 3000 -o"
+  },
+  "private": true
+}
