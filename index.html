@@ -976,6 +976,24 @@
         
         /* 行動裝置優化 */
         @media (max-width: 640px) {
+            /* 首頁 Hero 區塊精簡，避免畫面太擁擠 */
+            #home {
+                padding-top: 4.5rem;
+                padding-bottom: 2.5rem;
+                min-height: auto;
+            }
+            
+            #home .hero-badge {
+                font-size: 0.8rem;
+                padding: 0.5rem 1.25rem;
+                white-space: normal;
+            }
+            
+            #home .hero-subtitle {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+            
             /* 優化按鈕大小 */
             .btn-primary, a[class*="bg-"] {
                 font-size: 0.95rem;
@@ -2533,7 +2551,7 @@
         </div>
         <div class="max-w-7xl mx-auto relative z-10 w-full">
             <div class="text-center fade-in-up">
-                <div class="inline-block bg-gradient-to-r from-blue-100 to-indigo-100 text-indigo-700 px-6 py-2 rounded-full text-sm font-semibold mb-6 shadow-lg">
+                <div class="inline-block bg-gradient-to-r from-blue-100 to-indigo-100 text-indigo-700 px-6 py-2 rounded-full text-sm font-semibold mb-6 shadow-lg hero-badge">
                     ✨ 品牌識別・LOGO・名片・DM・包裝・招牌一次做到位
                 </div>
                 <h1 id="hero-heading" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
@@ -2542,7 +2560,7 @@
                     <span class="text-slate-700">｜</span> 
                     <span class="gradient-text">細節把關的品牌實務設計團隊</span>
                 </h1>
-                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8 hero-subtitle">
                     專注在<strong class="text-indigo-600">品牌識別與平面設計</strong>，兼具<strong>識別度</strong>與<strong>一致性</strong>。<br>
                     從 LOGO、名片、DM、海報到包裝與招牌，我們用嚴謹流程幫你把關每一個細節，<br>
                     讓你後續印刷、輸出與周邊應用更省心、更安心。
@@ -2559,8 +2577,8 @@
                         LINE 免費諮詢
                     </a>
                 </div>
-                <!-- 專業流程 / 準時交件 / 完整到位 -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 max-w-3xl mx-auto">
+                <!-- 專業流程 / 準時交件 / 完整到位（手機上隱藏，避免首頁資訊過於擁擠） -->
+                <div class="hidden md:grid md:grid-cols-3 gap-4 mt-12 max-w-3xl mx-auto">
                     <div class="premium-card card-shadow flex items-center gap-3 justify-center">
                         <span class="text-2xl">🧩</span>
                         <div class="text-left">
