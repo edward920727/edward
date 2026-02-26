@@ -13,8 +13,39 @@
     
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('./logo.png');
+            background-size: 200px 200px;
+            background-position: 0 0;
+            background-repeat: repeat;
+            background-attachment: fixed;
             min-height: 100vh;
+            position: relative;
+            /* 添加淡色覆蓋層，讓背景 logo 更柔和 */
+            background-color: #f8f9fa;
+        }
+        
+        /* 添加半透明覆蓋層，確保登入卡片可讀性 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 0;
+        }
+        
+        /* 確保登入卡片在覆蓋層之上 */
+        body > div {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 讓登入卡片有更明顯的背景，確保可讀性 */
+        .bg-white {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
