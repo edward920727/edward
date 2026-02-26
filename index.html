@@ -53,9 +53,6 @@
     <!-- Alternate Languages -->
     <link rel="alternate" hreflang="zh-TW" href="https://edward727.com/">
     
-    <!-- Sitemap -->
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-    
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -63,29 +60,35 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png?v=2">
-    <link rel="shortcut icon" href="/favicon.ico?v=2">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png?v=2">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=2">
-    <link rel="icon" type="image/png" sizes="96x96" href="/logo.png?v=2">
-    <link rel="icon" type="image/png" sizes="192x192" href="/logo.png?v=2">
+    <!-- Favicon（本機瀏覽與正式上線皆可使用的相對路徑） -->
+    <link rel="icon" type="image/png" href="./favicon.png?v=2">
+    <link rel="shortcut icon" href="./favicon.ico?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png?v=2">
+    <link rel="icon" type="image/png" sizes="96x96" href="./logo.png?v=2">
+    <link rel="icon" type="image/png" sizes="192x192" href="./logo.png?v=2">
     
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" href="/logo.png?v=2">
-    <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=2">
+    <link rel="apple-touch-icon" href="./logo.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="./logo.png?v=2">
     
     <!-- Microsoft Tiles (Windows 開始畫面) -->
-    <meta name="msapplication-TileImage" content="/logo.png">
+    <meta name="msapplication-TileImage" content="./logo.png">
     <meta name="msapplication-TileColor" content="#4f46e5">
     
-    <!-- Manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- Manifest：僅在 http/https 環境下載入，避免 file:// 模式的 CORS 錯誤 -->
+    <script>
+        (function() {
+            if (location.protocol === 'http:' || location.protocol === 'https:') {
+                var link = document.createElement('link');
+                link.rel = 'manifest';
+                link.href = './manifest.json';
+                document.head.appendChild(link);
+            }
+        })();
+    </script>
     
-    <!-- Security Headers -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <!-- Security Headers（實際上需由伺服器 HTTP Header 設定，這裡僅保留註解說明） -->
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#4f46e5">
@@ -825,12 +828,7 @@
             scroll-behavior: smooth;
         }
         
-        /* 初始狀態：隱藏網頁內容 */
-        body:not(.content-visible) > *:not(.logo-animation-overlay):not(.page-loader):not(.scroll-progress) {
-            opacity: 0;
-        }
-        
-        /* 頁面載入動畫 */
+        /* 頁面載入動畫（已關閉進入動畫，保留樣式以供未來需要時使用） */
         .page-loader {
             position: fixed;
             top: 0;
@@ -2434,44 +2432,7 @@
         }
     </style>
 </head>
-<body class="text-slate-800">
-    
-    <!-- 頁面載入動畫 -->
-    <div class="page-loader" id="page-loader">
-        <div class="loader-content">
-            <div class="loader-spinner"></div>
-            <div class="loader-text">載入中...</div>
-            </div>
-        </div>
-    
-    <!-- Logo 筆畫動畫特效 -->
-    <div class="logo-animation-overlay" id="logo-animation-overlay">
-        <!-- 水波紋效果容器 -->
-        <div class="ripple-effect" id="ripple-1"></div>
-        <div class="ripple-effect" id="ripple-2"></div>
-        <div class="ripple-effect" id="ripple-3"></div>
-        
-        <div class="logo-container">
-            <svg class="logo-svg" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;" id="logo-svg-main">
-                <defs>
-                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <!-- 將 Edward 分成單獨字母，按順序出現，完美居中 -->
-                <g class="logo-letters" transform="translate(250, 100)">
-                    <text class="logo-letter letter-E" x="-200" y="0" text-anchor="middle" dominant-baseline="central">E</text>
-                    <text class="logo-letter letter-d1" x="-130" y="0" text-anchor="middle" dominant-baseline="central">d</text>
-                    <text class="logo-letter letter-w" x="-60" y="0" text-anchor="middle" dominant-baseline="central">w</text>
-                    <text class="logo-letter letter-a" x="20" y="0" text-anchor="middle" dominant-baseline="central">a</text>
-                    <text class="logo-letter letter-r" x="80" y="0" text-anchor="middle" dominant-baseline="central">r</text>
-                    <text class="logo-letter letter-d2" x="140" y="0" text-anchor="middle" dominant-baseline="central">d</text>
-                </g>
-            </svg>
-            </div>
-        </div>
+<body class="text-slate-800 content-visible">
     
     <!-- 滾動進度條 -->
     <div class="scroll-progress" id="scroll-progress"></div>
@@ -2483,7 +2444,7 @@
                 <!-- Logo -->
                 <a href="#home" class="flex items-center gap-2 md:gap-3" title="回到首頁 - Edward 專業網站建置工作室">
                     <div class="navbar-logo" id="navbar-logo">
-                        <img src="/logo.png" alt="Edward 專業網站建置工作室 Logo" loading="eager" fetchpriority="high" width="60" height="60">
+                        <img src="./logo.png" alt="Edward 專業網站建置工作室 Logo" loading="eager" fetchpriority="high" width="60" height="60">
                     </div>
                     <span class="navbar-brand-text text-slate-800 font-bold whitespace-nowrap">Edward專業網頁建置</span>
                 </a>
@@ -2554,12 +2515,12 @@
 
     <!-- 主要內容 -->
     <main role="main">
-    <!-- Hero 區塊 -->
+    <!-- Hero 區塊 - 參考大聲平面設計風格，改為平面設計品牌主視覺 -->
     <section id="home" class="py-24 md:py-40 px-4 relative overflow-hidden min-h-[600px] md:min-h-[700px] flex items-center" aria-labelledby="hero-heading">
         <!-- 淺色背景圖 -->
         <div class="absolute inset-0 z-0">
-                            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80" 
-                 alt="Edward 專業網站建置工作室 - 數位轉型網站開發服務背景圖" 
+            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80" 
+                 alt="Edward 平面設計工作室 - 品牌與印刷設計服務背景圖" 
                  class="w-full h-full object-cover"
                  loading="eager"
                  fetchpriority="high"
@@ -2569,34 +2530,58 @@
                  style="filter: brightness(1.3) contrast(0.8) saturate(0.5);">
             <div class="absolute inset-0 bg-gradient-to-br from-white/70 via-indigo-50/50 to-blue-50/70"></div>
             <div class="absolute inset-0 bg-white/40"></div>
-                </div>
+        </div>
         <div class="max-w-7xl mx-auto relative z-10 w-full">
             <div class="text-center fade-in-up">
                 <div class="inline-block bg-gradient-to-r from-blue-100 to-indigo-100 text-indigo-700 px-6 py-2 rounded-full text-sm font-semibold mb-6 shadow-lg">
-                    ✨ 100% 客製化開發 | 絕非免費軟體或模板
+                    ✨ 品牌識別・LOGO・名片・DM・包裝・招牌一次做到位
                 </div>
                 <h1 id="hero-heading" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-                    <span class="text-blue-600">Edward</span> 專業架網站工作室
+                    <span class="text-blue-600">Edward</span> 平面設計
                     <br class="md:hidden">
-                    <span class="text-slate-700">-</span> 
-                    <span class="gradient-text">台北架網站、網頁架設、網站開發專家</span>
+                    <span class="text-slate-700">｜</span> 
+                    <span class="gradient-text">細節把關的品牌實務設計團隊</span>
                 </h1>
-                <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8">
-                    <strong class="text-indigo-600">專業架網站推薦</strong> | <strong class="text-red-600">完全客製化開發，不使用免費軟體或模板</strong><br>
-                    台北架網站、網頁架設、網站架設服務 | 3 天內完成網站上線，萬元有找<br>
-                    <span class="text-indigo-600 font-semibold">為您的生意打造能賺錢的數位門面</span>
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
+                    專注在<strong class="text-indigo-600">品牌識別與平面設計</strong>，兼具<strong>識別度</strong>與<strong>一致性</strong>。<br>
+                    從 LOGO、名片、DM、海報到包裝與招牌，我們用嚴謹流程幫你把關每一個細節，<br>
+                    讓你後續印刷、輸出與周邊應用更省心、更安心。
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#case" class="btn-primary text-white font-bold text-lg px-8 py-4 rounded-xl border-2 border-indigo-300 transform transition-all duration-300 hover:scale-105" title="查看 Edward 專業網站建置精選案例">
-                        查看案例
+                    <a href="#case" class="btn-primary text-white font-bold text-lg px-8 py-4 rounded-xl border-2 border-indigo-300 transform transition-all duration-300 hover:scale-105" title="查看 Edward 平面設計精選服務項目">
+                        查看設計服務
                     </a>
-                    <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%AE%E8%A9%A2%E7%B6%B2%E7%AB%99%E5%BB%BA%E7%BD%AE%E9%9C%80%E6%B1%82%EF%BC%81" 
+                    <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%AE%E8%A9%A2%E5%B9%B3%E9%9D%A2%E8%A8%AD%E8%A8%88%E8%88%87%E5%93%81%E7%89%8C%E8%AD%98%E5%88%A5%E7%9A%84%E9%9C%80%E6%B1%82%EF%BC%81" 
                        target="_blank" 
                        rel="noopener noreferrer"
                        class="bg-green-600 hover:bg-green-700 text-white font-bold text-lg px-8 py-4 rounded-xl border-2 border-green-300 transform transition-all duration-300 hover:scale-105"
-                       title="透過 LINE 諮詢 Edward 專業網站建置服務">
-                        LINE 諮詢
+                       title="透過 LINE 諮詢 Edward 平面設計服務">
+                        LINE 免費諮詢
                     </a>
+                </div>
+                <!-- 專業流程 / 準時交件 / 完整到位 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 max-w-3xl mx-auto">
+                    <div class="premium-card card-shadow flex items-center gap-3 justify-center">
+                        <span class="text-2xl">🧩</span>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800">專業流程</div>
+                            <div class="text-xs text-slate-500">從需求釐清、視覺方向到完稿輸出，每一步都有標準化把關</div>
+                        </div>
+                    </div>
+                    <div class="premium-card card-shadow flex items-center gap-3 justify-center">
+                        <span class="text-2xl">⏱️</span>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800">準時交件</div>
+                            <div class="text-xs text-slate-500">事前確認時程與里程碑，讓你清楚掌握每一次進度</div>
+                        </div>
+                    </div>
+                    <div class="premium-card card-shadow flex items-center gap-3 justify-center">
+                        <span class="text-2xl">✔️</span>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800">完整到位</div>
+                            <div class="text-xs text-slate-500">不只設計好看，也確保後續印刷與輸出規格都能順利使用</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2611,18 +2596,21 @@
             <div class="fade-in-up delay-1">
                 <div class="text-center mb-8">
                     <h3 class="text-3xl md:text-4xl font-black mb-6 text-slate-800">
-                        營收倍增網站專家
+                        細節把關的平面設計工作室
                     </h3>
                     <p class="text-lg md:text-xl text-slate-700 leading-relaxed mb-6 max-w-3xl mx-auto">
-                        我是一名熱愛開發的工程師，專門提供<strong class="text-indigo-600">台北架網站、網頁架設、網站開發</strong>服務，協助在地商家解決「網站太貴」與「開發太慢」的痛點。無論是<strong>架網站</strong>、<strong>網站架設</strong>、<strong>網站開發</strong>還是<strong>網站建置</strong>，我深信數位轉型不該是沉重的負擔，而是讓您營收倍增的利器。
+                        我是 Edward，長期專注在<strong class="text-indigo-600">品牌識別、LOGO、名片、DM、海報、包裝與招牌設計</strong>，服務對象涵蓋小型工作室到在地實體店家。
+                        相信好的平面設計不只是好看，而是能在真實場景中被清楚看見、被記住，並幫助你穩定累積品牌印象。
                     </p>
                     <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-6 border-2 border-red-200 mb-6 max-w-3xl mx-auto">
                         <p class="text-lg text-slate-800 leading-relaxed">
-                            <strong class="text-red-600">⚠️ 重要說明：</strong>我們<strong>不使用免費建站平台（如 Wix、Weebly、Shopify 模板等）</strong>，也<strong>不套用現成模板</strong>。每個網站都是<strong class="text-indigo-600">從零開始完全客製化開發</strong>，確保您的網站是<strong class="text-purple-600">獨一無二</strong>的專屬設計，絕不會與競爭對手「撞衫」。
+                            <strong class="text-red-600">⚠️ 重要說明：</strong>我們<strong>不靠隨便拼貼網路素材</strong>、也<strong>不亂套用廉價模板</strong>，每一項設計都是依你的品牌特性與實際應用情境，<strong class="text-indigo-600">量身規劃版面與視覺系統</strong>，
+                            確保從名片到招牌都是<strong class="text-purple-600">一致且好用</strong>的專屬設計。
                         </p>
                     </div>
                     <p class="text-lg md:text-xl text-slate-700 leading-relaxed mb-10 max-w-3xl mx-auto">
-                        透過專業的<strong>架網站</strong>技術能力與對商業邏輯的深度理解，我能夠在極短的時間內為您提供<strong class="text-purple-600">完全客製化</strong>的<strong>網頁架設</strong>與<strong>網站開發</strong>服務，打造出既美觀又實用的獨特網站，讓您的生意在數位世界中脫穎而出。
+                        透過對<strong>品牌定位</strong>與<strong>產業特性</strong>的理解，我會先幫你理出真正需要的項目，再規劃出最實用的設計組合，
+                        讓你用合理的預算，一次把 LOGO、名片、DM、海報、包裝、招牌等視覺需求安排到位。
                     </p>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
@@ -2651,156 +2639,262 @@
     <section id="case" class="py-16 md:py-24 px-4" aria-labelledby="case-heading">
         <div class="max-w-7xl mx-auto">
             <h2 id="case-heading" class="text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 fade-in-up">
-                精選架網站案例
+                服務項目｜一次做到位
             </h2>
             <p class="text-center text-slate-600 mb-12 md:mb-16 text-lg fade-in-up delay-1">
-                實際開發的<strong>架網站、網頁架設、網站開發</strong>案例，展示專業技術與設計能力
+                參考<a href="https://dashang.com.tw/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">大聲平面設計</a>的專業流程精神，為你整合品牌識別與各式平面設計需求，從設計到完稿輸出一次完成。
             </p>
-            
-                <!-- Buger-O-clock 案例 -->
-            <article class="max-w-5xl mx-auto fade-in-up delay-2" itemscope itemtype="https://schema.org/CreativeWork">
-                <div class="premium-card card-shadow overflow-hidden">
-                    <!-- 案例圖片 -->
-                    <div class="image-hover rounded-2xl overflow-hidden mb-8">
-                        <a href="https://edward920727.github.io/Buger-O-clock/" target="_blank" rel="noopener noreferrer" title="查看 Buger-O-clock 完整網站案例">
-                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80" 
-                                 alt="Buger-O-clock 漢堡店網站案例 - Edward 專業網站建置作品展示，包含響應式設計、客製化網頁、現代化 UI" 
-                                 class="w-full h-[400px] md:h-[500px] object-cover"
-                                 loading="lazy"
-                                 decoding="async"
-                             width="1200"
-                                 height="800">
-                    </a>
-                        </div>
-                    
-                    <!-- 案例標題 -->
-                    <div class="text-center mb-8">
-                        <div class="flex items-center justify-center gap-3 mb-4">
-                            <span class="text-4xl">🍔</span>
-                            <h3 class="text-3xl md:text-4xl font-black text-slate-800" itemprop="name">Buger-O-clock</h3>
-                        </div>
-                        <p class="text-xl text-slate-600" itemprop="description">
-                            專業漢堡店網站建置案例
-                        </p>
-                    </div>
-                    
-                    <!-- 案例介紹 -->
-                    <div class="mb-8">
-                        <h4 class="text-2xl font-bold text-slate-800 mb-4">專案介紹</h4>
-                        <p class="text-lg text-slate-700 leading-relaxed mb-6">
-                            這是我為漢堡店打造的完整網站案例，包含現代化的設計風格、響應式佈局、客製化網頁功能，以及完整的品牌形象展示。網站採用流暢的使用者體驗設計，讓顧客能輕鬆瀏覽菜單並完成訂單。
-                        </p>
-                        
-                        <div class="grid md:grid-cols-2 gap-6 mb-8">
-                            <div class="bg-indigo-50 rounded-xl p-6 border border-indigo-100">
-                                <div class="text-indigo-600 font-bold text-lg mb-3">✨ 核心功能</div>
-                                <ul class="text-slate-700 space-y-2">
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-green-500">✓</span>
-                                        <span>響應式設計</span>
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-green-500">✓</span>
-                                        <span>客製化網頁</span>
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-green-500">✓</span>
-                                        <span>品牌形象展示</span>
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-green-500">✓</span>
-                                        <span>漢堡選單導覽</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="bg-blue-50 rounded-xl p-6 border border-blue-100">
-                                <div class="text-blue-600 font-bold text-lg mb-3">⚡ 開發特色</div>
-                                <ul class="text-slate-700 space-y-2">
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-green-500">✓</span>
-                                        <span>現代化 UI 設計</span>
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-green-500">✓</span>
-                                        <span>流暢動畫效果</span>
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-green-500">✓</span>
-                                        <span>優化使用者體驗</span>
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-green-500">✓</span>
-                                        <span>快速載入速度</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 技術亮點 -->
-                    <div class="mb-8">
-                        <h4 class="text-2xl font-bold text-slate-800 mb-4">技術亮點</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-semibold">響應式設計</span>
-                            <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-semibold">Tailwind CSS</span>
-                            <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-semibold">JavaScript</span>
-                            <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-semibold">漢堡選單</span>
-                            <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-semibold">動畫效果</span>
-                            <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-semibold">SEO 優化</span>
-                        </div>
-                    </div>
-                    
-                    <!-- 行動按鈕 -->
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="https://edward920727.github.io/Buger-O-clock/" 
-                               target="_blank" 
-                           rel="noopener noreferrer"
-                           class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-bold text-center px-6 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 text-lg"
-                           title="查看 Buger-O-clock 完整網站案例 - Edward 專業網站建置作品">
-                                🚀 查看完整網站
-                            </a>
-                            <a href="https://line.me/ti/p/AxSH0sjns3?text=%E4%BD%A0%E5%A5%BDEdward%EF%BC%8C%E6%88%91%E6%83%B3%E8%AB%8B%E4%BD%A0%E5%B9%AB%E6%88%91%E6%94%B9%E6%88%90%E9%80%99%E7%A8%AE%E9%A2%A8%E6%A0%BC%EF%BC%81" 
-                               target="_blank" 
-                           rel="noopener noreferrer"
-                           class="flex-1 btn-primary text-white font-semibold text-center px-6 py-4 rounded-xl border-2 border-indigo-300 transition-all duration-300 transform hover:scale-105 text-lg"
-                           title="透過 LINE 諮詢類似 Buger-O-clock 的網站建置服務">
-                                💬 諮詢類似網站
-                            </a>
-                        </div>
-                    </div>
+
+            <!-- 服務卡片 -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-up delay-2">
+                <!-- 品牌設計 CIS/VI -->
+                <article class="premium-card card-shadow h-full">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">品牌設計 CIS / VI</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        建立一套完整且一致的品牌視覺規範，從 LOGO、色彩、字體到版面系統，讓之後的名片、DM、包裝、社群素材都能「一看就知道是你」。
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>品牌核心風格與關鍵元素規劃</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>LOGO、色票、字體與版式系統</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>後續延伸應用建議與使用說明</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- LOGO設計（商標設計） -->
+                <article class="premium-card card-shadow h-full">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">LOGO 設計（商標設計）</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        在兼顧美感與實際應用的前提下，為你打造具有記憶點的品牌 LOGO，無論是名片、招牌、社群頭像都能清楚呈現。
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>多組設計方向提案與精修</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>深色 / 淺色 / 單色等多版本輸出</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>提供印刷與網路使用之向量檔</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- 名片設計（企業形象設計） -->
+                <article class="premium-card card-shadow h-full">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">名片設計（企業形象設計）</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        乾淨有質感的排版，加上資訊層級清楚的配置，讓你的名片在交換的瞬間就建立專業印象。
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>單人或多人名片版型規劃</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>適用各種紙材與後加工的完稿設定</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>提供給印刷廠可直接輸出的檔案</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- DM / 菜單設計 -->
+                <article class="premium-card card-shadow h-full">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">DM / 菜單設計</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        清楚好讀的版面與醒目的重點編排，讓客人一看就懂重點、知道怎麼下單或行動。
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>依產業設計適合的資訊架構與分區</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>搭配品牌識別的視覺元素與配色</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>印刷尺寸、出血與折線等專業設定</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- 海報設計 -->
+                <article class="premium-card card-shadow h-full">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">海報設計（專業輸出）</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        在大面積視覺上保持主視覺聚焦，同時兼顧細節與可讀性，適用店面牆面、活動現場與展場佈置。
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>主標題與視覺焦點強化設計</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>對應輸出尺寸與觀看距離的字級調整</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>提供輸出中心可直接使用之檔案格式</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- 包裝 / 招牌設計 -->
+                <article class="premium-card card-shadow h-full">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">包裝設計・招牌設計</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        結合品牌識別與實際陳列環境，讓產品包裝與店面招牌在現場更有存在感，也與你的整體品牌維持一致。
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>依實際刀模或招牌尺寸規劃版面</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>考量材質、燈光與觀看距離的設計調整</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-1">✓</span>
+                            <span>方便輸出廠 / 招牌廠後續製作的完稿規格</span>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+
+            <!-- 識別度・一致性・後續應用 -->
+            <div class="mt-12 max-w-4xl mx-auto fade-in-up delay-3">
+                <div class="bg-gradient-to-r from-indigo-50 via-blue-50 to-slate-50 border border-indigo-100 rounded-2xl p-8 text-center">
+                    <h3 class="text-2xl md:text-3xl font-black text-slate-800 mb-4">
+                        識別度｜一致性｜後續應用
+                    </h3>
+                    <p class="text-slate-700 text-base md:text-lg leading-relaxed mb-4">
+                        LOGO 只是開始，真正能長期發揮效益的是「整體品牌視覺系統」。完成主識別後，我們可以依你的實際需求，
+                        協助製作名片、DM、菜單、招牌、包裝、社群貼文等延伸應用，讓品牌在各種接觸點都維持一致。
+                    </p>
+                    <p class="text-slate-500 text-sm">
+                        想了解你的品牌適合從哪一項服務開始？歡迎直接加 LINE 與我討論，我會依實際情況給你最實用的建議。
+                    </p>
                 </div>
-            </article>
+            </div>
+
+            <!-- 網站建置作品集 -->
+            <div class="mt-16 fade-in-up delay-4">
+                <h3 class="text-3xl md:text-4xl font-black text-center mb-4 text-slate-800">
+                    網站建置作品集
+                </h3>
+                <p class="text-center text-slate-600 mb-10 max-w-3xl mx-auto text-base md:text-lg">
+                    以下是實際上線中的網站建置案例，包含品牌形象網站與電商網站，讓你更直觀了解實際成品風格與互動體驗。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                    <!-- Buger-O-clock 案例 -->
+                    <article class="premium-card card-shadow h-full">
+                        <div class="mb-4 overflow-hidden rounded-2xl bg-slate-100">
+                            <img 
+                                src="./buger-o-clock-home.png"
+                                alt="Buger-O-clock 漢堡店網站首頁畫面預覽"
+                                class="w-full h-56 object-cover transition-transform duration-700 ease-out hover:scale-105"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="text-sm font-semibold text-indigo-600 mb-2">品牌形象網站</div>
+                        <h4 class="text-2xl font-bold text-slate-800 mb-3">Buger-O-clock 漢堡店網站</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            為實體漢堡店打造的形象官網，結合大圖視覺、餐點展示與行動召喚按鈕，優化手機瀏覽與訂餐路徑，讓客人更快找到重點資訊。
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs rounded-full bg-indigo-50 text-indigo-700">響應式設計</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-slate-50 text-slate-700">單頁式結構</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-slate-50 text-slate-700">行動裝置優化</span>
+                        </div>
+                        <a href="https://edward920727.github.io/Buger-O-clock/" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-all duration-300 hover:scale-105"
+                           title="前往查看 Buger-O-clock 網站建置案例">
+                            前往查看網站
+                        </a>
+                    </article>
+
+                    <!-- Tung Store 案例 -->
+                    <article class="premium-card card-shadow h-full">
+                        <div class="mb-4 overflow-hidden rounded-2xl bg-slate-100">
+                            <img 
+                                src="./tung-store-home.png"
+                                alt="Tung Store 線上商店首頁畫面預覽"
+                                class="w-full h-56 object-cover transition-transform duration-700 ease-out hover:scale-105"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="text-sm font-semibold text-emerald-600 mb-2">電商網站</div>
+                        <h4 class="text-2xl font-bold text-slate-800 mb-3">Tung Store 線上商店</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            以簡潔清楚的版面呈現商品與資訊，搭配一致的品牌色與互動設計，讓訪客能快速瀏覽、理解商品價值，適合小型品牌與創作者經營線上商店。
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs rounded-full bg-emerald-50 text-emerald-700">電商體驗</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-slate-50 text-slate-700">現代化排版</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-slate-50 text-slate-700">品牌色系設計</span>
+                        </div>
+                        <a href="https://tung-store-kpoc.vercel.app/" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-all duration-300 hover:scale-105"
+                           title="前往查看 Tung Store 線上商店網站">
+                            前往查看網站
+                        </a>
+                    </article>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- 為什麼選擇 Edward -->
+    <!-- 為什麼選擇我們（參考大聲平面設計的溝通重點） -->
     <section id="why" class="py-16 md:py-24 px-4 bg-gradient-to-br from-slate-50 to-blue-50" aria-labelledby="why-heading">
         <div class="max-w-7xl mx-auto">
             <h2 id="why-heading" class="text-4xl md:text-5xl font-black text-center mb-12 text-slate-800 fade-in-up">
-                為什麼選擇 Edward？
+                為什麼選擇我們
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="premium-card card-shadow text-center fade-in-up delay-1">
-                    <div class="text-5xl mb-6">⚡</div>
-                    <h3 class="text-2xl font-bold text-indigo-600 mb-4">極速開發</h3>
-                    <p class="text-slate-600 leading-relaxed">3 天內完成開發並上線，比傳統公司快 10-20 倍</p>
-                    </div>
+                    <div class="text-5xl mb-6">🌏</div>
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-4">全台線上服務</h3>
+                    <p class="text-slate-600 leading-relaxed">採用線上溝通與數位流程，不論你在台灣哪個縣市，都能享有同樣穩定的設計品質</p>
+                </div>
                 <div class="premium-card card-shadow text-center fade-in-up delay-2">
-                    <div class="text-5xl mb-6">💰</div>
-                    <h3 class="text-2xl font-bold text-green-600 mb-4">價格優勢</h3>
-                    <p class="text-slate-600 leading-relaxed">價格只要傳統網頁公司的 1 折，萬元有找</p>
+                    <div class="text-5xl mb-6">👥</div>
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">流程清楚・溝通有效</h3>
+                    <p class="text-slate-600 leading-relaxed">會先釐清需求與風格方向，再進入設計製作，減少來回修改與時間浪費</p>
                 </div>
                 <div class="premium-card card-shadow text-center fade-in-up delay-3">
-                    <div class="text-5xl mb-6">🎯</div>
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">專業品質</h3>
-                    <p class="text-slate-600 leading-relaxed">專業<strong>架網站</strong>、<strong>網頁架設</strong>、<strong>網站開發</strong>技術，現代化設計、響應式佈局、SEO 優化一應俱全</p>
-                    </div>
+                    <div class="text-5xl mb-6">📅</div>
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">時程可視・準時交件</h3>
+                    <p class="text-slate-600 leading-relaxed">正式接案前會先確認排程與交件日期，讓你可以預先安排印刷、施工或上架時程</p>
+                </div>
                 <div class="premium-card card-shadow text-center fade-in-up delay-4 border-2 border-purple-300 bg-gradient-to-br from-purple-50 to-indigo-50">
-                    <div class="text-5xl mb-6">✨</div>
-                    <h3 class="text-2xl font-bold text-purple-600 mb-4">100% 客製化</h3>
-                    <p class="text-slate-600 leading-relaxed"><strong class="text-purple-600">完全客製化開發</strong>，絕不使用免費軟體、建站平台或現成模板，每個網站都是獨一無二的專屬設計</p>
-                    </div>
+                    <div class="text-5xl mb-6">🧩</div>
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4">細節把關・後續好用</h3>
+                    <p class="text-slate-600 leading-relaxed">不只畫面好看，也會幫你確認出血、刀模、解析度與檔案規格，方便後續印刷、輸出與招牌製作</p>
+                </div>
             </div>
             <div class="bg-gradient-to-r from-purple-50 via-indigo-50 to-blue-50 rounded-xl p-6 border-2 border-purple-200 mt-8 fade-in-up delay-5">
                 <div class="text-center">
@@ -3958,42 +4052,102 @@
     </section>
     </main>
 
-    <footer class="bg-white border-t border-slate-200 py-12" role="contentinfo">
+    <footer class="bg-slate-900 text-slate-100 pt-16 pb-10" role="contentinfo">
         <div class="max-w-7xl mx-auto px-4">
-            <!-- 聯絡資訊 -->
-            <div class="text-center mb-8">
-                <h3 class="text-xl font-bold text-slate-800 mb-6">聯絡我們</h3>
-                <div class="flex flex-col gap-3 items-center">
-                    <p class="text-slate-600 text-base">
-                        <i class="fas fa-envelope mr-2 text-indigo-600" aria-hidden="true"></i>
-                        <a href="mailto:lovelove0727@icloud.com" class="text-indigo-600 hover:text-indigo-700 transition-colors" title="發送 Email 給 Edward 專業網站建置工作室">lovelove0727@icloud.com</a>
+            <!-- 上層：品牌敘述＋服務分類＋聯絡方式（參考大聲平面設計結構 https://dashang.com.tw/） -->
+            <div class="grid gap-10 md:grid-cols-3 lg:grid-cols-4 mb-10">
+                <!-- 品牌介紹 -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-black tracking-wide text-white">
+                        Edward 專業網站建置工作室
+                    </h3>
+                    <p class="text-sm leading-relaxed text-slate-300">
+                        專注在品牌實務的網站建置與平面設計，兼顧<strong class="text-indigo-300">識別度</strong>與<strong class="text-indigo-300">一致性</strong>。
+                        從規劃、設計到上線與完稿輸出，以嚴謹流程幫你把關每個細節，讓後續印刷、招牌、周邊應用更省心。
                     </p>
-                    <p class="text-slate-600 text-base">
-                        <i class="fas fa-phone mr-2 text-indigo-600" aria-hidden="true"></i>
-                        <a href="tel:+886917323860" class="text-indigo-600 hover:text-indigo-700 transition-colors" title="撥打電話給 Edward 專業網站建置工作室">0917-323-860</a>
-                    </p>
-                    <p class="text-slate-600 text-base">
-                        <i class="fab fa-line mr-2 text-indigo-600" aria-hidden="true"></i>
-                        <a href="https://line.me/ti/p/AxSH0sjns3" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           class="text-indigo-600 hover:text-indigo-700 transition-colors"
-                           title="透過 LINE 聯繫 Edward 專業網站建置工作室">LINE 諮詢</a>
-                    </p>
-                    <p class="text-slate-600 text-base">
-                        <i class="fab fa-instagram mr-2 text-indigo-600" aria-hidden="true"></i>
-                        <a href="https://www.instagram.com/ed_studio_tw?igsh=eDJwcTg5OWxnZWxi&utm_source=qr" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           class="text-indigo-600 hover:text-indigo-700 transition-colors"
-                           title="查看 Edward 專業網站建置工作室的 Instagram">Instagram</a>
+                </div>
+
+                <!-- 網站建置服務 -->
+                <div class="space-y-3">
+                    <h4 class="text-sm font-semibold tracking-widest text-slate-400 uppercase">
+                        網站建置服務
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><span class="text-slate-100">企業形象網站建置</span></li>
+                        <li><span class="text-slate-100">電商網站 / 線上商店</span></li>
+                        <li><span class="text-slate-100">線上訂位 / 預約系統</span></li>
+                        <li><span class="text-slate-100">部落格 / 內容型網站</span></li>
+                        <li><span class="text-slate-100">SEO 優化與網站改版</span></li>
+                    </ul>
+                </div>
+
+                <!-- 平面設計服務（呼應上方服務項目區塊與 https://dashang.com.tw/） -->
+                <div class="space-y-3">
+                    <h4 class="text-sm font-semibold tracking-widest text-slate-400 uppercase">
+                        平面設計服務
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><span class="text-slate-100">品牌設計 CIS / VI</span></li>
+                        <li><span class="text-slate-100">LOGO / 商標設計</span></li>
+                        <li><span class="text-slate-100">名片設計・企業形象設計</span></li>
+                        <li><span class="text-slate-100">DM / 菜單 / 海報設計</span></li>
+                        <li><span class="text-slate-100">包裝設計・招牌設計</span></li>
+                    </ul>
+                </div>
+
+                <!-- 聯絡資訊 -->
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold tracking-widest text-slate-400 uppercase">
+                        聯絡我們 / Contact
+                    </h4>
+                    <div class="space-y-2 text-sm">
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-indigo-300" aria-hidden="true"></i>
+                            <a href="mailto:lovelove0727@icloud.com" class="hover:text-white transition-colors" title="發送 Email 給 Edward">
+                                lovelove0727@icloud.com
+                            </a>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-phone text-indigo-300" aria-hidden="true"></i>
+                            <a href="tel:+886917323860" class="hover:text-white transition-colors" title="撥打電話給 Edward">
+                                0917-323-860
+                            </a>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fab fa-line text-emerald-300" aria-hidden="true"></i>
+                            <a href="https://line.me/ti/p/AxSH0sjns3"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="hover:text-white transition-colors"
+                               title="透過 LINE 聯繫 Edward">
+                                LINE：@edward727
+                            </a>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fab fa-instagram text-pink-300" aria-hidden="true"></i>
+                            <a href="https://www.instagram.com/ed_studio_tw?igsh=eDJwcTg5OWxnZWxi&utm_source=qr"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="hover:text-white transition-colors"
+                               title="查看 Edward 的 Instagram 作品與近況">
+                                Instagram：@ed_studio_tw
+                            </a>
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        歡迎提供你的品牌背景與需求，我會先幫你整理適合的方案與預算，再一起確認時程與細節。
                     </p>
                 </div>
             </div>
-            
-            <!-- 版權宣告 -->
-            <div class="text-center pt-6 border-t border-slate-200">
-                <p class="text-slate-500 text-sm md:text-base">© 2026 Edward Design Studio 版權宣告</p>
+
+            <!-- 下層：版權宣告 -->
+            <div class="border-t border-slate-800 pt-6 mt-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <p class="text-xs md:text-sm text-slate-500">
+                    © 2026 Edward Design Studio. All Rights Reserved.
+                </p>
+                <p class="text-xs text-slate-500">
+                    專業網站建置・平面設計・品牌視覺整合
+                </p>
             </div>
         </div>
     </footer>
@@ -4023,26 +4177,14 @@
             window.scrollTo(0, 0);
         }, { passive: true });
         
-        // 頁面載入完成時執行所有初始化（使用 passive 優化，合併事件處理器）
+        // 頁面載入完成時執行初始化（僅保留回頂部行為，停用進入動畫）
         window.addEventListener('load', () => {
             // 確保在頂部
             requestAnimationFrame(() => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
             });
-            
-            // Logo 筆畫動畫特效 - 使用 requestIdleCallback 在瀏覽器空閒時執行
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(() => {
-                    initLogoAnimation();
-                }, { timeout: 2000 });
-            } else {
-                // 降級方案：使用 setTimeout
-                setTimeout(() => {
-                    initLogoAnimation();
-                }, 100);
-            }
         }, { passive: true });
         
         // Logo 動畫初始化函數（分離出來以便優化）
@@ -4317,12 +4459,41 @@
             });
         }
         
-        // 導覽列滾動效果與當前區塊高亮
+        // 導覽列滾動效果與當前區塊高亮（改為「單頁多分頁」顯示模式）
         const navbar = document.querySelector('.navbar');
         const navLinks = document.querySelectorAll('.nav-menu a, .mobile-menu-link');
         const sections = document.querySelectorAll('section[id]');
         let lastScrollY = window.scrollY;
         let scrollDirection = 'down';
+        
+        // 顯示指定區塊，其餘隱藏，模擬各自分頁
+        function showSection(targetId) {
+            if (!targetId) return;
+            
+            sections.forEach(section => {
+                if (section.getAttribute('id') === targetId) {
+                    section.style.display = '';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+            
+            // 更新導覽列 active 狀態
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href') || '';
+                if (href === `#${targetId}` || (targetId === 'home' && (href === '#' || href === '#home'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // 每次切換區塊時都捲回頂部，避免殘留捲動位置
+            window.scrollTo({
+                top: 0,
+                behavior: 'instant'
+            });
+        }
         
         function updateNavbar() {
             const currentScroll = window.scrollY;
@@ -4334,35 +4505,13 @@
                 navbar.classList.remove('scrolled');
             }
             
-            // 判斷滾動方向（可選：隱藏/顯示導覽列）
+            // 判斷滾動方向（保留結構，未使用）
             if (currentScroll > lastScrollY && currentScroll > 100) {
                 scrollDirection = 'down';
             } else {
                 scrollDirection = 'up';
             }
             lastScrollY = currentScroll;
-            
-            // 當前區塊高亮
-            let currentSection = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 150;
-                const sectionHeight = section.offsetHeight;
-                
-                if (currentScroll >= sectionTop && currentScroll < sectionTop + sectionHeight) {
-                    currentSection = section.getAttribute('id');
-                }
-            });
-            
-            // 更新導覽列連結狀態
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                const href = link.getAttribute('href');
-                if (href === `#${currentSection}` || 
-                    (currentSection === 'home' && (href === '#' || href === '#home')) ||
-                    (href === '#home' && currentSection === 'home')) {
-                    link.classList.add('active');
-                }
-            });
         }
         
         // 使用 requestAnimationFrame 優化滾動性能
@@ -4374,29 +4523,27 @@
             scrollTimeout = window.requestAnimationFrame(updateNavbar);
         }, { passive: true });
         
-        // 平滑滾動（增強版）
+        // 導覽列點擊：改為切換區塊（模擬分頁），不再做同頁平滑滾動
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const target = targetId === '#' ? document.body : document.querySelector(targetId);
+                const targetHref = this.getAttribute('href') || '#';
+                const targetId = targetHref.replace('#', '') || 'home';
                 
-                if (target) {
-                    const offsetTop = target.offsetTop - 100;
-                    
-                    // 使用平滑滾動
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                    
-                    closeMenu();
-                    
-                    // 更新導覽列狀態
-                    setTimeout(() => {
-                        updateNavbar();
-                    }, 100);
+                // 僅處理站內錨點
+                e.preventDefault();
+                
+                // 切換顯示的區塊
+                showSection(targetId);
+                
+                // 更新網址 hash，方便返回/分享
+                if (history.pushState) {
+                    history.pushState(null, '', `#${targetId}`);
+                } else {
+                    location.hash = `#${targetId}`;
                 }
+                
+                closeMenu();
+                updateNavbar();
             });
         });
         
@@ -4467,6 +4614,14 @@
                     });
                 }
             });
+            
+            // 初次載入時，只顯示首頁（或網址上指定的區塊）
+            let initialId = window.location.hash ? window.location.hash.replace('#', '') : 'home';
+            // 如果網址上的 id 不存在，就退回首頁
+            if (!document.getElementById(initialId)) {
+                initialId = 'home';
+            }
+            showSection(initialId);
             
             // 初始化導覽列狀態
             updateNavbar();
