@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理員登入 - Edward 中控管理中心</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./css/fontawesome-local.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-md">
+        <!-- 登入卡片 -->
+        <div class="bg-white rounded-2xl shadow-2xl p-8">
+            <!-- Logo 和標題 -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full mb-4">
+                    <i class="fas fa-shield-alt text-indigo-600 text-2xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">管理員登入</h1>
+                <p class="text-gray-600 text-sm">Edward 中控管理中心</p>
+            </div>
+            
+            <!-- 錯誤訊息 -->
+            <div id="errorMessage" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p class="text-red-600 text-sm flex items-center">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="errorText"></span>
+                </p>
+            </div>
+            
+            <!-- 登入表單 -->
+            <form id="loginForm" class="space-y-4">
+                <!-- 電子郵件 -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-envelope mr-2 text-gray-400"></i>電子郵件
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                        placeholder="admin@example.com"
+                    >
+                </div>
+                
+                <!-- 密碼 -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-lock mr-2 text-gray-400"></i>密碼
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition pr-12"
+                            placeholder="請輸入密碼"
+                        >
+                        <button 
+                            type="button" 
+                            id="togglePassword"
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 登入按鈕 -->
+                <button 
+                    type="submit" 
+                    id="loginButton"
+                    class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    <span id="loginButtonText">
+                        <i class="fas fa-sign-in-alt mr-2"></i>登入
+                    </span>
+                    <span id="loginButtonLoading" class="hidden">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>登入中...
+                    </span>
+                </button>
+            </form>
+            
+            <!-- 返回首頁連結 -->
+            <div class="mt-6 text-center">
+                <a href="./index.html" class="text-sm text-gray-600 hover:text-indigo-600 transition">
+                    <i class="fas fa-arrow-left mr-1"></i>返回首頁
+                </a>
+            </div>
+        </div>
+        
+        <!-- 版權資訊 -->
+        <p class="text-center text-white text-sm mt-6 opacity-75">
+            © 2024 Edward 專業網站建置工作室
+        </p>
+    </div>
+    
+    <!-- 載入 TypeScript 編譯後的模組 -->
+    <script type="module" src="./js/pages/login.js"></script>
+</body>
+</html>

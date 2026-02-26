@@ -1,0 +1,12 @@
+# Apache 設定（如果使用 Apache）
+# 確保 JavaScript 模組正確載入
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType application/json .json
+</IfModule>
+
+# 允許 CORS（如果需要）
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+</IfModule>

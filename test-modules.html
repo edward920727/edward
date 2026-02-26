@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模組載入測試</title>
+</head>
+<body>
+    <h1>模組載入測試</h1>
+    <div id="status"></div>
+    
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+      }
+    }
+    </script>
+    
+    <script type="module">
+        const statusDiv = document.getElementById('status');
+        
+        async function testModules() {
+            try {
+                statusDiv.innerHTML = '<p>測試 1: 載入 firebase.js...</p>';
+                const firebase = await import('./js/lib/firebase.js');
+                statusDiv.innerHTML += '<p style="color: green;">✓ firebase.js 載入成功</p>';
+                
+                statusDiv.innerHTML += '<p>測試 2: 載入 auth.js...</p>';
+                const auth = await import('./js/lib/auth.js');
+                statusDiv.innerHTML += '<p style="color: green;">✓ auth.js 載入成功</p>';
+                
+                statusDiv.innerHTML += '<p>測試 3: 載入 login.js...</p>';
+                const login = await import('./js/pages/login.js');
+                statusDiv.innerHTML += '<p style="color: green;">✓ login.js 載入成功</p>';
+                
+                statusDiv.innerHTML += '<p style="color: green; font-weight: bold;">所有模組載入成功！</p>';
+            } catch (error) {
+                statusDiv.innerHTML += `<p style="color: red;">✗ 錯誤: ${error.message}</p>`;
+                statusDiv.innerHTML += `<p style="color: red;">堆疊: ${error.stack}</p>`;
+                console.error('模組載入錯誤:', error);
+            }
+        }
+        
+        testModules();
+    </script>
+</body>
+</html>
