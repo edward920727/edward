@@ -97,12 +97,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://images.unsplash.com">
     
-    <!-- Font Awesome CSS - 异步加载，不阻塞渲染 -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <!-- Font Awesome CSS - 改為本機載入，避免 Tracking Prevention 對 cdnjs CSS 的警告 -->
+    <link rel="stylesheet" href="./css/fontawesome-local.css">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -994,10 +992,11 @@
                 line-height: 1.7;
             }
             
-            /* 優化按鈕大小 */
+            /* 優化按鈕大小 - 手機版更適中 */
             .btn-primary, a[class*="bg-"] {
-                font-size: 0.95rem;
-                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                padding: 0.7rem 1.25rem;
+                min-height: 44px; /* 觸控友善 */
             }
             
             /* 技術棧區塊響應式優化 */
@@ -1014,10 +1013,16 @@
                 height: 40px;
             }
             
-            /* 優化間距 */
+            /* 優化間距 - 手機版更緊湊 */
             section {
-                padding-top: 3rem;
-                padding-bottom: 3rem;
+                padding-top: 2.5rem;
+                padding-bottom: 2.5rem;
+            }
+            
+            /* 首頁 Hero 區塊在手機版間距再縮小 */
+            #home {
+                padding-top: 3.5rem;
+                padding-bottom: 2rem;
             }
             
             /* 優化文字大小 */
@@ -1030,24 +1035,44 @@
                 font-size: 1.75rem !important;
             }
             
-            /* 優化卡片 */
+            /* 優化卡片 - 手機版間距更緊湊 */
             .premium-card {
-                margin-bottom: 1.5rem;
+                margin-bottom: 1.25rem;
+                padding: 1.25rem;
+            }
+            
+            /* 卡片標題在手機版字級略小 */
+            .premium-card h3,
+            .premium-card h4 {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
             }
 
             /* 手機版頁尾縮短高度，避免下方資訊欄太長 */
             footer[role="contentinfo"] {
-                padding-top: 2.5rem;
-                padding-bottom: 2.5rem;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
             }
 
             footer[role="contentinfo"] .grid {
                 /* 手機版改成 2 欄排版，縮短整體高度但保留完整內容 */
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                column-gap: 1.25rem;
-                row-gap: 1.5rem;
-                margin-bottom: 1.5rem;
+                column-gap: 1rem;
+                row-gap: 1.25rem;
+                margin-bottom: 1.25rem;
+            }
+            
+            /* Footer 標題與內容在手機版字級略小 */
+            footer[role="contentinfo"] h3,
+            footer[role="contentinfo"] h4 {
+                font-size: 0.9rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            footer[role="contentinfo"] ul,
+            footer[role="contentinfo"] p {
+                font-size: 0.85rem;
             }
 
             /* 品牌介紹區塊在手機仍維持全寬，其餘三塊並排 */
@@ -2591,6 +2616,10 @@
         <!-- 淺色背景圖 -->
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80" 
+                 srcset="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=640&q=80 640w,
+                         https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1024&q=80 1024w,
+                         https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80 1920w"
+                 sizes="100vw"
                  alt="Edward 平面設計工作室 - 品牌與印刷設計服務背景圖" 
                  class="w-full h-full object-cover"
                  loading="eager"
@@ -2613,9 +2642,9 @@
                     <span class="text-slate-700">｜</span> 
                     <span class="gradient-text">細節把關的品牌實務設計團隊</span>
                 </h1>
-                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8 hero-subtitle">
-                    專注在<strong class="text-indigo-600">品牌識別與平面設計</strong>，兼具<strong>識別度</strong>與<strong>一致性</strong>。<br>
-                    從 LOGO、名片、DM、海報到包裝與招牌，我們用嚴謹流程幫你把關每一個細節，<br>
+                <p class="text-base md:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8 hero-subtitle">
+                    專注在<strong class="text-indigo-600">品牌識別與平面設計</strong>，兼具<strong>識別度</strong>與<strong>一致性</strong>。<br class="hidden md:block">
+                    從 LOGO、名片、DM、海報到包裝與招牌，我們用嚴謹流程幫你把關每一個細節，<br class="hidden md:block">
                     讓你後續印刷、輸出與周邊應用更省心、更安心。
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -4197,38 +4226,11 @@
     </footer>
     
     <script>
-        // 優化：使用 requestIdleCallback 或在 DOMContentLoaded 中執行非關鍵初始化
-        // 確保每次打開都在最上方 - 使用 requestAnimationFrame 優化
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                requestAnimationFrame(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-                });
-            });
-        } else {
-            // 如果 DOM 已經載入，立即執行
-            requestAnimationFrame(() => {
+        // 簡化：僅在首次載入時將頁面捲到頂部，避免重複 scrollTo 造成卡頓
+        window.addEventListener('load', () => {
             window.scrollTo(0, 0);
             document.documentElement.scrollTop = 0;
             document.body.scrollTop = 0;
-        });
-        }
-        
-        // 頁面卸載前滾動到頂部 - 使用 passive 事件優化
-        window.addEventListener('beforeunload', () => {
-            window.scrollTo(0, 0);
-        }, { passive: true });
-        
-        // 頁面載入完成時執行初始化（僅保留回頂部行為，停用進入動畫）
-        window.addEventListener('load', () => {
-            // 確保在頂部
-            requestAnimationFrame(() => {
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
-            });
         }, { passive: true });
         
         // Logo 動畫初始化函數（分離出來以便優化）
