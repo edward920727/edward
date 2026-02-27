@@ -89,6 +89,9 @@ function loadDashboard() {
   
   // 設定登出按鈕
   setupLogoutButton();
+
+  // 設定快速操作按鈕
+  setupQuickActions();
 }
 
 // 設定專案卡片點擊事件
@@ -187,6 +190,31 @@ function setupLogoutButton() {
           alert('登出失敗：' + (error.message || '未知錯誤'));
         }
       }
+    });
+  }
+}
+
+// 設定快速操作按鈕
+function setupQuickActions() {
+  const addProjectBtn = document.getElementById('quickAddProject');
+  const systemSettingsBtn = document.getElementById('quickSystemSettings');
+  const analyticsBtn = document.getElementById('quickAnalytics');
+
+  if (addProjectBtn) {
+    addProjectBtn.addEventListener('click', () => {
+      alert('「新增專案」功能尚在開發中，目前請直接在對應專案系統內建立新專案。');
+    });
+  }
+
+  if (systemSettingsBtn) {
+    systemSettingsBtn.addEventListener('click', () => {
+      alert('「系統設定」功能尚在開發中，之後會統一集中管理所有後台設定。');
+    });
+  }
+
+  if (analyticsBtn) {
+    analyticsBtn.addEventListener('click', () => {
+      alert('「數據分析」功能尚在開發中，未來會整合各專案的關鍵營運數據。');
     });
   }
 }
