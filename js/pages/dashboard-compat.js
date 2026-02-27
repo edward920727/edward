@@ -107,14 +107,22 @@ function attachProjectCardClick(card) {
 
   card.addEventListener('click', async function() {
     const url = this.getAttribute('data-url');
-    console.log('點擊專案卡片，URL:', url);
+    const isSimpleLink = this.getAttribute('data-simple-link') === 'true';
+    
+    console.log('點擊專案卡片，URL:', url, '簡單連結:', isSimpleLink);
     
     if (!url) {
       console.error('找不到 URL');
       return;
     }
     
-    // 直接使用卡片上設定的完整後台網址（不再強制加上 /admin）
+    // 如果是簡單連結，直接跳轉，不帶任何參數
+    if (isSimpleLink) {
+      window.open(url, '_blank');
+      return;
+    }
+    
+    // 否則使用原本的 Token 驗證流程
     const finalUrl = url;
     console.log('最終 URL:', finalUrl);
     
