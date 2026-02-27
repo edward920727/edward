@@ -108,7 +108,7 @@
             </div>
             
             <!-- 專案列表 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="projectList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Tung Store 專案卡片 -->
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition cursor-pointer project-card" data-url="https://tung-store-kpoc.vercel.app/admin">
                     <div class="h-48 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
@@ -165,6 +165,115 @@
                         <p class="font-medium">數據分析</p>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新增專案 Modal -->
+    <div id="addProjectModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-plus mr-2 text-indigo-600"></i>新增專案
+                </h2>
+                <button id="addProjectClose" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mb-4">
+                建立一個新的專案入口，並綁定對應的後台管理網址，之後即可從中控管理中心一鍵進入。
+            </p>
+            <form id="addProjectForm" class="space-y-4">
+                <div>
+                    <label for="projectName" class="block text-sm font-medium text-gray-700 mb-1">專案名稱</label>
+                    <input id="projectName" type="text" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="例如：Tung Store" />
+                </div>
+                <div>
+                    <label for="projectDescription" class="block text-sm font-medium text-gray-700 mb-1">專案說明</label>
+                    <textarea id="projectDescription" rows="3" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="例如：電商平台管理系統"></textarea>
+                </div>
+                <div>
+                    <label for="projectUrl" class="block text-sm font-medium text-gray-700 mb-1">後台管理網址（含 https://）</label>
+                    <input id="projectUrl" type="url" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="例如：https://example.com/admin" />
+                </div>
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button type="button" id="addProjectCancel" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-800">取消</button>
+                    <button type="submit" id="addProjectSubmit" class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center">
+                        <span class="mr-2"><i class="fas fa-save"></i></span>儲存專案
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 系統設定 Modal -->
+    <div id="systemSettingsModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-cog mr-2 text-indigo-600"></i>系統設定
+                </h2>
+                <button id="systemSettingsClose" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mb-4">
+                集中管理中控管理中心的核心設定，之後可擴充更多企業內部管理參數。
+            </p>
+            <form id="systemSettingsForm" class="space-y-4">
+                <div class="flex items-center">
+                    <input id="maintenanceMode" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" />
+                    <label for="maintenanceMode" class="ml-2 block text-sm text-gray-700">
+                        啟用維護模式（暫時關閉所有專案入口）
+                    </label>
+                </div>
+                <div>
+                    <label for="contactEmail" class="block text-sm font-medium text-gray-700 mb-1">系統聯絡 Email</label>
+                    <input id="contactEmail" type="email" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="例如：admin@example.com" />
+                </div>
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button type="button" id="systemSettingsCancel" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-800">取消</button>
+                    <button type="submit" id="systemSettingsSubmit" class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center">
+                        <span class="mr-2"><i class="fas fa-save"></i></span>儲存設定
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 數據分析 Modal -->
+    <div id="analyticsModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-chart-bar mr-2 text-indigo-600"></i>數據分析總覽
+                </h2>
+                <button id="analyticsClose" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mb-4">
+                未來會整合各專案的營運數據，現在先提供基本的專案數量與管理員概況。
+            </p>
+            <div id="analyticsContent" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-indigo-50 rounded-xl p-4">
+                        <p class="text-xs font-medium text-indigo-600 mb-1">已註冊專案數</p>
+                        <p id="analyticsProjectCount" class="text-2xl font-bold text-indigo-700">-</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-4">
+                        <p class="text-xs font-medium text-slate-600 mb-1">管理員帳號數</p>
+                        <p id="analyticsAdminCount" class="text-2xl font-bold text-slate-800">-</p>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-400">
+                    數據來源：Firebase Firestore（`projects` / `users` 集合的彙總統計）。
+                </div>
+            </div>
+            <div class="mt-4 text-right">
+                <button id="analyticsCloseBottom" class="px-4 py-2 text-sm bg-slate-100 text-gray-700 rounded-lg hover:bg-slate-200">
+                    關閉
+                </button>
             </div>
         </div>
     </div>
