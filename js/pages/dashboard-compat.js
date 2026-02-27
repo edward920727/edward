@@ -114,13 +114,8 @@ function attachProjectCardClick(card) {
       return;
     }
     
-    // 確保 URL 包含 /admin 路徑
-    let finalUrl = url;
-    if (!finalUrl.endsWith('/admin')) {
-      // 如果 URL 沒有以 /admin 結尾，確保加上
-      finalUrl = finalUrl.replace(/\/$/, '') + '/admin';
-    }
-    
+    // 直接使用卡片上設定的完整後台網址（不再強制加上 /admin）
+    const finalUrl = url;
     console.log('最終 URL:', finalUrl);
     
     await waitForFirebase();
@@ -145,7 +140,7 @@ function attachProjectCardClick(card) {
       // 在新分頁開啟
       window.open(urlWithToken, '_blank');
     } catch (error) {
-      console.error('取得 Token 失敗:', error);
+      console.error('取得驗證 Token 失敗:', error);
       alert('無法取得驗證 Token，請重新登入');
     }
   });
