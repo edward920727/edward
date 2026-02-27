@@ -1169,10 +1169,11 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            /* 預設狀態：接近透明，無磨砂玻璃效果，讓首頁 Hero 更乾淨 */
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateY(0);
         }
@@ -1189,8 +1190,12 @@
         }
         
         .navbar.scrolled {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.98);
+            /* 捲動後：啟用磨砂玻璃 (Glassmorphism) 效果 */
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
         }
         
         .navbar.hidden {
@@ -2892,7 +2897,12 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-up delay-2">
                 <!-- ERP/CRM 後台系統開發 -->
                 <article class="premium-card card-shadow h-full">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-3">ERP/CRM 後台系統開發</h3>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">
+                        ERP/CRM 後台系統開發
+                        <span class="block text-xs text-slate-500 font-normal mt-1">
+                            （ERP：企業資源規劃系統，CRM：客戶關係管理系統）
+                        </span>
+                    </h3>
                     <p class="text-slate-600 text-sm leading-relaxed mb-4">
                         建立一套完整且高效的企業管理系統，從訂單管理、客戶關係、庫存控制到財務報表，讓你的企業營運流程自動化、數據化。
                     </p>
@@ -2903,7 +2913,7 @@
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
-                            <span>資料庫設計、API 架構與權限管理</span>
+                            <span>資料庫設計、API（系統與系統之間交換資料的介面）架構與權限管理</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
@@ -2914,7 +2924,12 @@
 
                 <!-- 自動化商務流程 -->
                 <article class="premium-card card-shadow h-full">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-3">自動化商務流程</h3>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">
+                        自動化商務流程
+                        <span class="block text-xs text-slate-500 font-normal mt-1">
+                            （把原本用人工與試算表處理的流程，改成由系統自動幫你跑）
+                        </span>
+                    </h3>
                     <p class="text-slate-600 text-sm leading-relaxed mb-4">
                         從試算表升級到自動化系統，將重複性工作流程化、自動化，提升 50% 營運效率，減少人為錯誤。
                     </p>
@@ -2925,7 +2940,7 @@
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
-                            <span>系統整合、API 串接與資料同步</span>
+                            <span>系統整合、API 串接（不同系統自動交換資料）與資料同步</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
@@ -2936,7 +2951,12 @@
 
                 <!-- React/Next.js 前端架構 -->
                 <article class="premium-card card-shadow h-full">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-3">React/Next.js 前端架構</h3>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">
+                        React/Next.js 前端架構
+                        <span class="block text-xs text-slate-500 font-normal mt-1">
+                            （現代化前端工程框架，用來打造速度快又穩定的網頁系統）
+                        </span>
+                    </h3>
                     <p class="text-slate-600 text-sm leading-relaxed mb-4">
                         採用現代化前端技術，打造高效能、可擴充的網頁系統，無論是企業官網、電商平台或內部管理介面都能穩定運行。
                     </p>
@@ -2947,7 +2967,7 @@
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
-                            <span>SEO 優化、效能調校與安全性強化</span>
+                            <span>SEO 優化（讓網站更容易被 Google 找到）、效能調校與安全性強化</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
@@ -2958,18 +2978,23 @@
 
                 <!-- 資料庫設計與優化 -->
                 <article class="premium-card card-shadow h-full">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-3">資料庫設計與優化</h3>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">
+                        資料庫設計與優化
+                        <span class="block text-xs text-slate-500 font-normal mt-1">
+                            （幫你把資料存放結構設計好，查詢更快也更安全）
+                        </span>
+                    </h3>
                     <p class="text-slate-600 text-sm leading-relaxed mb-4">
                         規劃高效能、可擴充的資料庫架構，確保系統能穩定處理大量資料，並提供完整的備份與災難復原機制。
                     </p>
                     <ul class="text-sm text-slate-600 space-y-2">
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
-                            <span>資料庫結構設計與正規化</span>
+                            <span>資料庫結構設計與正規化（讓資料表結構更有秩序、避免重複與錯誤）</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
-                            <span>查詢效能優化與索引策略</span>
+                            <span>查詢效能優化與索引策略（幫資料加索引，讓查詢速度大幅提升）</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
@@ -2980,7 +3005,12 @@
 
                 <!-- UI/UX 使用者體驗優化 -->
                 <article class="premium-card card-shadow h-full">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-3">UI/UX 使用者體驗優化</h3>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">
+                        UI/UX 使用者體驗優化
+                        <span class="block text-xs text-slate-500 font-normal mt-1">
+                            （UI：畫面介面設計，UX：操作流程與整體使用感受）
+                        </span>
+                    </h3>
                     <p class="text-slate-600 text-sm leading-relaxed mb-4">
                         以使用者為中心的介面設計，提升轉換率與使用效率，讓系統不只是功能完整，更能真正解決企業痛點。
                     </p>
@@ -2995,14 +3025,19 @@
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-green-500 mt-1">✓</span>
-                            <span>A/B 測試與轉換率優化</span>
+                            <span>A/B 測試（同時比較兩個版本的頁面）與轉換率優化</span>
                         </li>
                     </ul>
                 </article>
 
                 <!-- 企業數位轉型顧問 -->
                 <article class="premium-card card-shadow h-full">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-3">企業數位轉型顧問</h3>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3">
+                        企業數位轉型顧問
+                        <span class="block text-xs text-slate-500 font-normal mt-1">
+                            （把紙本與人工流程，規劃成線上系統與自動化流程）
+                        </span>
+                    </h3>
                     <p class="text-slate-600 text-sm leading-relaxed mb-4">
                         從現況分析到系統規劃，協助企業找出數位轉型的關鍵痛點，規劃最適合的技術解決方案與實施時程。
                     </p>
@@ -3108,6 +3143,93 @@
                     </article>
                 </div>
             </div>
+
+            <!-- 管理系統展示：Dashboard Demo -->
+            <section aria-labelledby="admin-dashboard-heading" class="mt-20 fade-in-up delay-5">
+                <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <!-- Dashboard 圖片展示 -->
+                    <div class="order-1 lg:order-2">
+                        <div class="relative rounded-3xl overflow-hidden bg-slate-900 shadow-2xl">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/40 via-purple-500/30 to-sky-400/30 mix-blend-screen pointer-events-none"></div>
+                            <img
+                                src="./dashboard-preview.png"
+                                alt="企業後台管理系統 Dashboard 介面示意圖"
+                                class="w-full h-72 md:h-96 object-cover object-top border border-slate-800/60"
+                                loading="lazy"
+                            >
+                            <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-900/90 to-transparent pointer-events-none"></div>
+                        </div>
+                        <p class="mt-4 text-xs text-slate-500 text-right">
+                            圖片僅為後台管理 Dashboard 示意，可依實際系統需求客製化介面與模組。
+                        </p>
+                    </div>
+
+                    <!-- 文案與特色說明 -->
+                    <div class="order-2 lg:order-1">
+                        <h3 id="admin-dashboard-heading" class="text-3xl md:text-4xl font-black text-slate-900 mb-4">
+                            強大的後台管理，讓您掌握全局
+                        </h3>
+                        <p class="text-slate-700 text-base md:text-lg leading-relaxed mb-6">
+                            針對企業日常營運，我會為你規劃一套<strong class="text-indigo-600">可視化、好維護、好擴充</strong>的後台管理系統，
+                            從訂單、客戶、內容到報表，一眼就能掌握關鍵數據，減少在試算表與手動整理上的時間成本。
+                        </p>
+
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 h-8 w-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-sm font-black">
+                                    01
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">數據視覺化</p>
+                                    <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+                                        將營收、訂單量、客戶來源、轉換率等指標，以<strong class="text-indigo-600">圖表與儀表板</strong>呈現，
+                                        方便管理者在會議或決策時快速讀懂數據走向。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 h-8 w-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-black">
+                                    02
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">直覺式內容編輯</p>
+                                    <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+                                        不需要寫程式碼就能編輯頁面內容、最新消息、產品資訊，
+                                        透過<strong class="text-purple-600">所見即所得介面</strong>與權限控管，團隊成員都能放心維護網站與內部資料。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 h-8 w-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-black">
+                                    03
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-900 mb-1">極速效能優化</p>
+                                    <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+                                        以 React/Next.js、合理的資料庫設計與快取策略為核心，
+                                        讓後台在大量資料與多人同時操作下依然保持<strong class="text-emerald-600">穩定、流暢</strong>的操作體驗。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <a
+                                href="#contact"
+                                class="inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-base md:text-lg font-semibold shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:scale-[1.03]"
+                                title="申請試用 Demo 後台，與 Edward 討論專屬後台管理系統"
+                            >
+                                申請試用 Demo 後台
+                            </a>
+                            <p class="text-xs md:text-sm text-slate-500">
+                                👉 點擊後會帶你到聯絡區塊，留下需求，我會協助規劃專屬 Demo 後台。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </section>
 
